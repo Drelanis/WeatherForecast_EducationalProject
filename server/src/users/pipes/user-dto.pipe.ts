@@ -6,7 +6,7 @@ import { IUserErrorResponse } from '../interfaces/user-error-response.interface'
 import { CreateUserDto } from '../dto/create-user.dto';
 import failResponse from 'src/entities/fail-response.entities';
 
-export class ValidationPipe implements PipeTransform<any> {
+export class UserDtoPipe implements PipeTransform<any> {
   async transform(value: CreateUserDto, metadata: ArgumentMetadata) {
     const obj = plainToClass(metadata.metatype, value);
     const errors = await validate(obj);
@@ -14,7 +14,6 @@ export class ValidationPipe implements PipeTransform<any> {
       return value;
     }
     const errorObj: IUserErrorResponse = failResponse('Validation error', {});
-
     errors.map(({ property, constraints }) => {
       errorObj.property[property] = Object.values(constraints).join(', ');
     });
