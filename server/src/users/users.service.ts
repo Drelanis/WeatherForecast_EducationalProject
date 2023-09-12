@@ -13,7 +13,7 @@ export class UsersService {
       const user = await this.prisma.user.create({ data: userDto });
       return user;
     } catch (error: any) {
-      throw new ConflictException(failResponse(error.message));
+      throw new ConflictException(failResponse('Error creating user'));
     }
   }
 
@@ -25,7 +25,7 @@ export class UsersService {
       });
       return user;
     } catch (error) {
-      throw new ConflictException(failResponse(error.message));
+      throw new ConflictException(failResponse('Error finding user'));
     }
   }
 }
