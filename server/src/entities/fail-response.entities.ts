@@ -1,4 +1,4 @@
-const failResponse = (message: string, property: any) => {
+const failResponse = (message: string, property: any = {}) => {
   return {
     error: true,
     message,
