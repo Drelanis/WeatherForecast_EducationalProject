@@ -1,7 +1,11 @@
+export interface ICityToUser {
+  userId: number;
+  cityId: number;
+}
+
 export interface IUser {
   id: number;
   email: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  cities?: ICityToUser[];
 }

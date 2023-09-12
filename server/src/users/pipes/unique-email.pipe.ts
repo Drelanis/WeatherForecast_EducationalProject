@@ -1,4 +1,4 @@
-import { PipeTransform, Inject } from '@nestjs/common';
+import { Inject, PipeTransform } from '@nestjs/common';
 import { UsersService } from '../users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { ValidationException } from 'src/exceptions/validation.exception';
