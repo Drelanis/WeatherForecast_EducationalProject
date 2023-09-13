@@ -3,7 +3,7 @@ import { UsersService } from '../users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { ValidationException } from 'src/exceptions/validation.exception';
 import { IUserErrorResponse } from '../interfaces/user-error-response.interface';
-import failResponse from 'src/entities/fail-response.entities';
+import failResponse from '@common/utils/fail-response.utils';
 
 export class UniqueEmailPipe implements PipeTransform {
   constructor(

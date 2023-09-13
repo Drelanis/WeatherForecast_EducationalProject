@@ -2,7 +2,6 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IUser } from './interfaces/user.interface';
-import failResponse from 'src/entities/fail-response.entities';
 
 @Injectable()
 export class UsersService {
@@ -16,7 +15,7 @@ export class UsersService {
       });
       return user;
     } catch (error: any) {
-      throw new ConflictException(failResponse('Error creating user'));
+      throw new ConflictException('Error creating user');
     }
   }
 
@@ -28,7 +27,7 @@ export class UsersService {
       });
       return user;
     } catch (error) {
-      throw new ConflictException(failResponse('Error finding user'));
+      throw new ConflictException('Error finding user');
     }
   }
 }

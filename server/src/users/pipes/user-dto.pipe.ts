@@ -4,7 +4,7 @@ import { validate } from 'class-validator';
 import { ValidationException } from 'src/exceptions/validation.exception';
 import { IUserErrorResponse } from '../interfaces/user-error-response.interface';
 import { CreateUserDto } from '../dto/create-user.dto';
-import failResponse from 'src/entities/fail-response.entities';
+import failResponse from '@common/utils/fail-response.utils';
 
 export class UserDtoPipe implements PipeTransform<any> {
   async transform(value: CreateUserDto, metadata: ArgumentMetadata) {

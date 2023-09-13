@@ -13,6 +13,15 @@ model User {
   email     String       @unique
   password  String
   cities    UserToCity[]
+  token     Token[]
+}
+
+model Token {
+  token     String   @unique
+  exp       DateTime
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  userAgent String   @map("user_agent")
 }
 
 model City {

@@ -1,7 +1,10 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
-import failResponse from 'src/entities/fail-response.entities';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { IUser } from '@users/interfaces/user.interface';
 import { UsersService } from '@users/users.service';
@@ -15,9 +18,13 @@ export class AuthService {
   ) {}
 
   async login(userDto: LoginUserDto) {
-    const user = await this.validateUser(userDto);
-    const accessToken = await this.getAccessToken(user);
-    return { accessToken };
+    try {
+      const user = await this.validateUser(userDto);
+      const accessToken = await this.getAccessToken(user);
+      return { accessToken };
+    } catch (error) {
+      throw new ConflictException('Authorization error', error.message);
+    }
   }
 
   async registration(userDto: CreateUserDto) {
@@ -31,9 +38,7 @@ export class AuthService {
       const token = await this.getAccessToken(user);
       return { token };
     } catch (error) {
-      return failResponse('Authorisation Error', {
-        registration: 'Registration error',
-      });
+      throw new ConflictException('Registration Error');
     }
   }
 
@@ -60,11 +65,7 @@ export class AuthService {
     const user = await this.userService.findOne(data.email);
     const passwordEquals = await bcrypt.compare(data.password, user.password);
     if (!user || !passwordEquals) {
-      throw new UnauthorizedException(
-        failResponse('Authorisation Error', {
-          login: 'Uncorrect email or password',
-        }),
-      );
+      throw new UnauthorizedException('Uncorrect email or password');
     }
     return user;
   }
