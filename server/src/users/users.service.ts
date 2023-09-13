@@ -17,10 +17,10 @@ export class UsersService {
     }
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findOne(identifier: string): Promise<IUser> {
     try {
       const user = await this.prisma.user.findFirst({
-        where: { email },
+        where: { OR: [{ id: identifier }, { email: identifier }] },
         include: { cities: true },
       });
       return user;

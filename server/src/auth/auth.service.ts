@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   private async validateUser(data: CreateUserDto) {
-    const user = await this.userService.findByEmail(data.email);
+    const user = await this.userService.findOne(data.email);
     if (!user) {
       throw new UnauthorizedException(
         failResponse('Authorisation Error', {

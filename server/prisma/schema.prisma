@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id        Int          @id @default(autoincrement())
+  id        String       @id @default(uuid())
   email     String       @unique
   password  String
   cities    UserToCity[]
@@ -26,11 +26,11 @@ model City {
 }
 
 model UserToCity {
-  userId Int  @unique @map("user_id")
-  user   User @relation(fields: [userId], references: [id])
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
 
-  cityId Int  @unique @map("city_id")
-  city   City @relation(fields: [cityId], references: [id])
+  cityId Int    @unique @map("city_id")
+  city   City   @relation(fields: [cityId], references: [id])
 
   @@id([userId, cityId])
 }

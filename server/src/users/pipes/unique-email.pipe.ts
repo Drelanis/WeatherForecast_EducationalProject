@@ -11,7 +11,7 @@ export class UniqueEmailPipe implements PipeTransform {
   ) {}
 
   async transform(value: CreateUserDto) {
-    const user = await this.userService.findByEmail(value.email);
+    const user = await this.userService.findOne(value.email);
     if (!user) {
       return value;
     }

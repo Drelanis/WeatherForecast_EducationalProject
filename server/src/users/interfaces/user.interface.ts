@@ -1,10 +1,10 @@
 export interface ICityToUser {
-  userId: number;
+  userId: string;
   cityId: number;
 }
 
 export interface IUser {
-  id: number;
+  id: string;
   email: string;
   password: string;
   cities?: ICityToUser[];
