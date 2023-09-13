@@ -3,6 +3,7 @@ import { CreateUserDto } from '@users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { UniqueEmailPipe } from '@users/pipes/unique-email.pipe';
 import { UserDtoPipe } from '@users/pipes/user-dto.pipe';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -10,7 +11,7 @@ export class AuthController {
 
   @Post('login')
   @UsePipes(UserDtoPipe)
-  login(@Body() userDto: CreateUserDto) {
+  login(@Body() userDto: LoginUserDto) {
     return this.authService.login(userDto);
   }
 

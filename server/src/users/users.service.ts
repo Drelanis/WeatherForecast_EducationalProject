@@ -10,7 +10,10 @@ export class UsersService {
 
   async create(userDto: CreateUserDto): Promise<IUser> {
     try {
-      const user = await this.prisma.user.create({ data: userDto });
+      const { email, password } = userDto;
+      const user = await this.prisma.user.create({
+        data: { email, password },
+      });
       return user;
     } catch (error: any) {
       throw new ConflictException(failResponse('Error creating user'));
