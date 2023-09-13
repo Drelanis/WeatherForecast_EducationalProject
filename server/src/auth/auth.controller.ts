@@ -1,8 +1,8 @@
 import { Controller, Post, Body, UsePipes } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from '@users/dto/create-user.dto';
 import { AuthService } from './auth.service';
-import { UniqueEmailPipe } from 'src/users/pipes/unique-email.pipe';
-import { UserDtoPipe } from 'src/users/pipes/user-dto.pipe';
+import { UniqueEmailPipe } from '@users/pipes/unique-email.pipe';
+import { UserDtoPipe } from '@users/pipes/user-dto.pipe';
 
 @Controller('auth')
 export class AuthController {

@@ -16,6 +16,14 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@prisma": ["src/prisma"],
+      "@prisma/*": ["src/prisma/*"],
+      "@users": ["src/users"],
+      "@users/*": ["src/users/*"],
+      "@auth": ["src/auth"],
+      "@auth/*": ["src/auth/*"]
+    }
   }
 }

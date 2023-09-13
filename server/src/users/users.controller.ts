@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserDtoPipe } from 'src/users/pipes/user-dto.pipe';
+import { UserDtoPipe } from './pipes/user-dto.pipe';
 import { UniqueEmailPipe } from './pipes/unique-email.pipe';
 
 @Controller('users')
