@@ -17,11 +17,15 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { Cookie } from '@common/decarators/get-cookies.decarator';
 import { UserAgent } from '@common/decarators/user-agent.decorator';
 import { Public } from '@common/decarators/isPublic.decorator';
+import { TokenService } from './token.service';
 
 @Public()
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly tokenService: TokenService,
+  ) {}
 
   @Post('login')
   async login(
@@ -47,10 +51,10 @@ export class AuthController {
     @Res() response: Response,
     @UserAgent() userAgent: string,
   ) {
-    const tokens = await this.authService.refreshTokens(
+    const tokens = await this.tokenService.refreshTokens(
       refreshToken,
       userAgent,
     );
-    this.authService.setRefreshTokenToCookies(tokens, response);
+    this.tokenService.setRefreshTokenToCookies(tokens, response);
   }
 }
