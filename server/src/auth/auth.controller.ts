@@ -1,4 +1,13 @@
-import { Controller, Post, Body, UsePipes, Get, Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UsePipes,
+  Get,
+  Res,
+  ClassSerializerInterceptor,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
@@ -9,11 +18,11 @@ import { Cookie } from '@common/decarators/get-cookies.decarator';
 import { UserAgent } from '@common/decarators/user-agent.decorator';
 import { Public } from '@common/decarators/isPublic.decorator';
 
+@Public()
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Public()
   @Post('login')
   async login(
     @Body() userDto: LoginUserDto,
@@ -24,11 +33,12 @@ export class AuthController {
     return token;
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('registration')
   @UsePipes(UserDtoPipe, UniqueEmailPipe)
   async registration(@Body() userDto: CreateUserDto) {
-    const token = this.authService.registration(userDto);
-    return token;
+    const user = this.authService.registration(userDto);
+    return user;
   }
 
   @Get('refresh-tokens')

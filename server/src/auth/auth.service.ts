@@ -51,8 +51,7 @@ export class AuthService {
         password: hashPassword,
         passwordRepeat: hashPassword,
       });
-      const token = await this.getAccessToken(user);
-      return { token };
+      return user;
     } catch (error) {
       throw new BadRequestException('Registration Error');
     }
