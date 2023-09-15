@@ -14,6 +14,11 @@ export class TokenService {
     private readonly prisma: PrismaService,
   ) {}
 
+  async deleteRefreshToken(token: string) {
+    const deletedToken = this.prisma.token.delete({ where: { token } });
+    return deletedToken;
+  }
+
   async generateTokens(user: IUser, userAgent: string): Promise<ITokens> {
     const accessToken = await this.getAccessToken(user);
     const refreshToken = await this.getRefreshToken(user.id, userAgent);
@@ -54,10 +59,5 @@ export class TokenService {
         userAgent: agent,
       },
     });
-  }
-
-  async deleteRefreshToken(token: string) {
-    const deletedToken = this.prisma.token.delete({ where: { token } });
-    return deletedToken;
   }
 }

@@ -1,4 +1,4 @@
-import { IsPasswordsMatchingConstraint } from '@common/decarators/is-passwords-matching-constraint.decorator';
+import { IsPasswordsMatchingConstraint } from 'src/common/decarators/is-passwords-matching-constraint.decorator';
 import {
   IsEmail,
   IsNotEmpty,

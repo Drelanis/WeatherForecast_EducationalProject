@@ -1,4 +1,4 @@
-import { isPublic } from '@common/decarators/isPublic.decorator';
+import { isPublic } from 'src/common/decarators/isPublic.decorator';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';

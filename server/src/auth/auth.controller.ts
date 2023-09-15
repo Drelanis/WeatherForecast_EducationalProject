@@ -15,9 +15,9 @@ import { Response } from 'express';
 import { UniqueEmailPipe } from '@users/pipes/unique-email.pipe';
 import { UserDtoPipe } from '@users/pipes/user-dto.pipe';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Cookie } from '@common/decarators/get-cookies.decarator';
-import { UserAgent } from '@common/decarators/user-agent.decorator';
-import { Public } from '@common/decarators/isPublic.decorator';
+import { Cookie } from 'src/common/decarators/get-cookies.decarator';
+import { UserAgent } from 'src/common/decarators/user-agent.decorator';
+import { Public } from 'src/common/decarators/isPublic.decorator';
 import { TokenService } from './token.service';
 
 @Public()

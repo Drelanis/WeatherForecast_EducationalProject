@@ -1,7 +1,7 @@
 import { Inject, PipeTransform } from '@nestjs/common';
 import { UsersService } from '../users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { ValidationException } from 'src/exceptions/validation.exception';
+import { ValidationException } from 'src/common/exceptions/validation.exception';
 import { IUserErrorResponse } from '../interfaces/user-error-response.interface';
 import failResponse from '@common/utils/fail-response.utils';
 
