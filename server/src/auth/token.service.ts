@@ -3,7 +3,7 @@ import { PrismaService } from '@prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { add } from 'date-fns';
 import { v4 } from 'uuid';
-import { Token } from '@prisma/client';
+import { Token, User } from '@prisma/client';
 import { ITokens } from './interfaces/token.interface';
 import { IUser } from '@users/interfaces/user.interface';
 
@@ -19,7 +19,7 @@ export class TokenService {
     return deletedToken;
   }
 
-  async generateTokens(user: IUser, userAgent: string): Promise<ITokens> {
+  async generateTokens(user: User, userAgent: string): Promise<ITokens> {
     const accessToken = await this.getAccessToken(user);
     const refreshToken = await this.getRefreshToken(user.id, userAgent);
     return { accessToken, refreshToken };

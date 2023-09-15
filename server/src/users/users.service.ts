@@ -11,8 +11,7 @@ export class UsersService {
     private readonly prisma: PrismaService,
     private readonly cityService: CityService,
   ) {}
-
-  async deleteCity(dto: UsersCityDto) {
+  async deleteCity(dto: UsersCityDto): Promise<IUser> {
     try {
       const user = await this.findOne(dto.userId);
       const updatedCities = user.cities.filter(
@@ -28,7 +27,7 @@ export class UsersService {
     }
   }
 
-  async addCity(dto: UsersCityDto) {
+  async addCity(dto: UsersCityDto): Promise<IUser> {
     try {
       const city = await this.cityService.findOne(dto.cityId);
       const user = await this.findOne(dto.userId);

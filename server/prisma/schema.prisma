@@ -34,16 +34,6 @@ model City {
   weather   Weather?
 }
 
-// model UserToCity {
-//   userId String @unique @map("user_id")
-//   user   User   @relation(fields: [userId], references: [id])
-
-//   cityId Int    @unique @map("city_id")
-//   city   City   @relation(fields: [cityId], references: [id])
-
-//   @@id([userId, cityId])
-// }
-
 model Weather {
   id              Int               @id @default(autoincrement())
   cityId          Int               @unique @map("city_id")
