@@ -1,13 +1,13 @@
 import { Token, User } from '@prisma/client';
-import { ICityToUser } from '@users/interfaces/user.interface';
 import { Exclude } from 'class-transformer';
+import { ICity } from 'src/city/interfaces/city.interface';
 
 export class UserResponse implements User {
   id: string;
   email: string;
   @Exclude()
   password: string;
-  cities: ICityToUser[];
+  cities: ICity[];
   token: Token[];
 
   constructor(user: User) {

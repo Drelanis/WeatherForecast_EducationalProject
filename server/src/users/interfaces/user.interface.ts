@@ -1,11 +1,8 @@
-export interface ICityToUser {
-  userId: string;
-  cityId: number;
-}
+import { ICity } from 'src/city/interfaces/city.interface';
 
 export interface IUser {
   id: string;
   email: string;
   password: string;
-  cities?: ICityToUser[];
+  cities?: ICity[];
 }

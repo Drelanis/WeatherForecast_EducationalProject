@@ -1,9 +1,9 @@
 import { Token } from '@prisma/client';
-import { ICityToUser } from '@users/interfaces/user.interface';
+import { ICity } from 'src/city/interfaces/city.interface';
 
 export interface IJwtPayload {
   id: string;
   email: string;
-  cities: ICityToUser[];
+  cities: ICity[];
   token: Token[];
 }

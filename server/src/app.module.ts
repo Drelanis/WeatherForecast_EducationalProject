@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from '@prisma/prisma.module';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { CityModule } from './city/city.module';
 
 @Module({
   controllers: [],
@@ -21,6 +22,7 @@ import { APP_GUARD } from '@nestjs/core';
     PrismaModule,
     UsersModule,
     AuthModule,
+    CityModule,
   ],
 })
 export class AppModule {}

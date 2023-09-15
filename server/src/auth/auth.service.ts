@@ -5,6 +5,7 @@ import {
   HttpStatus,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from '@users/dto/create-user.dto';
@@ -12,7 +13,6 @@ import { UsersService } from '@users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { TokenService } from './token.service';
 import { ITokens } from './interfaces/token.interface';
-import { ConfigService } from '@nestjs/config';
 
 const REFRESH_TOKEN = 'refreshtoken';
 

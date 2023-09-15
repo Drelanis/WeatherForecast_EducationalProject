@@ -2,11 +2,11 @@ import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { ValidationException } from 'src/common/exceptions/validation.exception';
-import { IUserErrorResponse } from '../interfaces/user-error-response.interface';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { IUserErrorResponse } from '../../users/interfaces/user-error-response.interface';
+import { CreateUserDto } from '../../users/dto/create-user.dto';
 import failResponse from '@common/utils/fail-response.utils';
 
-export class UserDtoPipe implements PipeTransform<any> {
+export class DtoPipe implements PipeTransform<any> {
   async transform(value: CreateUserDto, metadata: ArgumentMetadata) {
     const obj = plainToClass(metadata.metatype, value);
     const errors = await validate(obj);

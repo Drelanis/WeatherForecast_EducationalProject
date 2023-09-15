@@ -12,7 +12,7 @@ model User {
   id        String       @id @default(uuid())
   email     String       @unique
   password  String
-  cities    UserToCity[]
+  cities    City[]
   token     Token[]
 }
 
@@ -30,19 +30,19 @@ model City {
   country   String
   longitude Float
   latitude  Float
-  users     UserToCity[]
+  users     User[]
   weather   Weather?
 }
 
-model UserToCity {
-  userId String @unique @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+// model UserToCity {
+//   userId String @unique @map("user_id")
+//   user   User   @relation(fields: [userId], references: [id])
 
-  cityId Int    @unique @map("city_id")
-  city   City   @relation(fields: [cityId], references: [id])
+//   cityId Int    @unique @map("city_id")
+//   city   City   @relation(fields: [cityId], references: [id])
 
-  @@id([userId, cityId])
-}
+//   @@id([userId, cityId])
+// }
 
 model Weather {
   id              Int               @id @default(autoincrement())

@@ -9,24 +9,20 @@ import {
   UseInterceptors,
   HttpStatus,
 } from '@nestjs/common';
-import { CreateUserDto } from '@users/dto/create-user.dto';
-import { AuthService } from './auth.service';
 import { Response } from 'express';
-import { UniqueEmailPipe } from '@users/pipes/unique-email.pipe';
-import { UserDtoPipe } from '@users/pipes/user-dto.pipe';
+import { AuthService } from './auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Cookie } from 'src/common/decarators/get-cookies.decarator';
-import { UserAgent } from 'src/common/decarators/user-agent.decorator';
-import { Public } from 'src/common/decarators/isPublic.decorator';
-import { TokenService } from './token.service';
+import { DtoPipe } from '@common/pipes/dto.pipe';
+import { CreateUserDto } from '@users/dto/create-user.dto';
+import { Public } from '@common/decarators/isPublic.decorator';
+import { UniqueEmailPipe } from '@users/pipes/unique-email.pipe';
+import { Cookie } from '@common/decarators/get-cookies.decarator';
+import { UserAgent } from '@common/decarators/user-agent.decorator';
 
 @Public()
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly tokenService: TokenService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   async login(
@@ -39,8 +35,8 @@ export class AuthController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UsePipes(DtoPipe, UniqueEmailPipe)
   @Post('registration')
-  @UsePipes(UserDtoPipe, UniqueEmailPipe)
   async registration(@Body() userDto: CreateUserDto) {
     const user = this.authService.registration(userDto);
     return user;
