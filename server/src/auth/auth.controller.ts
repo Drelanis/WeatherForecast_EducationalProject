@@ -7,6 +7,7 @@ import {
   Res,
   ClassSerializerInterceptor,
   UseInterceptors,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -45,16 +46,15 @@ export class AuthController {
     return user;
   }
 
-  @Get('refresh-tokens')
-  async refreshTokens(
+  @Get('logout')
+  async logout(
     @Cookie('refreshtoken') refreshToken: string,
     @Res() response: Response,
-    @UserAgent() userAgent: string,
   ) {
-    const tokens = await this.tokenService.refreshTokens(
-      refreshToken,
-      userAgent,
-    );
-    this.tokenService.setRefreshTokenToCookies(tokens, response);
+    if (!refreshToken) {
+      return response.sendStatus(HttpStatus.OK);
+    }
+    await this.authService.logout(refreshToken, response);
+    response.sendStatus(HttpStatus.OK);
   }
 }
