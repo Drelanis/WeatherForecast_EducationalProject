@@ -1,4 +1,14 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
+import { WeatherService } from './weather.service';
 
 @Controller('weather')
-export class WeatherController {}
+export class WeatherController {
+  constructor(private readonly weatherService: WeatherService) {}
+
+  @Get()
+  async findOne(@Query('cityId') cityId: number) {
+    const weather = await this.weatherService.getWeather(cityId);
+    console.log(weather);
+    return weather;
+  }
+}

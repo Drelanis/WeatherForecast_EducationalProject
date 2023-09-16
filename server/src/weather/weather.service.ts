@@ -15,6 +15,18 @@ export class WeatherService {
     private readonly prisma: PrismaService,
   ) {}
 
+  async getWeather(cityId: number) {
+    try {
+      const weather = await this.prisma.weather.findFirst({
+        where: { cityId },
+        include: { currentWeather: true, forecastWeather: true },
+      });
+      return weather;
+    } catch (error) {
+      throw new ConflictException('Error getting weather');
+    }
+  }
+
   async createWeather(cityId: number): Promise<void> {
     const city = await this.prisma.city.findFirst({ where: { id: cityId } });
     const weather = await this.prisma.weather.findFirst({
