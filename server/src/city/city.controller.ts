@@ -9,4 +9,10 @@ export class CityController {
     const cities = this.citySrvice.findMany(name);
     return cities;
   }
+
+  @Get()
+  async findOne(@Query('id') id: number) {
+    const cities = this.citySrvice.findOne(id);
+    return cities;
+  }
 }

@@ -4,41 +4,58 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { IUser } from './interfaces/user.interface';
 import { UsersCityDto } from './dto/add-city.dto';
 import { CityService } from 'src/city/city.service';
+import { WeatherService } from 'src/weather/weather.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cityService: CityService,
+    private readonly weatherService: WeatherService,
   ) {}
+
+  async addCity(dto: UsersCityDto): Promise<IUser> {
+    try {
+      await this.weatherService.createWeather(dto.cityId);
+      const city = await this.cityService.findOne(dto.cityId);
+      const user = await this.findOne(dto.userId);
+      const updatedCities = [city, ...user.cities];
+      const updatedUser = await this.prisma.user.update({
+        where: { id: dto.userId },
+        data: { cities: { set: updatedCities } },
+        include: {
+          cities: {
+            include: {
+              weather: {
+                include: { currentWeather: true },
+              },
+            },
+          },
+        },
+      });
+      return updatedUser;
+    } catch (error) {
+      throw new ConflictException('Error adding a city');
+    }
+  }
+
   async deleteCity(dto: UsersCityDto): Promise<IUser> {
     try {
       const user = await this.findOne(dto.userId);
       const updatedCities = user.cities.filter(
         (city) => city.id !== dto.cityId,
       );
-      return await this.prisma.user.update({
+      await this.weatherService.deleteWeather(dto.cityId);
+      const updatedUser = await this.prisma.user.update({
         where: { id: dto.userId },
-        data: { cities: { set: updatedCities } },
+        data: {
+          cities: { set: updatedCities },
+        },
         include: { cities: true },
       });
+      return updatedUser;
     } catch (error) {
       throw new ConflictException('Error deleting a city');
-    }
-  }
-
-  async addCity(dto: UsersCityDto): Promise<IUser> {
-    try {
-      const city = await this.cityService.findOne(dto.cityId);
-      const user = await this.findOne(dto.userId);
-      const updatedCities = [city, ...user.cities];
-      return await this.prisma.user.update({
-        where: { id: dto.userId },
-        data: { cities: { set: updatedCities } },
-        include: { cities: true },
-      });
-    } catch (error) {
-      throw new ConflictException('Error adding a city');
     }
   }
 
@@ -47,6 +64,7 @@ export class UsersService {
       const { email, password } = userDto;
       const user = await this.prisma.user.create({
         data: { email, password },
+        include: { cities: true },
       });
       return user;
     } catch (error: any) {

@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { City } from '@prisma/client';
 import { PrismaService } from '@prisma/prisma.service';
-import { WeatherService } from 'src/weather/weather.service';
 
 @Injectable()
 export class CityService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly weatherService: WeatherService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  async findOne(id: number): Promise<City> {
+  async findOne(cityId: number): Promise<City> {
     const city = await this.prisma.city.findFirst({
-      where: { id },
+      where: { id: cityId },
+      include: {
+        weather: { include: { currentWeather: true, forecastWeather: true } },
+      },
     });
     return city;
   }
