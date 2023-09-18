@@ -53,6 +53,32 @@ export class WeatherService {
     return weather;
   }
 
+  async updateWeather(weather: IWeather, city: ICity): Promise<void> {
+    if (!this.shouldUpdate(weather)) {
+      return;
+    }
+    const currentDate = new Date();
+    const currentWeather = await this.fetchWeather(
+      process.env.CURRENT_WEATHER,
+      city.longitude,
+      city.latitude,
+    );
+    const forecastWeather = await this.fetchWeather(
+      process.env.FORECAST_WEATHER,
+      city.longitude,
+      city.latitude,
+    );
+    await this.prisma.current_weather.update({
+      where: { id: weather.currentWeather.id },
+      data: { currentWeather, updatedAt: currentDate },
+    });
+    await this.prisma.forecast_weather.update({
+      where: { id: weather.forecastWeather.id },
+      data: { forecastWeather, updatedAt: currentDate },
+    });
+    return;
+  }
+
   private async createCurrentWeather(
     weatherId: number,
     city: ICity,
@@ -95,32 +121,6 @@ export class WeatherService {
     } catch (error) {
       throw new ConflictException('Error getting forecast weather');
     }
-  }
-
-  private async updateWeather(weather: IWeather, city: ICity): Promise<void> {
-    if (!this.shouldUpdate(weather)) {
-      return;
-    }
-    const currentDate = new Date();
-    const currentWeather = await this.fetchWeather(
-      process.env.CURRENT_WEATHER,
-      city.longitude,
-      city.latitude,
-    );
-    const forecastWeather = await this.fetchWeather(
-      process.env.FORECAST_WEATHER,
-      city.longitude,
-      city.latitude,
-    );
-    await this.prisma.current_weather.update({
-      where: { id: weather.currentWeather.id },
-      data: { currentWeather, updatedAt: currentDate },
-    });
-    await this.prisma.forecast_weather.update({
-      where: { id: weather.forecastWeather.id },
-      data: { forecastWeather, updatedAt: currentDate },
-    });
-    return;
   }
 
   private async fetchWeather(

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserResponse } from './responses/user.response';
-import { UsersCityDto } from './dto/add-city.dto';
+import { UsersCityDto } from './dto/users-city.dto';
 import { DtoPipe } from '../common/pipes/dto.pipe';
 
 @Controller('users')

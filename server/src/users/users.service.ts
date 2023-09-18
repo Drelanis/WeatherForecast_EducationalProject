@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IUser } from './interfaces/user.interface';
-import { UsersCityDto } from './dto/add-city.dto';
+import { UsersCityDto } from './dto/users-city.dto';
 import { CityService } from 'src/city/city.service';
 import { WeatherService } from 'src/weather/weather.service';
 
