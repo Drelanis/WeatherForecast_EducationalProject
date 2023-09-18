@@ -12,7 +12,7 @@ import { CreateUserDto } from '@users/dto/create-user.dto';
 import { UsersService } from '@users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { TokenService } from 'src/token/token.service';
-import { ITokens } from './interfaces/token.interface';
+import { ITokens } from '../token/interfaces/token.interface';
 
 const REFRESH_TOKEN = 'refreshtoken';
 

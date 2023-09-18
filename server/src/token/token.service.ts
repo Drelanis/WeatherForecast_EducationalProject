@@ -5,7 +5,7 @@ import { add } from 'date-fns';
 import { v4 } from 'uuid';
 import { Token, User } from '@prisma/client';
 import { IUser } from '@users/interfaces/user.interface';
-import { ITokens } from '@auth/interfaces/token.interface';
+import { ITokens } from 'src/token/interfaces/token.interface';
 
 @Injectable()
 export class TokenService {
@@ -14,7 +14,7 @@ export class TokenService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async deleteRefreshToken(token: string) {
+  async deleteRefreshToken(token: string): Promise<Token> {
     const deletedToken = this.prisma.token.delete({ where: { token } });
     return deletedToken;
   }
