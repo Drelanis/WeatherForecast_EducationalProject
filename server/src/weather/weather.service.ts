@@ -6,6 +6,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
+import { CityService } from 'src/city/city.service';
 import { ICity } from 'src/city/interfaces/city.interface';
 
 @Injectable()
@@ -13,6 +14,7 @@ export class WeatherService {
   constructor(
     private readonly httpService: HttpService,
     private readonly prisma: PrismaService,
+    private readonly cityService: CityService,
   ) {}
 
   async getWeather(cityId: number) {
@@ -27,15 +29,15 @@ export class WeatherService {
     }
   }
 
-  async createWeather(cityId: number): Promise<void> {
-    const city = await this.prisma.city.findFirst({ where: { id: cityId } });
+  async createWeather(cityId: number) {
+    const city = await this.cityService.findOne(cityId);
     const weather = await this.prisma.weather.findFirst({
-      where: { cityId },
+      where: { cityId: city.id },
     });
     if (!weather) {
       const newWeather = await this.prisma.weather.create({
         data: {
-          cityId,
+          cityId: city.id,
         },
       });
       await this.createCurrentWeather(newWeather.id, city);
@@ -55,7 +57,7 @@ export class WeatherService {
       await this.prisma.current_weather.create({
         data: {
           weatherId,
-          currentWeather: currentWeather,
+          currentWeather,
         },
       });
     } catch (error) {
@@ -73,27 +75,12 @@ export class WeatherService {
       await this.prisma.forecast_weather.create({
         data: {
           weatherId,
-          forecastWeather: forecastWeather,
+          forecastWeather,
         },
       });
     } catch (error) {
       throw new ConflictException('Error getting forecast weather');
     }
-  }
-
-  async deleteWeather(cityId: number) {
-    const weather = await this.prisma.weather.findFirst({ where: { cityId } });
-    await this.deleteCurrentWeather(weather.id);
-    await this.deleteForecastWeather(weather.id);
-    await this.prisma.weather.delete({ where: { cityId } });
-  }
-
-  private async deleteCurrentWeather(weatherId: number) {
-    await this.prisma.current_weather.delete({ where: { weatherId } });
-  }
-
-  private async deleteForecastWeather(weatherId: number) {
-    await this.prisma.forecast_weather.delete({ where: { weatherId } });
   }
 
   async fetchWeather(type: string, longitude: number, latitude: number) {

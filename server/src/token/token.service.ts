@@ -4,8 +4,8 @@ import { JwtService } from '@nestjs/jwt';
 import { add } from 'date-fns';
 import { v4 } from 'uuid';
 import { Token, User } from '@prisma/client';
-import { ITokens } from './interfaces/token.interface';
 import { IUser } from '@users/interfaces/user.interface';
+import { ITokens } from '@auth/interfaces/token.interface';
 
 @Injectable()
 export class TokenService {

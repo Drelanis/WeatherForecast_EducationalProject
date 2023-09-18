@@ -25,11 +25,7 @@ export class UsersService {
         data: { cities: { set: updatedCities } },
         include: {
           cities: {
-            include: {
-              weather: {
-                include: { currentWeather: true },
-              },
-            },
+            include: { weather: { include: { currentWeather: true } } },
           },
         },
       });
@@ -45,7 +41,6 @@ export class UsersService {
       const updatedCities = user.cities.filter(
         (city) => city.id !== dto.cityId,
       );
-      await this.weatherService.deleteWeather(dto.cityId);
       const updatedUser = await this.prisma.user.update({
         where: { id: dto.userId },
         data: {
@@ -76,7 +71,9 @@ export class UsersService {
     try {
       const user = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },
-        include: { cities: true },
+        include: {
+          cities: true,
+        },
       });
       return user;
     } catch (error) {

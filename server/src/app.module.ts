@@ -7,6 +7,7 @@ import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { CityModule } from './city/city.module';
 import { WeatherModule } from './weather/weather.module';
+import { TokenModule } from './token/token.module';
 
 @Module({
   controllers: [],
@@ -25,6 +26,7 @@ import { WeatherModule } from './weather/weather.module';
     AuthModule,
     CityModule,
     WeatherModule,
+    TokenModule,
   ],
 })
 export class AppModule {}

@@ -19,9 +19,9 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get(':indeficator')
-  async findOne(@Param('indeficator') indeficator: string) {
-    const user = await this.userService.findOne(indeficator);
+  @Get(':identifier')
+  async findOne(@Param('identifier') identifier: string) {
+    const user = await this.userService.findOne(identifier);
     return new UserResponse(user);
   }
 
