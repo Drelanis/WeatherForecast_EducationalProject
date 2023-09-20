@@ -3,9 +3,10 @@ import { PrismaService } from '@prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { add } from 'date-fns';
 import { v4 } from 'uuid';
-import { Token, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { IUser } from '@users/interfaces/user.interface';
 import { ITokens } from 'src/token/interfaces/token.interface';
+import { Token } from './models/token.model';
 
 @Injectable()
 export class TokenService {

@@ -8,6 +8,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { CityModule } from './city/city.module';
 import { WeatherModule } from './weather/weather.module';
 import { TokenModule } from './token/token.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   controllers: [],
@@ -18,6 +20,16 @@ import { TokenModule } from './token/token.module';
     },
   ],
   imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+      playground: {
+        settings: {
+          'request.credentials': 'same-origin',
+        },
+      },
+      context: ({ req, res }) => ({ req, res }),
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),

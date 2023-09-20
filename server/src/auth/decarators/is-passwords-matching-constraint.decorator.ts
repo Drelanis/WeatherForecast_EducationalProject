@@ -1,4 +1,4 @@
-import { CreateUserDto } from '@users/dto/create-user.dto';
+import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 import {
   ValidationArguments,
   ValidatorConstraint,
@@ -10,11 +10,11 @@ export class IsPasswordsMatchingConstraint
   implements ValidatorConstraintInterface
 {
   validate(passwordRepeat: string, args: ValidationArguments) {
-    const obj = args.object as CreateUserDto;
+    const obj = args.object as UserResgistrationInput;
     return obj.password === passwordRepeat;
   }
 
   defaultMessage(): string {
-    return 'Passwords mismatch';
+    return 'Password - mismatch';
   }
 }

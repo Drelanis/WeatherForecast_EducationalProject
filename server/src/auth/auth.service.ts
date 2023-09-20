@@ -10,9 +10,10 @@ import { Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { UsersService } from '@users/users.service';
-import { LoginUserDto } from './dto/login-user.dto';
 import { TokenService } from 'src/token/token.service';
 import { ITokens } from '../token/interfaces/token.interface';
+import { LoginUserInput } from './dto/user-login.input';
+import { UserResgistrationInput } from './dto/user-registration.input';
 
 const REFRESH_TOKEN = 'refreshtoken';
 
@@ -24,7 +25,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async login(userDto: LoginUserDto, response: Response, userAgent: string) {
+  async login(userDto: LoginUserInput, response: Response, userAgent: string) {
     try {
       const user = await this.validateUser(userDto);
       const tokens = await this.tokenService.generateTokens(user, userAgent);
@@ -37,17 +38,18 @@ export class AuthService {
     }
   }
 
-  async registration(userDto: CreateUserDto) {
+  async registration(userRegInput: UserResgistrationInput) {
     try {
-      const hashPassword = await bcrypt.hash(userDto.password, 5);
+      const hashPassword = await bcrypt.hash(userRegInput.password, 5);
+      await this.isEmailUnique(userRegInput);
       const user = await this.userService.create({
-        ...userDto,
+        ...userRegInput,
         password: hashPassword,
         passwordRepeat: hashPassword,
       });
       return user;
     } catch (error) {
-      throw new BadRequestException('Registration Error');
+      throw new BadRequestException(error.message);
     }
   }
 
@@ -64,14 +66,20 @@ export class AuthService {
     }
   }
 
-  private async validateUser(data: LoginUserDto) {
-    try {
-      const user = await this.userService.findOne(data.email);
-      await bcrypt.compare(data.password, user.password);
-      return user;
-    } catch (error) {
+  private async isEmailUnique(userDto: CreateUserDto) {
+    const user = await this.userService.findOne(userDto.email);
+    if (user) {
+      throw new BadRequestException('A user with this email already exists');
+    }
+  }
+
+  private async validateUser(data: LoginUserInput) {
+    const user = await this.userService.findOne(data.email);
+    const passwordCompare = await bcrypt.compare(data.password, user.password);
+    if (!passwordCompare) {
       throw new BadRequestException('Uncorrect email or password');
     }
+    return user;
   }
 
   private setRefreshTokenToCookies(tokens: ITokens, response: Response) {

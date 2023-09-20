@@ -1,3 +1,4 @@
+import { Token } from '@prisma/client';
 import { ICity } from 'src/city/interfaces/city.interface';
 
 export interface IUser {
@@ -5,4 +6,5 @@ export interface IUser {
   email: string;
   password: string;
   cities?: ICity[];
+  token?: Token[];
 }

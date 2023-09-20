@@ -2,9 +2,11 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IUser } from './interfaces/user.interface';
-import { UsersCityDto } from './dto/users-city.dto';
+import { UsersCityInput } from './dto/users-city.input';
 import { CityService } from 'src/city/city.service';
 import { WeatherService } from 'src/weather/weather.service';
+import { User } from './models/user.model';
+import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 
 @Injectable()
 export class UsersService {
@@ -14,7 +16,7 @@ export class UsersService {
     private readonly weatherService: WeatherService,
   ) {}
 
-  async addCity(dto: UsersCityDto): Promise<IUser> {
+  async addCity(dto: UsersCityInput): Promise<IUser> {
     try {
       await this.weatherService.createWeather(dto.cityId);
       const city = await this.cityService.findOne(dto.cityId);
@@ -35,7 +37,7 @@ export class UsersService {
     }
   }
 
-  async deleteCity(dto: UsersCityDto): Promise<IUser> {
+  async deleteCity(dto: UsersCityInput): Promise<IUser> {
     try {
       const user = await this.findOne(dto.userId);
       const updatedCities = user.cities.filter(
@@ -54,7 +56,7 @@ export class UsersService {
     }
   }
 
-  async create(userDto: CreateUserDto): Promise<IUser> {
+  async create(userDto: UserResgistrationInput): Promise<IUser> {
     try {
       const { email, password } = userDto;
       const user = await this.prisma.user.create({
@@ -73,6 +75,7 @@ export class UsersService {
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
           cities: true,
+          token: true,
         },
       });
       return user;

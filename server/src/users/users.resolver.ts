@@ -1,0 +1,28 @@
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { User } from './models/user.model';
+import { UsersService } from './users.service';
+import { UsersCityInput } from './dto/users-city.input';
+import { ValidationPipe } from '@nestjs/common';
+
+@Resolver()
+export class UsersResolver {
+  constructor(private readonly userService: UsersService) {}
+
+  @Query(() => User)
+  async getUser(@Args('identifier') identifier: string) {
+    const user = await this.userService.findOne(identifier);
+    return user;
+  }
+
+  @Mutation(() => User)
+  async addCity(@Args('dto', new ValidationPipe()) dto: UsersCityInput) {
+    const user = await this.userService.addCity(dto);
+    return user;
+  }
+
+  @Mutation(() => User)
+  async deleteCity(@Args('dto', new ValidationPipe()) dto: UsersCityInput) {
+    const user = await this.userService.deleteCity(dto);
+    return user;
+  }
+}
