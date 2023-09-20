@@ -10,7 +10,7 @@ import { Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { UsersService } from '@users/users.service';
-import { TokenService } from 'src/token/token.service';
+import { TokenService } from '@token/token.service';
 import { ITokens } from '../token/interfaces/token.interface';
 import { LoginUserInput } from './dto/user-login.input';
 import { UserResgistrationInput } from './dto/user-registration.input';

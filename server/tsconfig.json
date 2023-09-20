@@ -25,7 +25,13 @@
       "@auth": ["src/auth"],
       "@auth/*": ["src/auth/*"],
       "@common": ["src/common/"],
-      "@common/*": ["src/common/*"]
+      "@common/*": ["src/common/*"],
+      "@weather": ["src/weather/"],
+      "@weather/*": ["src/weather/*"],
+      "@token": ["src/token/"],
+      "@token/*": ["src/token/*"],
+      "@city": ["src/city/"],
+      "@city/*": ["src/city/*"]
     }
   }
 }

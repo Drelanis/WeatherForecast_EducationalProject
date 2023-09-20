@@ -15,13 +15,13 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  async addCity(@Args('dto', new ValidationPipe()) dto: UsersCityInput) {
+  async addCity(@Args('dto', ValidationPipe) dto: UsersCityInput) {
     const user = await this.userService.addCity(dto);
     return user;
   }
 
   @Mutation(() => User)
-  async deleteCity(@Args('dto', new ValidationPipe()) dto: UsersCityInput) {
+  async deleteCity(@Args('dto', ValidationPipe) dto: UsersCityInput) {
     const user = await this.userService.deleteCity(dto);
     return user;
   }

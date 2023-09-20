@@ -11,8 +11,8 @@ export class Weather {
   cityId: number;
 
   @Field()
-  currentWeather: CurrentWeather;
+  currentWeather?: CurrentWeather;
 
   @Field()
-  forecastWeather: ForecastWeather;
+  forecastWeather?: ForecastWeather;
 }

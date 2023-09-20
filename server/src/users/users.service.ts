@@ -1,11 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { IUser } from './interfaces/user.interface';
 import { UsersCityInput } from './dto/users-city.input';
-import { CityService } from 'src/city/city.service';
-import { WeatherService } from 'src/weather/weather.service';
-import { User } from './models/user.model';
+import { CityService } from '@city/city.service';
+import { WeatherService } from '@weather/weather.service';
 import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 
 @Injectable()

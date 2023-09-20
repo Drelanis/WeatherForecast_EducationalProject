@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '@users/users.module';
 import { jwtOptions } from './config/jwt-module-options.config';
 import { STRATEGIES } from './strategies';
-import { TokenService } from 'src/token/token.service';
+import { TokenService } from '@token/token.service';
 import { AuthResolver } from './auth.resolver';
 
 @Module({
@@ -14,8 +14,8 @@ import { AuthResolver } from './auth.resolver';
     AuthService,
     TokenService,
     ConfigService,
-    ...STRATEGIES,
     AuthResolver,
+    ...STRATEGIES,
   ],
   imports: [UsersModule, JwtModule.register(jwtOptions), PassportModule],
 })

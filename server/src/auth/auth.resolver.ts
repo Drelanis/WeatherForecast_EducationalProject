@@ -4,20 +4,14 @@ import { AuthService } from './auth.service';
 import { UserAgent } from '@common/decarators/user-agent.decorator';
 import { LoginUserInput } from './dto/user-login.input';
 import { Cookie } from '@common/decarators/get-cookies.decarator';
-import {
-  ArgumentMetadata,
-  HttpStatus,
-  Injectable,
-  PipeTransform,
-  Res,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { HttpStatus, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserResgistrationInput } from './dto/user-registration.input';
 import { User } from '@users/models/user.model';
-import { AccessToken } from 'src/token/models/access-token.model';
+import { AccessToken } from '@token/models/access-token.model';
 import { UniqueEmailPipe } from './pipes/unique-email.pipe';
+import { Public } from '@common/decarators/isPublic.decorator';
 
+@Public()
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
@@ -33,6 +27,7 @@ export class AuthResolver {
       context.response,
       userAgent,
     );
+    console.log(token);
     return token;
   }
 

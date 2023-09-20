@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { City } from 'src/city/models/city.model';
-import { Token } from 'src/token/models/token.model';
+import { City } from '@city/models/city.model';
+import { Token } from '@token/models/token.model';
 
 @ObjectType()
 export class User {
