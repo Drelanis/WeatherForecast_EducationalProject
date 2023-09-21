@@ -19,11 +19,11 @@ export class CityService {
 
   async findMany(name: string): Promise<City[]> {
     try {
-      const exactCity = await this.prisma.city.findMany({ where: { name } });
       const cities = await this.prisma.city.findMany({
-        where: { name: { startsWith: name, not: name } },
+        where: { name: { startsWith: name } },
+        orderBy: [{ name: 'asc' }],
       });
-      return [...exactCity, ...cities];
+      return cities;
     } catch (error) {
       throw new ConflictException('Error finding a cities');
     }
