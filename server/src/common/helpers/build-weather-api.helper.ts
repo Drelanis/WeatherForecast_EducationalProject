@@ -1,3 +1,5 @@
+export type WeatherType = 'weather' | 'forecast';
+
 export const buildWeatherApi = (
   type: string,
   longitude: number,

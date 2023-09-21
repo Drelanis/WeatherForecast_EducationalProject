@@ -1,9 +1,9 @@
-import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 import {
   ValidationArguments,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
+import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 
 @ValidatorConstraint({ name: 'IsPasswordsMatching', async: false })
 export class IsPasswordsMatchingConstraint

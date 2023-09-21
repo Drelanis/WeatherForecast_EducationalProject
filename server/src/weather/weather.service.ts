@@ -12,6 +12,7 @@ import { Weather } from './models/weather.model';
 import { CurrentWeather } from './models/current-weather.model';
 import { ForecastWeather } from './models/forecast-weather.model';
 import { City } from '@city/models/city.model';
+import { WeatherApiService } from 'src/weather-api/weather-api.service';
 
 @Injectable()
 export class WeatherService {
@@ -19,6 +20,7 @@ export class WeatherService {
     private readonly httpService: HttpService,
     private readonly prisma: PrismaService,
     private readonly cityService: CityService,
+    private readonly weatherApi: WeatherApiService,
   ) {}
 
   async getForecastWeather(cityId: number): Promise<Weather> {
@@ -92,13 +94,11 @@ export class WeatherService {
   ): Promise<Weather> {
     const city = await this.cityService.findOne(cityId);
     const currentDate = new Date();
-    const currentWeather = await this.fetchWeather(
-      process.env.CURRENT_WEATHER,
+    const currentWeather = await this.weatherApi.getCurrent(
       city.longitude,
       city.latitude,
     );
-    const forecastWeather = await this.fetchWeather(
-      process.env.FORECAST_WEATHER,
+    const forecastWeather = await this.weatherApi.getForecast(
       city.longitude,
       city.latitude,
     );
@@ -122,8 +122,7 @@ export class WeatherService {
     city: City,
   ): Promise<CurrentWeather> {
     try {
-      const currentWeather = await this.fetchWeather(
-        process.env.CURRENT_WEATHER,
+      const currentWeather = await this.weatherApi.getCurrent(
         city.longitude,
         city.latitude,
       );
@@ -144,8 +143,7 @@ export class WeatherService {
     city: City,
   ): Promise<ForecastWeather> {
     try {
-      const forecastWeather = await this.fetchWeather(
-        process.env.FORECAST_WEATHER,
+      const forecastWeather = await this.weatherApi.getForecast(
         city.longitude,
         city.latitude,
       );
@@ -158,23 +156,6 @@ export class WeatherService {
       return newForecastWeather;
     } catch (error) {
       throw new ConflictException('Error getting forecast weather');
-    }
-  }
-
-  private async fetchWeather(
-    type: string,
-    longitude: number,
-    latitude: number,
-  ) {
-    try {
-      const { data } = await this.httpService.axiosRef.get<any>(
-        buildWeatherApi(type, longitude, latitude),
-      );
-      return data;
-    } catch (error) {
-      throw new BadRequestException(
-        'An error occurred while fetching data from the API',
-      );
     }
   }
 

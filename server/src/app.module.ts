@@ -10,6 +10,7 @@ import { WeatherModule } from './weather/weather.module';
 import { TokenModule } from './token/token.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApiModule } from './weather-api/weather-api.module';
 
 @Module({
   controllers: [],
@@ -39,6 +40,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     CityModule,
     WeatherModule,
     TokenModule,
+    ApiModule,
   ],
 })
 export class AppModule {}

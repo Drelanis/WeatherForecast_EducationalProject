@@ -1,5 +1,5 @@
 import { ConflictException, Inject, PipeTransform } from '@nestjs/common';
-import { UsersService } from '../../users/users.service';
+import { UsersService } from '@users/users.service';
 import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 
 export class UniqueEmailPipe implements PipeTransform {
