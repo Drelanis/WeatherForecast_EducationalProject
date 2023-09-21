@@ -7,7 +7,7 @@ import { Cookie } from '@common/decarators/get-cookies.decarator';
 import { HttpStatus, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserResgistrationInput } from './dto/user-registration.input';
 import { User } from '@users/models/user.model';
-import { AccessToken } from '@token/models/access-token.model';
+import { AccessToken } from '@auth/models/access-token.model';
 import { UniqueEmailPipe } from './pipes/unique-email.pipe';
 import { Public } from '@common/decarators/isPublic.decorator';
 

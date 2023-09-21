@@ -1,4 +1,4 @@
-import { Token } from '../models/token.model';
+import { Token } from '@auth/models/token.model';
 
 export interface ITokens {
   accessToken: string;

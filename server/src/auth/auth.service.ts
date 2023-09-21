@@ -1,17 +1,17 @@
 import {
   BadRequestException,
-  ConflictException,
   Injectable,
   HttpStatus,
   UnauthorizedException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { UsersService } from '@users/users.service';
-import { TokenService } from '@token/token.service';
-import { ITokens } from '../token/interfaces/token.interface';
+import { TokenService } from '@auth/token.service';
+import { ITokens } from './interfaces/token.interface';
 import { LoginUserInput } from './dto/user-login.input';
 import { UserResgistrationInput } from './dto/user-registration.input';
 
@@ -34,7 +34,7 @@ export class AuthService {
         .status(HttpStatus.CREATED)
         .json({ accessToken: tokens.accessToken });
     } catch (error) {
-      throw new ConflictException('Authorization error', error.message);
+      throw new UnauthorizedException('Authorization error', error.message);
     }
   }
 
@@ -49,7 +49,7 @@ export class AuthService {
       });
       return user;
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException('Registration Error', error.message);
     }
   }
 
@@ -62,7 +62,7 @@ export class AuthService {
         expires: new Date(),
       });
     } catch (error) {
-      throw new ConflictException('Logout error', error.message);
+      throw new InternalServerErrorException('Logout error', error.message);
     }
   }
 

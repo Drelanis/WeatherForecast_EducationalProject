@@ -6,4 +6,4 @@ import { HttpModule } from '@nestjs/axios';
   imports: [HttpModule],
   providers: [WeatherApiService],
 })
-export class ApiModule {}
+export class WeatherApiModule {}

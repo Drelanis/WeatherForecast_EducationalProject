@@ -1,10 +1,14 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { City } from '@prisma/client';
 import { PrismaService } from '@prisma/prisma.service';
 
 @Injectable()
 export class CityService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly configSerive: ConfigService,
+  ) {}
 
   async findOne(cityId: number): Promise<City> {
     try {
@@ -13,7 +17,7 @@ export class CityService {
       });
       return city;
     } catch (error) {
-      throw new ConflictException('Error getting a city');
+      throw new InternalServerErrorException('Error getting a city');
     }
   }
 
@@ -21,11 +25,12 @@ export class CityService {
     try {
       const cities = await this.prisma.city.findMany({
         where: { name: { startsWith: name } },
-        orderBy: [{ name: 'asc' }],
+        orderBy: [{ name: this.configSerive.get('ASCENDING') }],
       });
+      throw new Error();
       return cities;
     } catch (error) {
-      throw new ConflictException('Error finding a cities');
+      throw new InternalServerErrorException('Error getting a city');
     }
   }
 }

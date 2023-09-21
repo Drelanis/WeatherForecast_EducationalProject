@@ -5,8 +5,8 @@ import { add } from 'date-fns';
 import { v4 } from 'uuid';
 import { User } from '@prisma/client';
 import { IUser } from '@users/interfaces/user.interface';
-import { ITokens } from '@token/interfaces/token.interface';
-import { Token } from './models/token.model';
+import { ITokens } from '@auth/interfaces/token.interface';
+import { Token } from '@auth/models/token.model';
 
 @Injectable()
 export class TokenService {

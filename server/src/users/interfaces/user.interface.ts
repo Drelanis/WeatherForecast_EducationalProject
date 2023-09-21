@@ -1,5 +1,5 @@
 import { City } from '@city/models/city.model';
-import { Token } from '@token/models/token.model';
+import { Token } from '@auth/models/token.model';
 
 export interface IUser {
   id: string;

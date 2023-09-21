@@ -7,10 +7,9 @@ import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { CityModule } from './city/city.module';
 import { WeatherModule } from './weather/weather.module';
-import { TokenModule } from './token/token.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ApiModule } from './weather-api/weather-api.module';
+import { WeatherApiModule } from './weather-api/weather-api.module';
 
 @Module({
   controllers: [],
@@ -21,6 +20,10 @@ import { ApiModule } from './weather-api/weather-api.module';
     },
   ],
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -39,8 +42,7 @@ import { ApiModule } from './weather-api/weather-api.module';
     AuthModule,
     CityModule,
     WeatherModule,
-    TokenModule,
-    ApiModule,
+    WeatherApiModule,
   ],
 })
 export class AppModule {}
