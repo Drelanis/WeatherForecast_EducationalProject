@@ -1,10 +1,4 @@
-import { buildWeatherApi } from '@common/helpers/build-weather-api.helper';
-import { HttpService } from '@nestjs/axios';
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { differenceInHours } from 'date-fns';
 import { CityService } from '@city/city.service';
@@ -17,7 +11,6 @@ import { WeatherApiService } from 'src/weather-api/weather-api.service';
 @Injectable()
 export class WeatherService {
   constructor(
-    private readonly httpService: HttpService,
     private readonly prisma: PrismaService,
     private readonly cityService: CityService,
     private readonly weatherApi: WeatherApiService,
