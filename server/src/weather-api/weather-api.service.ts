@@ -1,14 +1,19 @@
 import { buildWeatherApi } from '@common/helpers/build-weather-api.helper';
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { fetchWeatherType } from './types/fetch-weather.type';
 
 @Injectable()
 export class WeatherApiService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async getCurrent(longitude: number, latitude: number) {
     const currentWeather = await this.fetchWeather(
-      process.env.CURRENT_WEATHER,
+      this.configService.get('CURRENT_WEATHER'),
       longitude,
       latitude,
     );
@@ -17,7 +22,7 @@ export class WeatherApiService {
 
   async getForecast(longitude: number, latitude: number) {
     const forecastWeather = await this.fetchWeather(
-      process.env.FORECAST_WEATHER,
+      this.configService.get('FORECAST_WEATHER'),
       longitude,
       latitude,
     );
@@ -25,7 +30,7 @@ export class WeatherApiService {
   }
 
   private async fetchWeather(
-    type: string,
+    type: fetchWeatherType,
     longitude: number,
     latitude: number,
   ) {

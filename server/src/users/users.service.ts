@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { IUser } from './interfaces/user.interface';
 import { UsersCityInput } from './dto/users-city.input';
@@ -31,7 +35,10 @@ export class UsersService {
       });
       return updatedUser;
     } catch (error) {
-      throw new ConflictException('Error adding a city');
+      throw new InternalServerErrorException(
+        'Error adding a city',
+        error.message,
+      );
     }
   }
 
@@ -50,7 +57,7 @@ export class UsersService {
       });
       return updatedUser;
     } catch (error) {
-      throw new ConflictException('Error deleting a city');
+      throw new InternalServerErrorException('Error deleting a city');
     }
   }
 
@@ -63,7 +70,7 @@ export class UsersService {
       });
       return user;
     } catch (error: any) {
-      throw new ConflictException('Error creating user');
+      throw new InternalServerErrorException('Error creating user');
     }
   }
 
@@ -78,7 +85,7 @@ export class UsersService {
       });
       return user;
     } catch (error) {
-      throw new ConflictException('Error finding user');
+      throw new InternalServerErrorException('Error finding user');
     }
   }
 }

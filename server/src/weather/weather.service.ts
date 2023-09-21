@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { differenceInHours } from 'date-fns';
 import { CityService } from '@city/city.service';
@@ -40,21 +44,25 @@ export class WeatherService {
   }
 
   async createWeather(cityId: number): Promise<Weather> {
-    const city = await this.cityService.findOne(cityId);
-    const weather = await this.getWeather(cityId);
-    if (!weather) {
-      const newWeather = await this.prisma.weather.create({
-        data: {
-          cityId: city.id,
-        },
-        include: { currentWeather: true, forecastWeather: true },
-      });
-      await this.createCurrentWeather(newWeather.id, city);
-      await this.createForecastWeather(newWeather.id, city);
-      return newWeather;
+    try {
+      const city = await this.cityService.findOne(cityId);
+      const weather = await this.getWeather(cityId);
+      if (!weather) {
+        const newWeather = await this.prisma.weather.create({
+          data: {
+            cityId: city.id,
+          },
+          include: { currentWeather: true, forecastWeather: true },
+        });
+        await this.createCurrentWeather(newWeather.id, city);
+        await this.createForecastWeather(newWeather.id, city);
+        return newWeather;
+      }
+      await this.updateWeather(weather, cityId);
+      return weather;
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating a city');
     }
-    await this.updateWeather(weather, cityId);
-    return weather;
   }
 
   private async getWeather(cityId: number): Promise<Weather> {
@@ -65,7 +73,7 @@ export class WeatherService {
       });
       return weather;
     } catch (error) {
-      throw new ConflictException('Error getting weather');
+      throw new InternalServerErrorException('Error getting weather');
     }
   }
 
@@ -127,7 +135,7 @@ export class WeatherService {
       });
       return newCurrentWeather;
     } catch (error) {
-      throw new ConflictException('Error getting current weather');
+      throw new InternalServerErrorException('Error getting current weather');
     }
   }
 
@@ -148,7 +156,7 @@ export class WeatherService {
       });
       return newForecastWeather;
     } catch (error) {
-      throw new ConflictException('Error getting forecast weather');
+      throw new InternalServerErrorException('Error getting forecast weather');
     }
   }
 
