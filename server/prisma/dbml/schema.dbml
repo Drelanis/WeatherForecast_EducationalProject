@@ -1,0 +1,61 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  password String [not null]
+  cities City [not null]
+  token Token [not null]
+}
+
+Table City {
+  id Int [pk, increment]
+  name String [not null]
+  country String [not null]
+  longitude Float [not null]
+  latitude Float [not null]
+  users User [not null]
+  weather Weather
+}
+
+Table Token {
+  token String [unique, not null]
+  exp DateTime [not null]
+  user User [not null]
+  userId String [not null]
+  userAgent String [not null]
+}
+
+Table Weather {
+  id Int [pk, increment]
+  cityId Int [unique, not null]
+  city City [not null]
+  currentWeather Current_weather
+  forecastWeather Forecast_weather
+}
+
+Table Current_weather {
+  id Int [pk, increment]
+  weatherId Int [unique, not null]
+  weather Weather [not null]
+  updatedAt DateTime [default: `now()`, not null]
+  currentWeather Json [not null]
+}
+
+Table Forecast_weather {
+  id Int [pk, increment]
+  weatherId Int [unique, not null]
+  weather Weather [not null]
+  updatedAt DateTime [default: `now()`, not null]
+  forecastWeather Json [not null]
+}
+
+Ref: Token.userId > User.id
+
+Ref: Weather.cityId - City.id
+
+Ref: Current_weather.weatherId - Weather.id
+
+Ref: Forecast_weather.weatherId - Weather.id
