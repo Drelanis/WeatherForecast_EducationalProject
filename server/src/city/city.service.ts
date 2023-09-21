@@ -27,7 +27,6 @@ export class CityService {
         where: { name: { startsWith: name } },
         orderBy: [{ name: this.configSerive.get('ASCENDING') }],
       });
-      throw new Error();
       return cities;
     } catch (error) {
       throw new InternalServerErrorException('Error getting a city');

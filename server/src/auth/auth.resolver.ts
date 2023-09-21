@@ -27,7 +27,6 @@ export class AuthResolver {
       context.response,
       userAgent,
     );
-    console.log(token);
     return token;
   }
 

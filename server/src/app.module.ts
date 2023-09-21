@@ -34,9 +34,6 @@ import { WeatherApiModule } from './weather-api/weather-api.module';
       },
       context: ({ req, res }) => ({ req, res }),
     }),
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-    }),
     PrismaModule,
     UsersModule,
     AuthModule,
