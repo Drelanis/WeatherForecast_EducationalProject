@@ -44,7 +44,6 @@ export class WeatherService {
 
   async createWeather(city: City): Promise<Weather> {
     try {
-      // const city = await this.cityService.findOne(cityId);
       const weather = await this.getWeather(city.id);
       if (!weather) {
         const newWeather = await this.prisma.weather.create({
