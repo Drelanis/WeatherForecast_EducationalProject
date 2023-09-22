@@ -27,7 +27,7 @@ model User {
 
 
 model City {
-  id        Int          @id @default(autoincrement())
+  id        Int          @id @unique
   name      String
   country   String
   longitude Float
@@ -38,7 +38,8 @@ model City {
 
 
 model Token {
-  token     String   @unique
+  id        Int      @id @default(autoincrement())
+  token     String   
   exp       DateTime
   user      User     @relation(fields: [userId], references: [id])
   userId    String
