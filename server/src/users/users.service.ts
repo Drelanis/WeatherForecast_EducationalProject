@@ -68,7 +68,9 @@ export class UsersService {
       const user = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
-          cities: true,
+          cities: {
+            include: { weather: { include: { currentWeather: true } } },
+          },
           token: true,
         },
       });

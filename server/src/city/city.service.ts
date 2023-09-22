@@ -14,7 +14,11 @@ export class CityService {
     try {
       const city = await this.prisma.city.findFirst({
         where: { id: cityId },
-        // include: { weather: { include: { currentWeather: true } } },
+        include: {
+          weather: {
+            include: { currentWeather: true },
+          },
+        },
       });
       return city;
     } catch (error) {
