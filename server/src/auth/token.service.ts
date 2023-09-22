@@ -3,10 +3,9 @@ import { PrismaService } from '@prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { add } from 'date-fns';
 import { v4 } from 'uuid';
-import { User } from '@prisma/client';
-import { IUser } from '@users/interfaces/user.interface';
 import { ITokens } from '@auth/interfaces/token.interface';
 import { Token } from '@auth/models/token.model';
+import { User } from '@users/models/user.model';
 
 @Injectable()
 export class TokenService {
@@ -26,7 +25,7 @@ export class TokenService {
     return { accessToken, refreshToken };
   }
 
-  private async getAccessToken(user: IUser): Promise<string> {
+  private async getAccessToken(user: User): Promise<string> {
     const payload = {
       id: user.id,
       email: user.email,

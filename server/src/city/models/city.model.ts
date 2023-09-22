@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Weather } from '@weather/models/weather.model';
 
 @ObjectType()
 export class City {
@@ -12,4 +13,6 @@ export class City {
   longitude: number;
   @Field()
   latitude: number;
+  @Field()
+  weather?: Weather;
 }

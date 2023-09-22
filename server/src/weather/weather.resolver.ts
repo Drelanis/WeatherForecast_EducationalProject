@@ -1,22 +1,24 @@
 import { Args, Int, Query, Resolver } from '@nestjs/graphql';
 import { WeatherService } from './weather.service';
 import { Weather } from './models/weather.model';
+import { ForecastWeather } from './models/forecast-weather.model';
 
 @Resolver()
 export class WeatherResolver {
   constructor(private readonly weatherService: WeatherService) {}
 
   @Query(() => [Weather])
-  async getAllWeather(
+  async getDashboardWeather(
     @Args('cityIds', { type: () => [Int] }) cityIds: number[],
   ) {
-    const weather = await this.weatherService.getAllWeather(cityIds);
+    const weather = await this.weatherService.getDashboardWeather(cityIds);
     return weather;
   }
 
-  @Query(() => Weather)
+  @Query(() => ForecastWeather)
   async getForecastWeather(@Args('cityId') cityId: number) {
-    const weather = await this.weatherService.getForecastWeather(cityId);
-    return weather;
+    const forecastWeather =
+      await this.weatherService.getForecastWeather(cityId);
+    return forecastWeather;
   }
 }

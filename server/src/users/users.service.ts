@@ -1,14 +1,11 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
-import { IUser } from './interfaces/user.interface';
 import { UsersCityInput } from './dto/users-city.input';
 import { CityService } from '@city/city.service';
 import { WeatherService } from '@weather/weather.service';
 import { UserResgistrationInput } from '@auth/dto/user-registration.input';
+import { User } from './models/user.model';
+import { City } from '@city/models/city.model';
 
 @Injectable()
 export class UsersService {
@@ -18,21 +15,16 @@ export class UsersService {
     private readonly weatherService: WeatherService,
   ) {}
 
-  async addCity(dto: UsersCityInput): Promise<IUser> {
+  async addCity(dto: UsersCityInput): Promise<User> {
     try {
-      await this.weatherService.createWeather(dto.cityId);
       const city = await this.cityService.findOne(dto.cityId);
+      await this.weatherService.createWeather(city);
       const user = await this.findOne(dto.userId);
       const updatedCities = [city, ...user.cities];
-      const updatedUser = await this.prisma.user.update({
-        where: { id: dto.userId },
-        data: { cities: { set: updatedCities } },
-        include: {
-          cities: {
-            include: { weather: { include: { currentWeather: true } } },
-          },
-        },
-      });
+      const updatedUser: User = await this.updateUserCities(
+        dto.userId,
+        updatedCities,
+      );
       return updatedUser;
     } catch (error) {
       throw new InternalServerErrorException(
@@ -42,26 +34,23 @@ export class UsersService {
     }
   }
 
-  async deleteCity(dto: UsersCityInput): Promise<IUser> {
+  async deleteCity(dto: UsersCityInput): Promise<User> {
     try {
       const user = await this.findOne(dto.userId);
       const updatedCities = user.cities.filter(
         (city) => city.id !== dto.cityId,
       );
-      const updatedUser = await this.prisma.user.update({
-        where: { id: dto.userId },
-        data: {
-          cities: { set: updatedCities },
-        },
-        include: { cities: true },
-      });
+      const updatedUser = await this.updateUserCities(
+        dto.userId,
+        updatedCities,
+      );
       return updatedUser;
     } catch (error) {
       throw new InternalServerErrorException('Error deleting a city');
     }
   }
 
-  async create(userDto: UserResgistrationInput): Promise<IUser> {
+  async create(userDto: UserResgistrationInput): Promise<User> {
     try {
       const { email, password } = userDto;
       const user = await this.prisma.user.create({
@@ -74,7 +63,7 @@ export class UsersService {
     }
   }
 
-  async findOne(identifier: string): Promise<IUser> {
+  async findOne(identifier: string): Promise<User> {
     try {
       const user = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },
@@ -87,5 +76,18 @@ export class UsersService {
     } catch (error) {
       throw new InternalServerErrorException('Error finding user');
     }
+  }
+
+  private async updateUserCities(userId: string, updatedCities: City[]) {
+    const updatedUser: User = await this.prisma.user.update({
+      where: { id: userId },
+      data: { cities: { set: updatedCities } },
+      include: {
+        cities: {
+          include: { weather: { include: { currentWeather: true } } },
+        },
+      },
+    });
+    return updatedUser;
   }
 }

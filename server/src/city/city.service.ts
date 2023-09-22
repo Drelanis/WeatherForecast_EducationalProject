@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { City } from '@prisma/client';
 import { PrismaService } from '@prisma/prisma.service';
+import { City } from './models/city.model';
 
 @Injectable()
 export class CityService {
@@ -14,6 +14,7 @@ export class CityService {
     try {
       const city = await this.prisma.city.findFirst({
         where: { id: cityId },
+        // include: { weather: { include: { currentWeather: true } } },
       });
       return city;
     } catch (error) {
