@@ -21,12 +21,12 @@ const PasswordInput: FC<IInputProps> = ({ value, handleChange, error }) => {
   };
 
   return (
-    <div className="registration-form__item">
-      <label className="registration-form__item_label" htmlFor="password">
+    <div className="form__item">
+      <label className="form__item_label" htmlFor="password">
         Password
       </label>
       <FormControl
-        className="registration-form__item_input"
+        className="form__item_input"
         sx={{ m: 1, width: '25ch' }}
         variant="outlined"
       >
@@ -51,7 +51,7 @@ const PasswordInput: FC<IInputProps> = ({ value, handleChange, error }) => {
           label="Password"
         />
       </FormControl>
-      {error && <div className="registration-form__item_error">{error}</div>}
+      {error && <div className="form__item_error">{error}</div>}
     </div>
   );
 };

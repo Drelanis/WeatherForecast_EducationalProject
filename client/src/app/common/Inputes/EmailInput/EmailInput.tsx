@@ -4,8 +4,8 @@ import { IInputProps } from '@models/interfaces/viewInterfaces';
 
 const EmailInput: FC<IInputProps> = ({ value, handleChange, error }) => {
   return (
-    <div className="registration-form__item">
-      <label className="registration-form__item_label" htmlFor="email">
+    <div className="form__item">
+      <label className="form__item_label" htmlFor="email">
         Email Address
       </label>
       <Input
@@ -14,7 +14,7 @@ const EmailInput: FC<IInputProps> = ({ value, handleChange, error }) => {
         handleChange={handleChange}
         placeholder="example@example.example"
       />
-      {error && <div className="registration-form__item_error">{error}</div>}
+      {error && <div className="form__item_error">{error}</div>}
     </div>
   );
 };

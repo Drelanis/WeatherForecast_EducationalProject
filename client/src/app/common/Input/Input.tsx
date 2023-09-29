@@ -16,7 +16,7 @@ const Input: FC<IInputProps> = ({
 }: any) => {
   return (
     <TextField
-      className="registration-form__item_input"
+      className="form__item_input"
       required
       id={id}
       label="Required"

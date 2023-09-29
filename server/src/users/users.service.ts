@@ -52,9 +52,9 @@ export class UsersService {
 
   async create(userDto: UserResgistrationInput): Promise<User> {
     try {
-      const { email, password } = userDto;
+      const { email, password, firstName, lastName } = userDto;
       const user = await this.prisma.user.create({
-        data: { email, password },
+        data: { email, password, firstName, lastName },
         include: { cities: true },
       });
       return user;

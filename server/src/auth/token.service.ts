@@ -14,8 +14,13 @@ export class TokenService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async deleteRefreshToken(token: string): Promise<Token> {
-    const deletedToken = this.prisma.token.delete({ where: { token } });
+  async deleteRefreshToken(refreshToken: string): Promise<Token> {
+    const token = await this.prisma.token.findFirst({
+      where: { token: refreshToken },
+    });
+    const deletedToken = await this.prisma.token.delete({
+      where: { id: token.id },
+    });
     return deletedToken;
   }
 
@@ -29,6 +34,8 @@ export class TokenService {
     const payload = {
       id: user.id,
       email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
       cities: user.cities,
     };
     const accessToken = `Bearer ${this.jwtService.sign(payload)}`;
@@ -45,9 +52,9 @@ export class TokenService {
         userAgent: agent,
       },
     });
-    const tokenValue = token?.token ?? null;
+    const tokeId = token?.id ?? '';
     return this.prisma.token.upsert({
-      where: { token: tokenValue || '' },
+      where: { id: tokeId },
       update: {
         token: v4(),
         exp: add(new Date(), { months: 1 }),

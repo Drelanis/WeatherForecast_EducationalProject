@@ -13,6 +13,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
+  firstName: string;
+
+  lastName: string;
+
   @IsString({ message: 'Password must be string' })
   @Length(4, 16, { message: 'Not less 4 and more than 16' })
   @IsNotEmpty()

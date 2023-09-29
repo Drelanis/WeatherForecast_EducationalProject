@@ -25,15 +25,12 @@ const RepeatPasswordInput: FC<IInputProps> = ({
   };
 
   return (
-    <div className="registration-form__item">
-      <label
-        className="registration-form__item_label"
-        htmlFor="repeatePassword"
-      >
+    <div className="form__item">
+      <label className="form__item_label" htmlFor="passwordRepeat">
         Repeat password
       </label>
       <FormControl
-        className="registration-form__item_input"
+        className="form__item_input"
         sx={{ m: 1, width: '25ch' }}
         variant="outlined"
       >
@@ -41,7 +38,7 @@ const RepeatPasswordInput: FC<IInputProps> = ({
         <OutlinedInput
           value={value}
           onChange={handleChange}
-          id="repeatePassword"
+          id="passwordRepeat"
           type={showPassword ? 'text' : 'password'}
           endAdornment={
             <InputAdornment position="end">
@@ -58,7 +55,7 @@ const RepeatPasswordInput: FC<IInputProps> = ({
           label="Password"
         />
       </FormControl>
-      {error && <div className="registration-form__item_error">{error}</div>}
+      {error && <div className="form__item_error">{error}</div>}
     </div>
   );
 };

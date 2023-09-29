@@ -1,11 +1,13 @@
-.registration-form {
+.form {
   display: flex;
+  background-color: antiquewhite;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: auto;
   min-height: 90vh;
   &__item {
+    background-color: antiquewhite;
     position: relative;
     display: flex;
     flex-direction: column;

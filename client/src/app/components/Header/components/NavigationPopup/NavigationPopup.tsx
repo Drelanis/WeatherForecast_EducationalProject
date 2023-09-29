@@ -43,15 +43,21 @@ const NavigationPopup = () => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleTransition}>Profile</MenuItem>
-        <MenuItem onClick={handleTransition}>Login</MenuItem>
+        <MenuItem href="/profile" onClick={(event) => handleTransition(event)}>
+          Profile
+        </MenuItem>
+        <MenuItem href="/login" onClick={(event) => handleTransition(event)}>
+          Login
+        </MenuItem>
         <MenuItem
           href="/registration"
           onClick={(event) => handleTransition(event)}
         >
           Registration
         </MenuItem>
-        <MenuItem onClick={handleTransition}>Logout</MenuItem>
+        <MenuItem href="/logout" onClick={(event) => handleTransition(event)}>
+          Logout
+        </MenuItem>
       </Menu>
     </>
   );

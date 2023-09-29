@@ -20,6 +20,8 @@ datasource db {
 model User {
   id        String       @id @default(uuid())
   email     String       @unique
+  firstName String       @map("first_name")
+  lastName  String       @map("last_name")
   password  String
   cities    City[]
   token     Token[]
@@ -38,7 +40,7 @@ model City {
 
 
 model Token {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   token     String   
   exp       DateTime
   user      User     @relation(fields: [userId], references: [id])

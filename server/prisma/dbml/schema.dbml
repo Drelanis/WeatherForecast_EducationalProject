@@ -5,13 +5,15 @@
 Table User {
   id String [pk]
   email String [unique, not null]
+  firstName String [not null]
+  lastName String [not null]
   password String [not null]
   cities City [not null]
   token Token [not null]
 }
 
 Table City {
-  id Int [pk, increment]
+  id Int [pk]
   name String [not null]
   country String [not null]
   longitude Float [not null]
@@ -21,7 +23,8 @@ Table City {
 }
 
 Table Token {
-  token String [unique, not null]
+  id String [pk]
+  token String [not null]
   exp DateTime [not null]
   user User [not null]
   userId String [not null]

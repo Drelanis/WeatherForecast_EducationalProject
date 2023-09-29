@@ -3,16 +3,16 @@ export interface IRegistrationValues {
   lastName: string;
   email: string;
   password: string;
-  repeatePassword: string;
+  passwordRepeat: string;
 }
 
-export interface IRegistrationErrors {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  password?: string;
-  repeatePassword?: string;
-}
+export interface IRegistrationErrors extends IRegistrationValues {}
+
+export interface ILoginValues
+  extends Pick<IRegistrationValues, 'email' | 'password'> {}
+
+export interface ILoginErrors
+  extends Pick<IRegistrationErrors, 'email' | 'password'> {}
 
 export interface IInputProps {
   value: string;

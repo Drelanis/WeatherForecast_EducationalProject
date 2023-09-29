@@ -29,7 +29,11 @@
       "@lib": ["src/app/lib"],
       "@lib/*": ["src/app/lib/*"],
       "@models": ["src/models"],
-      "@models/*": ["src/models/*"]
+      "@models/*": ["src/models/*"],
+      "@apollo": ["src/apollo"],
+      "@apollo/*": ["src/apollo/*"],
+      "@hooks": ["src/app/hooks"],
+      "@hooks/*": ["src/app/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

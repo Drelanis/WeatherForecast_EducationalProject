@@ -17,6 +17,14 @@ export class UserResgistrationInput {
   email: string;
 
   @Field()
+  @IsString({ message: 'first name - must be string' })
+  firstName: string;
+
+  @Field()
+  @IsString({ message: 'last name - must be string' })
+  lastName: string;
+
+  @Field()
   @IsString({ message: 'Password - must be string' })
   @Length(4, 16, { message: 'Password - must be not less 4 and more than 16' })
   @IsNotEmpty()

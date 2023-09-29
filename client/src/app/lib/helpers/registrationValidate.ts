@@ -3,8 +3,8 @@ import {
   IRegistrationValues,
 } from '@models/interfaces/viewInterfaces';
 
-export const validate = (values: IRegistrationValues) => {
-  const errors: IRegistrationErrors = {};
+export const registrationValidate = (values: IRegistrationValues) => {
+  const errors: Partial<IRegistrationErrors> = {};
   if (!values.firstName) {
     errors.firstName = 'Required';
   } else if (values.firstName.length > 15) {
@@ -25,14 +25,14 @@ export const validate = (values: IRegistrationValues) => {
 
   if (!values.password) {
     errors.password = 'Required';
-  } else if (values.password.length < 4 || values.lastName.length > 20) {
-    errors.password = 'Password - must be not less 4 and more than 16';
+  } else if (values.password.length < 6 || values.lastName.length > 20) {
+    errors.password = 'Password - must be not less 6 and more than 16';
   }
 
-  if (!values.repeatePassword) {
-    errors.repeatePassword = 'Required';
-  } else if (values.password !== values.repeatePassword) {
-    errors.repeatePassword = 'Password - mismatch';
+  if (!values.passwordRepeat) {
+    errors.passwordRepeat = 'Required';
+  } else if (values.password !== values.passwordRepeat) {
+    errors.passwordRepeat = 'Password - mismatch';
   }
 
   return errors;
