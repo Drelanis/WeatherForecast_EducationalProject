@@ -3,16 +3,15 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/navigation';
+import useLogout from '@hooks/useLogout';
 
 const NavigationPopup = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const router = useRouter();
-
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleTransition = (event?: MouseEvent) => {
     if (event) {
       const button = event.target as HTMLButtonElement;
@@ -20,6 +19,8 @@ const NavigationPopup = () => {
     }
     setAnchorEl(null);
   };
+
+  const { handleLogout } = useLogout();
 
   return (
     <>
@@ -55,9 +56,7 @@ const NavigationPopup = () => {
         >
           Registration
         </MenuItem>
-        <MenuItem href="/logout" onClick={(event) => handleTransition(event)}>
-          Logout
-        </MenuItem>
+        <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
       </Menu>
     </>
   );

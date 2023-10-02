@@ -1,8 +1,6 @@
 'use client';
-import { ApolloProvider } from '@apollo/client';
 import Toast from '@common/Toast/Toast';
 import React, { FC, ReactNode } from 'react';
-import client from 'src/apollo/apolloClient';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface IMainProps {
@@ -12,7 +10,7 @@ interface IMainProps {
 const Main: FC<IMainProps> = ({ children }) => {
   return (
     <main>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      {children}
       <Toast />
     </main>
   );

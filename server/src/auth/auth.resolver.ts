@@ -1,10 +1,10 @@
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { UserAgent } from '@common/decarators/user-agent.decorator';
 import { LoginUserInput } from './dto/user-login.input';
 import { Cookie } from '@common/decarators/get-cookies.decarator';
-import { HttpStatus, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserResgistrationInput } from './dto/user-registration.input';
 import { User } from '@users/models/user.model';
 import { AccessToken } from '@auth/models/access-token.model';
@@ -19,27 +19,24 @@ export class AuthResolver {
   @Mutation(() => AccessToken)
   async login(
     @Args('loginUserInput', ValidationPipe) loginUserInput: LoginUserInput,
-    @Context() context: { response: Response },
+    @Context() context: { res: Response },
     @UserAgent() userAgent: string,
   ) {
     const token = await this.authService.login(
       loginUserInput,
-      context.response,
+      context.res,
       userAgent,
     );
     return token;
   }
 
-  @Query(() => Boolean)
+  @Mutation(() => Boolean)
   async logout(
     @Cookie(process.env.REFRESH_TOKEN) refreshToken: string,
-    @Res() response: Response,
+    @Context() context: { res: Response },
   ) {
-    if (!refreshToken) {
-      response.send(HttpStatus.OK);
-    }
-    await this.authService.logout(refreshToken, response);
-    response.send(HttpStatus.OK);
+    const isLogout = await this.authService.logout(refreshToken, context.res);
+    return isLogout;
   }
 
   @Mutation(() => User)

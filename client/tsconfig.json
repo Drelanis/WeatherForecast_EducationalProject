@@ -30,8 +30,8 @@
       "@lib/*": ["src/app/lib/*"],
       "@models": ["src/models"],
       "@models/*": ["src/models/*"],
-      "@apollo": ["src/apollo"],
-      "@apollo/*": ["src/apollo/*"],
+      "@apolloGraphQL": ["src/apollo"],
+      "@apolloGraphQL/*": ["src/apollo/*"],
       "@hooks": ["src/app/hooks"],
       "@hooks/*": ["src/app/hooks/*"]
     }

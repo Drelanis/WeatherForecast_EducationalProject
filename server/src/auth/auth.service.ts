@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  HttpStatus,
   UnauthorizedException,
   InternalServerErrorException,
 } from '@nestjs/common';
@@ -30,11 +29,9 @@ export class AuthService {
       const user = await this.validateUser(userDto);
       const tokens = await this.tokenService.generateTokens(user, userAgent);
       this.setRefreshTokenToCookies(tokens, response);
-      return response
-        .status(HttpStatus.CREATED)
-        .json({ accessToken: tokens.accessToken });
+      return tokens;
     } catch (error) {
-      throw new UnauthorizedException('Authorization error', error.message);
+      throw new UnauthorizedException(error.message, 'Authorization error');
     }
   }
 
@@ -55,12 +52,16 @@ export class AuthService {
 
   async logout(token: string, response: Response) {
     try {
-      this.tokenService.deleteRefreshToken(token);
-      return response.cookie(REFRESH_TOKEN, '', {
+      if (!token) {
+        throw new InternalServerErrorException('Refreshtoken not found');
+      }
+      await this.tokenService.deleteRefreshToken(token);
+      response.cookie(REFRESH_TOKEN, '', {
         httpOnly: true,
         secure: true,
         expires: new Date(),
       });
+      return true;
     } catch (error) {
       throw new InternalServerErrorException('Logout error', error.message);
     }
@@ -86,6 +87,7 @@ export class AuthService {
     if (!tokens) {
       throw new UnauthorizedException();
     }
+
     response.cookie(REFRESH_TOKEN, tokens.refreshToken.token, {
       httpOnly: true,
       sameSite: 'lax',
@@ -94,8 +96,5 @@ export class AuthService {
         this.configService.get('NODE_ENV', 'development') === 'production',
       path: '/',
     });
-    return response
-      .status(HttpStatus.CREATED)
-      .json({ accesToken: tokens.accessToken });
   }
 }

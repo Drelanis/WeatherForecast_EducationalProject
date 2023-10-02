@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main>Weather Forecast</main>;
+  return <div>Weather Forecast</div>;
 }
