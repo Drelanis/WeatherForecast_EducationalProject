@@ -1,12 +1,21 @@
-import React, { MouseEvent, useState } from 'react';
+import React, {
+  MouseEvent,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/navigation';
-import useLogout from '@hooks/useLogout';
+import AuthPopup from './common/AuthPopup';
+import NotAuthPopup from './common/NotAuthPopup';
+import { MenuItem } from '@mui/material';
+import { AuthContext } from '@context';
 
 const NavigationPopup = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { isAuth } = useContext(AuthContext);
   const router = useRouter();
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -19,8 +28,6 @@ const NavigationPopup = () => {
     }
     setAnchorEl(null);
   };
-
-  const { handleLogout } = useLogout();
 
   return (
     <>
@@ -44,19 +51,13 @@ const NavigationPopup = () => {
           horizontal: 'left',
         }}
       >
-        <MenuItem href="/profile" onClick={(event) => handleTransition(event)}>
-          Profile
-        </MenuItem>
-        <MenuItem href="/login" onClick={(event) => handleTransition(event)}>
-          Login
-        </MenuItem>
+        {isAuth ? <AuthPopup /> : <NotAuthPopup />}
         <MenuItem
           href="/registration"
           onClick={(event) => handleTransition(event)}
         >
           Registration
         </MenuItem>
-        <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
       </Menu>
     </>
   );

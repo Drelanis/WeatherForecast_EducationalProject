@@ -29,10 +29,19 @@ export class AuthService {
       const user = await this.validateUser(userDto);
       const tokens = await this.tokenService.generateTokens(user, userAgent);
       this.setRefreshTokenToCookies(tokens, response);
-      return tokens;
+      return { userId: user.id, ...tokens };
     } catch (error) {
       throw new UnauthorizedException(error.message, 'Authorization error');
     }
+  }
+
+  async refreshTokens(refreshToken: string, agent: string, response: Response) {
+    if (!refreshToken) {
+      throw new UnauthorizedException();
+    }
+    const tokens = await this.tokenService.refreshTokens(refreshToken, agent);
+    this.setRefreshTokenToCookies(tokens, response);
+    return tokens;
   }
 
   async registration(userRegInput: UserResgistrationInput) {
@@ -87,7 +96,6 @@ export class AuthService {
     if (!tokens) {
       throw new UnauthorizedException();
     }
-
     response.cookie(REFRESH_TOKEN, tokens.refreshToken.token, {
       httpOnly: true,
       sameSite: 'lax',

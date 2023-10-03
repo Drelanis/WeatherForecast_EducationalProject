@@ -33,7 +33,9 @@
       "@apolloGraphQL": ["src/apollo"],
       "@apolloGraphQL/*": ["src/apollo/*"],
       "@hooks": ["src/app/hooks"],
-      "@hooks/*": ["src/app/hooks/*"]
+      "@hooks/*": ["src/app/hooks/*"],
+      "@context": ["src/app/context"],
+      "@context/*": ["src/app/context/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

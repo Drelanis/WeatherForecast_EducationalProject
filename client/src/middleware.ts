@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
-  matcher: ['/profile:path*', '/home:path*', '/weather:path*'],
+  matcher: ['/profile:path*', '/weather:path*'],
 };
 
 export const middleware = async (request: NextRequest) => {

@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
-import React, { FC } from 'react';
+import React, { FC, InputHTMLAttributes } from 'react';
 
-interface IInputProps {
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   value: string;
   handleChange: (e: React.ChangeEvent<any>) => void;
@@ -13,6 +13,7 @@ const Input: FC<IInputProps> = ({
   value,
   handleChange,
   placeholder,
+  ...props
 }: any) => {
   return (
     <TextField
@@ -23,6 +24,7 @@ const Input: FC<IInputProps> = ({
       value={value}
       onChange={handleChange}
       placeholder={placeholder}
+      {...props}
     />
   );
 };
