@@ -12,14 +12,24 @@ const NavigationMenu: FC<NavigationMenuProps> = ({ className }) => {
   const router = useRouter();
   return (
     <div className={className}>
-      <Button id="home-button" onClick={() => router.push('/home')}>
+      <Button
+        id="home-button"
+        onClick={() => {
+          if (!localStorage.getItem('accessToken')) {
+            return router.push('/login');
+          }
+          router.push('/home');
+        }}
+      >
         Home
       </Button>
       <Button
         id="weather-button"
         onClick={() => {
-          console.log('weather');
-          return router.push('/weather');
+          if (!localStorage.getItem('accessToken')) {
+            return router.push('/login');
+          }
+          router.push('/weather');
         }}
       >
         Weather
