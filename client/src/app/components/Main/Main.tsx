@@ -2,6 +2,7 @@
 import Toast from '@common/Toast/Toast';
 import React, { FC, ReactNode } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import styles from './main.module.scss';
 
 interface IMainProps {
   children: ReactNode;
@@ -9,7 +10,7 @@ interface IMainProps {
 
 const Main: FC<IMainProps> = ({ children }) => {
   return (
-    <main>
+    <main className={styles.main}>
       {children}
       <Toast />
     </main>

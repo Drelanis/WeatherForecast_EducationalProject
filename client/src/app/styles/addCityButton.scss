@@ -1,0 +1,21 @@
+.add-citty-button {
+  display: flex;
+  width: 225px;
+  height: 300px;
+  background-color: rgb(0, 255, 255, 0.3);
+  border: 5px solid rgb(0, 255, 255, 0.4);
+  border-radius: 20px;
+  &__icon {
+    margin: auto;
+    height: 100px;
+    width: 100px;
+  }
+}
+
+.add-citty-button:hover {
+  cursor: pointer;
+}
+.add-citty-button:active {
+  background-color: rgb(0, 255, 255, 0.1);
+  border-color: rgb(0, 255, 255, 0.1);
+}
