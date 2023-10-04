@@ -23,6 +23,9 @@ export class CityService {
 
   async findMany(name: string): Promise<City[]> {
     try {
+      if (!name || !name.trim()) {
+        return [];
+      }
       const cities = await this.prisma.city.findMany({
         where: { name: { startsWith: name, mode: 'insensitive' } },
         orderBy: [{ name: this.configSerive.get('ASCENDING') }],

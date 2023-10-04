@@ -4,10 +4,12 @@ import { useQuery } from '@apollo/client';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import AddCityButton from 'src/app/weather/components/AddCityButton';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import Search from '@common/Search/Search';
 import { modalBoxStyle } from '../styles';
 import { FIND_CITIES } from '@apolloGraphQL/query/findCities';
+import { ICity } from '@lib/intarfaces';
+import { toast } from 'react-toastify';
 
 interface IAddCityModalProps {
   open: boolean;
@@ -20,8 +22,15 @@ const CityModal: FC<IAddCityModalProps> = ({
   handleOpen,
   handleClose,
 }) => {
-  // const [cityName, setCityName] = useState('');
-  // const { data } = useQuery(FIND_CITIES, { variables: { name: cityName } });
+  const [cityName, setCityName] = useState('');
+  const { data, loading, error } = useQuery(FIND_CITIES, {
+    variables: { name: cityName },
+  });
+  const cities: ICity[] = data ? data.findCities : [];
+
+  if (error) {
+    toast.error(error.message);
+  }
 
   return (
     <div>
@@ -33,9 +42,12 @@ const CityModal: FC<IAddCityModalProps> = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalBoxStyle}>
-          <Search data={cities} /*setCityName={setCityName}*/ />
-          <Button variant="contained" style={{ marginLeft: '150px' }}>
+        <Box className="add-city-modal__box" sx={modalBoxStyle}>
+          <Search data={cities} setCityName={setCityName} />
+          {loading && (
+            <CircularProgress className="add-city-modal__box_loader" />
+          )}
+          <Button className="add-city-modal__box_button" variant="contained">
             Add
           </Button>
         </Box>
@@ -43,15 +55,5 @@ const CityModal: FC<IAddCityModalProps> = ({
     </div>
   );
 };
-
-const cities = [
-  { id: 1, key: 1, name: 'The Shawshank Redemption', year: 1994 },
-  { id: 2, key: 2, name: 'The Godfather', year: 1972 },
-  { id: 3, key: 3, name: 'The Godfather: Part II', year: 1974 },
-  { id: 4, key: 4, name: 'The Dark Knight', year: 2008 },
-  { id: 5, key: 5, name: '12 Angry Men', year: 1957 },
-  { id: 6, key: 6, name: "Schindler's List", year: 1993 },
-  { id: 7, key: 7, name: 'Pulp Fiction', year: 1994 },
-];
 
 export default CityModal;

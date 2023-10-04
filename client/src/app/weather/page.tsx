@@ -14,9 +14,6 @@ const Weathers = () => {
         handleOpen={handleOpen}
         handleClose={handleClose}
       />
-      {/* {cities.map((city) => (
-        <CityCard key={city.id} info={city} />
-      ))} */}
     </div>
   );
 };
