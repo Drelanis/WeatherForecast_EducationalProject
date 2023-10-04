@@ -19,6 +19,9 @@ export class User {
   @Field()
   lastName: string;
 
+  @Field()
+  fullName?: string;
+
   @Field((type) => [City])
   cities?: City[];
 

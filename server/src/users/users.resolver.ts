@@ -1,10 +1,17 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Query,
+  Resolver,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { User } from './models/user.model';
 import { UsersService } from './users.service';
 import { UsersCityInput } from './dto/users-city.input';
 import { ValidationPipe } from '@nestjs/common';
 
-@Resolver()
+@Resolver((of) => User)
 export class UsersResolver {
   constructor(private readonly userService: UsersService) {}
 
@@ -24,5 +31,10 @@ export class UsersResolver {
   async deleteCity(@Args('dto', ValidationPipe) dto: UsersCityInput) {
     const user = await this.userService.deleteCity(dto);
     return user;
+  }
+
+  @ResolveField()
+  fullName(@Parent() user: User) {
+    return `${user.firstName} ${user.lastName}`;
   }
 }

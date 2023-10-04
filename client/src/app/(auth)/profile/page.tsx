@@ -8,8 +8,7 @@ const Profile = () => {
   return (
     data && (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <span>{data.getUser.firstName}</span>
-        <span>{data.getUser.lastName}</span>
+        <span>{data.getUser.fullName}</span>
         <span>{data.getUser.email}</span>
       </div>
     )
