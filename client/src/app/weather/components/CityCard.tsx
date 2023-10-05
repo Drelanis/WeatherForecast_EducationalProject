@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { FC } from 'react';
 import { ICity } from '@lib/intarfaces';
@@ -20,16 +20,24 @@ const CityCard: FC<ICityCardProps> = ({ info, setCities }) => {
       <span>tempature - {currentWeather.main.temp}</span>
       <span>feels like - {currentWeather.main.feels_like}</span>
       <span>visbility - {currentWeather.main.pressure}</span>
-      <span>speedWind - {currentWeather.main.humidity}</span>
-      <IconButton
-        className="city-card__delete-button"
-        data-city-id={info.id}
-        onClick={(event) => handleDeleteCity(event)}
-        aria-label="delete"
-        size="large"
-      >
-        <DeleteIcon fontSize="inherit" />
-      </IconButton>
+      <span>speed wind - {currentWeather.main.humidity}</span>
+      <div className="city-card__control-buttons">
+        <Button
+          className="city-card__control-buttons_forecast-button"
+          variant="contained"
+        >
+          FORECAST
+        </Button>
+        <IconButton
+          className="city-card__control-buttons_delete-button"
+          data-city-id={info.id}
+          onClick={(event) => handleDeleteCity(event)}
+          aria-label="delete"
+          size="large"
+        >
+          <DeleteIcon fontSize="inherit" />
+        </IconButton>
+      </div>
     </div>
   );
 };
