@@ -1,6 +1,6 @@
 'use client';
-import React, { FC, useRef, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import React, { FC, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import AddCityButton from 'src/app/weather/components/AddCityButton';
@@ -10,27 +10,36 @@ import { modalBoxStyle } from '../styles';
 import { FIND_CITIES } from '@apolloGraphQL/query/findCities';
 import { ICity } from '@lib/intarfaces';
 import { toast } from 'react-toastify';
+import useAddCity from '@hooks/useAddCity';
 
 interface IAddCityModalProps {
   open: boolean;
   handleOpen: () => void;
   handleClose: () => void;
+  setCities: React.Dispatch<React.SetStateAction<ICity[]>>;
 }
 
 const CityModal: FC<IAddCityModalProps> = ({
   open,
   handleOpen,
   handleClose,
+  setCities,
 }) => {
-  const [cityName, setCityName] = useState('');
+  const [cityValue, setCityValue] = useState<ICity | null>(null);
+  const [cityName, setCityName] = useState<string>('');
   const { data, loading, error } = useQuery(FIND_CITIES, {
     variables: { name: cityName },
   });
   const cities: ICity[] = data ? data.findCities : [];
-
   if (error) {
     toast.error(error.message);
   }
+  const { addNewCity } = useAddCity(
+    setCities,
+    cityValue,
+    handleClose,
+    setCityValue
+  );
 
   return (
     <div>
@@ -43,11 +52,19 @@ const CityModal: FC<IAddCityModalProps> = ({
         aria-describedby="modal-modal-description"
       >
         <Box className="add-city-modal__box" sx={modalBoxStyle}>
-          <Search data={cities} setCityName={setCityName} />
+          <Search
+            data={cities}
+            onChangeInput={setCityName}
+            onChangeValue={setCityValue}
+          />
           {loading && (
             <CircularProgress className="add-city-modal__box_loader" />
           )}
-          <Button className="add-city-modal__box_button" variant="contained">
+          <Button
+            onClick={() => addNewCity()}
+            className="add-city-modal__box_button"
+            variant="contained"
+          >
             Add
           </Button>
         </Box>

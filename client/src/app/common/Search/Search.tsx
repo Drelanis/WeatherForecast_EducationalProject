@@ -6,16 +6,19 @@ import { ICity } from '@lib/intarfaces';
 
 interface ISearchProps {
   data: ICity[];
-  setCityName: React.Dispatch<React.SetStateAction<string>>;
+  onChangeInput: React.Dispatch<React.SetStateAction<string>>;
+  onChangeValue: React.Dispatch<React.SetStateAction<ICity | null>>;
 }
 
-const Search: FC<ISearchProps> = ({ data, setCityName }) => {
+const Search: FC<ISearchProps> = ({ data, onChangeInput, onChangeValue }) => {
   return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
       getOptionLabel={(option) => option.name}
       options={data as ICity[]}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      onChange={(event, value) => onChangeValue(value)}
       sx={{ width: 400 }}
       renderOption={(props, option) => (
         <Box component="li" {...props} key={option.id}>
@@ -24,7 +27,7 @@ const Search: FC<ISearchProps> = ({ data, setCityName }) => {
       )}
       renderInput={(params) => (
         <TextField
-          onChange={(event) => setCityName(event.target.value)}
+          onChange={(event) => onChangeInput(event.target.value)}
           {...params}
           label="Search city"
         />

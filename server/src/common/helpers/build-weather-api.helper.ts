@@ -5,5 +5,5 @@ export const buildWeatherApi = (
   longitude: number,
   latitude: number,
 ) => {
-  return `https://api.openweathermap.org/data/2.5/${type}?lat=${latitude}&lon=${longitude}&appid=${process.env.OPEN_WEATHER_KEY}`;
+  return `https://api.openweathermap.org/data/2.5/${type}?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.OPEN_WEATHER_KEY}`;
 };

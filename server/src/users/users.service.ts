@@ -69,6 +69,24 @@ export class UsersService {
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
           token: true,
+          // cities: {
+          //   include: { weather: { include: { currentWeather: true } } },
+          // },
+          cities: true,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw new InternalServerErrorException('Error finding user');
+    }
+  }
+
+  async findUsersWeather(identifier: string): Promise<User> {
+    try {
+      const user = await this.prisma.user.findFirst({
+        where: { OR: [{ id: identifier }, { email: identifier }] },
+        include: {
+          token: true,
           cities: {
             include: { weather: { include: { currentWeather: true } } },
           },

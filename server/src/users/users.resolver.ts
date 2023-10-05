@@ -21,6 +21,12 @@ export class UsersResolver {
     return user;
   }
 
+  @Query(() => User)
+  async findUsersWeather(@Args('identifier') identifier: string) {
+    const user = await this.userService.findUsersWeather(identifier);
+    return user;
+  }
+
   @Mutation(() => User)
   async addCity(@Args('dto', ValidationPipe) dto: UsersCityInput) {
     const user = await this.userService.addCity(dto);
