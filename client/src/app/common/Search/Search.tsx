@@ -19,7 +19,7 @@ const Search: FC<ISearchProps> = ({ data, setCityName }) => {
       sx={{ width: 400 }}
       renderOption={(props, option) => (
         <Box component="li" {...props} key={option.id}>
-          {option.name}
+          {`${option.name}, ${option.country}`}
         </Box>
       )}
       renderInput={(params) => (
