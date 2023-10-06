@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { FIND_USERS_WEATHER } from '@apolloGraphQL/query/findUsersWeather';
 import getUserId from '@lib/helpers/getUserId';
 import { SetCities } from '@lib/types';
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const useFindUsersWeather = (setCities: SetCities): { loading: boolean } => {
@@ -11,11 +11,10 @@ const useFindUsersWeather = (setCities: SetCities): { loading: boolean } => {
     variables: { identifier: userId },
   });
 
-  if (error) {
-    toast.error('Error loading data');
-  }
-
   useEffect(() => {
+    if (error) {
+      toast.error('Error loading data');
+    }
     if (!data) {
       return;
     }

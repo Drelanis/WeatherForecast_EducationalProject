@@ -8,6 +8,7 @@ export const FIND_USERS_WEATHER = gql`
         name
         country
         weather {
+          id
           currentWeather {
             currentWeather
           }
