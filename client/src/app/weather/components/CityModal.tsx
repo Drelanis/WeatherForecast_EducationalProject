@@ -13,18 +13,13 @@ import { toast } from 'react-toastify';
 import useAddCity from '@hooks/useAddCity';
 
 interface IAddCityModalProps {
-  open: boolean;
-  handleOpen: () => void;
-  handleClose: () => void;
   setCities: React.Dispatch<React.SetStateAction<ICity[]>>;
 }
 
-const CityModal: FC<IAddCityModalProps> = ({
-  open,
-  handleOpen,
-  handleClose,
-  setCities,
-}) => {
+const AddCityCard: FC<IAddCityModalProps> = ({ setCities }) => {
+  const [isOpenModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
   const [cityValue, setCityValue] = useState<ICity | null>(null);
   const [cityName, setCityName] = useState<string>('');
   const { data, loading, error } = useQuery(FIND_CITIES, {
@@ -37,17 +32,17 @@ const CityModal: FC<IAddCityModalProps> = ({
   const { addNewCity } = useAddCity(
     setCities,
     cityValue,
-    handleClose,
+    handleCloseModal,
     setCityValue
   );
 
   return (
     <div>
-      <AddCityButton onClick={handleOpen} />
+      <AddCityButton onClick={handleOpenModal} />
       <Modal
         className="add-city-modal"
-        open={open}
-        onClose={handleClose}
+        open={isOpenModal}
+        onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -73,4 +68,4 @@ const CityModal: FC<IAddCityModalProps> = ({
   );
 };
 
-export default CityModal;
+export default AddCityCard;
