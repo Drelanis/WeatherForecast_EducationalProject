@@ -6,6 +6,7 @@ import { WeatherService } from '@weather/weather.service';
 import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 import { User } from './models/user.model';
 import { City } from '@city/models/city.model';
+import { UserCities } from './models/user-cities.model';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +27,7 @@ export class UsersService {
         updatedCities,
       );
       return updatedUser;
+      return;
     } catch (error) {
       throw new InternalServerErrorException(
         'Error adding a city',
@@ -45,6 +47,7 @@ export class UsersService {
         updatedCities,
       );
       return updatedUser;
+      return;
     } catch (error) {
       throw new InternalServerErrorException('Error deleting a city');
     }
@@ -78,7 +81,7 @@ export class UsersService {
     }
   }
 
-  async findUsersWeather(identifier: string): Promise<User> {
+  async findUsersCities(identifier: string): Promise<UserCities> {
     try {
       const user = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },

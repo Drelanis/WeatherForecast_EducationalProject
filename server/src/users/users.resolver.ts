@@ -6,7 +6,6 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import { User } from './models/user.model';
 import { UsersService } from './users.service';
 import { UsersCityInput } from './dto/users-city.input';
 import { ValidationPipe } from '@nestjs/common';
@@ -25,7 +24,7 @@ export class UsersResolver {
 
   @Query(() => UserCities)
   async findUsersCities(@Args('identifier') identifier: string) {
-    const user = await this.userService.findUsersWeather(identifier);
+    const user = await this.userService.findUsersCities(identifier);
     return user;
   }
 

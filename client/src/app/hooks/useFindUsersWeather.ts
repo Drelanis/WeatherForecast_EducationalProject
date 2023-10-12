@@ -18,7 +18,6 @@ const useFindUsersWeather = (setCities: SetCities): { loading: boolean } => {
     if (!data) {
       return;
     }
-    console.log(data);
     setCities(data.findUsersCities.cities);
   }, [data]);
 
