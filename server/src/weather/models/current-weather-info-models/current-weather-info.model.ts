@@ -18,12 +18,9 @@ export class CurrentWeatherInfo {
   @Field()
   weather: WeatherDescription;
 
-  @Field({ nullable: true })
+  @Field()
   timezone: number;
 
   @Field()
   visibility: number;
-
-  @Field({ nullable: true })
-  dt_txt: string;
 }

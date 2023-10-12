@@ -1,18 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { CurrentWeatherInfo } from '../current-weather-info-models/current-weather-info.model';
+import { CityInfo } from './city-info.model';
+import { ForecastModel } from './forecast.model';
 
 @ObjectType()
 export class ForecastWeatherInfo {
-  @Field()
-  sunset: number;
-  @Field()
-  country: string;
-  @Field()
-  sunrise: number;
-  @Field()
-  timezone: number;
-  @Field()
-  population: number;
-  @Field(() => [CurrentWeatherInfo])
-  list: [CurrentWeatherInfo];
+  @Field(() => CityInfo)
+  city: CityInfo;
+  @Field(() => [ForecastModel])
+  list: [ForecastModel];
 }

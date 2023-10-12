@@ -2,12 +2,12 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class WeatherDescription {
-  @Field()
+  @Field({ nullable: true })
   id: number;
-  @Field()
+  @Field({ nullable: true })
   icon: string;
-  @Field()
+  @Field({ nullable: true })
   main: string;
-  @Field()
+  @Field({ nullable: true })
   description: string;
 }

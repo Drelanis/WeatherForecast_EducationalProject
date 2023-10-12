@@ -13,7 +13,7 @@ const useGetForecastWeather = (params: { id: string }) => {
 
   useEffect(() => {
     if (error) {
-      toast.error('Error loading data');
+      toast.error('Error loading forecast weather');
     }
     if (!data) {
       return;
