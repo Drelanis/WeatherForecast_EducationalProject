@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import GraphQLJSON from 'graphql-type-json';
+import { CurrentWeatherInfo } from './current-weather-info-models/current-weather-info.model';
 
 @ObjectType()
 export class CurrentWeather {
@@ -12,6 +12,6 @@ export class CurrentWeather {
   @Field()
   updatedAt: Date;
 
-  @Field(() => GraphQLJSON)
-  currentWeather: any;
+  @Field(() => CurrentWeatherInfo)
+  currentWeather: CurrentWeatherInfo | unknown;
 }
