@@ -13,8 +13,7 @@ import { TokenService } from '@auth/token.service';
 import { ITokens } from './interfaces/token.interface';
 import { LoginUserInput } from './dto/user-login.input';
 import { UserResgistrationInput } from './dto/user-registration.input';
-
-const REFRESH_TOKEN = 'refreshtoken';
+import { add } from 'date-fns';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +27,7 @@ export class AuthService {
     try {
       const user = await this.validateUser(userDto);
       const tokens = await this.tokenService.generateTokens(user, userAgent);
-      this.setRefreshTokenToCookies(tokens, response);
+      this.setTokensToCookies(tokens, response);
       return { userId: user.id, ...tokens };
     } catch (error) {
       throw new UnauthorizedException(error.message, 'Authorization error');
@@ -40,7 +39,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     const tokens = await this.tokenService.refreshTokens(refreshToken, agent);
-    this.setRefreshTokenToCookies(tokens, response);
+    this.setTokensToCookies(tokens, response);
     return tokens;
   }
 
@@ -65,11 +64,7 @@ export class AuthService {
         throw new InternalServerErrorException('Refreshtoken not found');
       }
       await this.tokenService.deleteRefreshToken(token);
-      response.cookie(REFRESH_TOKEN, '', {
-        httpOnly: true,
-        secure: true,
-        expires: new Date(),
-      });
+      this.deleteTokensFromCookies(response);
       return true;
     } catch (error) {
       throw new InternalServerErrorException('Logout error', error.message);
@@ -92,17 +87,65 @@ export class AuthService {
     return user;
   }
 
-  private setRefreshTokenToCookies(tokens: ITokens, response: Response) {
+  private setTokensToCookies(tokens: ITokens, response: Response) {
     if (!tokens) {
       throw new UnauthorizedException();
     }
-    response.cookie(REFRESH_TOKEN, tokens.refreshToken.token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      expires: new Date(tokens.refreshToken.exp),
-      secure:
-        this.configService.get('NODE_ENV', 'development') === 'production',
-      path: '/',
-    });
+    this.setAccessTokenToCookies(tokens, response);
+    this.setRefreshTokenToCookies(tokens, response);
   }
+
+  private deleteTokensFromCookies(response: Response) {
+    if (!response) {
+      throw new UnauthorizedException();
+    }
+    this.deleteAccessTokenFromCookies(response);
+    this.deleteRefreshTokenFromCookies(response);
+  }
+
+  private setRefreshTokenToCookies = (tokens: ITokens, response: Response) => {
+    response.cookie(
+      this.configService.get('REFRESH_TOKEN'),
+      tokens.refreshToken.token,
+      {
+        httpOnly: true,
+        sameSite: 'lax',
+        expires: new Date(tokens.refreshToken.exp),
+        secure:
+          this.configService.get('NODE_ENV', 'development') === 'production',
+        path: '/',
+      },
+    );
+  };
+
+  private setAccessTokenToCookies = (tokens: ITokens, response: Response) => {
+    response.cookie(
+      this.configService.get('ACCESS_TOKEN'),
+      tokens.accessToken,
+      {
+        httpOnly: true,
+        sameSite: 'lax',
+        expires: add(new Date(), { minutes: 5 }),
+        secure:
+          this.configService.get('NODE_ENV', 'development') === 'production',
+        path: '/',
+      },
+    );
+  };
+
+  private deleteAccessTokenFromCookies = (response: Response) => {
+    response.cookie(this.configService.get('ACCESS_TOKEN'), '', {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(),
+    });
+  };
+
+  private deleteRefreshTokenFromCookies = (response: Response) => {
+    response.cookie(this.configService.get('REFRESH_TOKEN'), '', {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(),
+    });
+  };
 }

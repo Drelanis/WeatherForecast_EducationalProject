@@ -1,15 +1,12 @@
 import { isPublic } from '@common/decarators/isPublic.decorator';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
-import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
-export class JwtAuthGuard
-  extends AuthGuard(process.env.JWT)
-  implements CanActivate
-{
+export class AccessTokenGuard extends AuthGuard('jwt') implements CanActivate {
   constructor(private readonly reflector: Reflector) {
     super();
   }

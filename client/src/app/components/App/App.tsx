@@ -4,14 +4,14 @@ import { Header } from '@components/Header/Header';
 import Main from '@components/Main/Main';
 import { AuthContext } from '@context';
 import useRefresh from '@hooks/useRefresh';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const { handleRefresh } = useRefresh();
   const { isAuth } = useContext(AuthContext);
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken') && !isAuth) {
+    if (!isAuth) {
       handleRefresh();
     }
   }, []);

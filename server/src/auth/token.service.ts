@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { add } from 'date-fns';
-import { v4 } from 'uuid';
 import { ITokens } from '@auth/interfaces/token.interface';
 import { Token } from '@auth/models/token.model';
 import { User } from '@users/models/user.model';
@@ -36,7 +35,7 @@ export class TokenService {
     return { accessToken, refreshToken };
   }
 
-  private async getAccessToken(user: User): Promise<string> {
+  async getAccessToken(user: User): Promise<string> {
     const payload = {
       id: user.id,
       email: user.email,
@@ -44,7 +43,7 @@ export class TokenService {
       lastName: user.lastName,
       cities: user.cities,
     };
-    const accessToken = `Bearer ${this.jwtService.sign(payload)}`;
+    const accessToken = this.jwtService.sign(payload);
     if (!accessToken) {
       throw new UnauthorizedException();
     }
@@ -62,11 +61,11 @@ export class TokenService {
     return this.prisma.token.upsert({
       where: { id: tokeId },
       update: {
-        token: v4(),
+        token: this.jwtService.sign({ userId, userAgent: agent }),
         exp: add(new Date(), { days: 1 }),
       },
       create: {
-        token: v4(),
+        token: this.jwtService.sign({ userId, userAgent: agent }),
         exp: add(new Date(), { days: 1 }),
         userId,
         userAgent: agent,

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { AuthContext } from '@context';
-import { REFRESH } from '@apolloGraphQL/mutation/refresh';
+import { REFRESH } from '@apolloGraphQL/mutation/refreshTokens';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
@@ -15,8 +15,9 @@ const useRefresh = () => {
       await toast.promise(
         async () => {
           const { data } = await refresh();
-          localStorage.setItem('accessToken', data.refreshTokens.accessToken);
-          setAuth(true);
+          if (data.refreshTokens) {
+            setAuth(true);
+          }
         },
         { pending: 'Authorization check ...' }
       );

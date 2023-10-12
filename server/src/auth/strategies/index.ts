@@ -1,3 +1,4 @@
-import { JwtStrategy } from './jwt.strategy';
+import { AccessTokenStrategy } from './access-token-strategy.strategy';
+import { RefreshTokenStrategy } from './refresh-token.strategy';
 
-export const STRATEGIES = [JwtStrategy];
+export const STRATEGIES = [AccessTokenStrategy, RefreshTokenStrategy];
