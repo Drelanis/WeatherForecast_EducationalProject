@@ -12,7 +12,7 @@ const useLogout = () => {
     try {
       await toast.promise(
         async () => {
-          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userID');
           await logout();
         },
         { pending: 'Logout ...' }

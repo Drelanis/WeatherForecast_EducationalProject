@@ -6,7 +6,6 @@ import { LoginUserInput } from './dto/user-login.input';
 import { Cookie } from '@common/decarators/get-cookies.decarator';
 import { UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UserResgistrationInput } from './dto/user-registration.input';
-import { User } from '@users/models/user.model';
 import { LoginResponse } from '@auth/models/access-token.model';
 import { UniqueEmailPipe } from './pipes/unique-email.pipe';
 import { Public } from '@common/decarators/isPublic.decorator';
@@ -41,14 +40,16 @@ export class AuthResolver {
     return isLogout;
   }
 
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
   @UsePipes(UniqueEmailPipe)
   async registration(
     @Args('userRegistrationInput', ValidationPipe)
     userResgistrationInput: UserResgistrationInput,
   ) {
-    const user = this.authService.registration(userResgistrationInput);
-    return user;
+    const isRegistration = this.authService.registration(
+      userResgistrationInput,
+    );
+    return isRegistration;
   }
 
   @UseGuards(RefreshTokenGuard)

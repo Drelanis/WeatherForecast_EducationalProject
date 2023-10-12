@@ -47,12 +47,12 @@ export class AuthService {
     try {
       const hashPassword = await bcrypt.hash(userRegInput.password, 5);
       await this.isEmailUnique(userRegInput);
-      const user = await this.userService.create({
+      await this.userService.create({
         ...userRegInput,
         password: hashPassword,
         passwordRepeat: hashPassword,
       });
-      return user;
+      return true;
     } catch (error) {
       throw new BadRequestException('Registration Error', error.message);
     }

@@ -36,7 +36,6 @@ const useLogin = () => {
                 password,
               },
             });
-            localStorage.setItem('accessToken', data.login.accessToken);
             localStorage.setItem('userID', data.login.userId);
             setAuth(true);
             router.push('/profile');

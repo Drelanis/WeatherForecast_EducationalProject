@@ -4,7 +4,7 @@ const usePrivateUrl = () => {
   const router = useRouter();
 
   const handleRedirect = (url: string) => {
-    if (!localStorage.getItem('accessToken')) {
+    if (!localStorage.getItem('userID')) {
       return router.push('/login');
     }
     router.push(url);

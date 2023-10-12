@@ -69,9 +69,6 @@ export class UsersService {
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
           token: true,
-          // cities: {
-          //   include: { weather: { include: { currentWeather: true } } },
-          // },
           cities: true,
         },
       });

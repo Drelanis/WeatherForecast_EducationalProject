@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const FIND_USERS_WEATHER = gql`
-  query FindUserWeather($identifier: String!) {
-    findUsersWeather(identifier: $identifier) {
+export const FIND_USERS_CITIES = gql`
+  query FindUsersCities($identifier: String!) {
+    findUsersCities(identifier: $identifier) {
       cities {
         id
         name

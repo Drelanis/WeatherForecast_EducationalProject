@@ -16,8 +16,6 @@ export const REGISTRATION = gql`
         password: $password
         passwordRepeat: $passwordRepeat
       }
-    ) {
-      email
-    }
+    )
   }
 `;
