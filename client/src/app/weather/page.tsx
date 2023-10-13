@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import AddCityCard from 'src/app/weather/components/CityModal';
 import CityCard from './components/CityCard';
 import WeatherLoader from './common/WeatherLoader';
-import useFindUsersWeather from '@hooks/useFindUsersWeather';
+import useFindUsersCities from '@hooks/useFindUsersWeather';
 
 const Weathers = () => {
   const [cities, setCities] = useState<ICity[]>([]);
-  const { loading } = useFindUsersWeather(setCities);
+  const { loading } = useFindUsersCities(setCities);
 
   return (
     <div className="weather-container">

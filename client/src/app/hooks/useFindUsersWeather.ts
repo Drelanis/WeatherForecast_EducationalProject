@@ -5,7 +5,7 @@ import { SetCities } from '@lib/types';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-const useFindUsersWeather = (setCities: SetCities): { loading: boolean } => {
+const useFindUsersCities = (setCities: SetCities): { loading: boolean } => {
   const userId = getUserId();
   const { data, loading, error } = useQuery(FIND_USERS_CITIES, {
     variables: { identifier: userId },
@@ -24,4 +24,4 @@ const useFindUsersWeather = (setCities: SetCities): { loading: boolean } => {
   return { loading };
 };
 
-export default useFindUsersWeather;
+export default useFindUsersCities;
