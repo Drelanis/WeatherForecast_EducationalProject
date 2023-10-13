@@ -50,7 +50,15 @@ const errorLink = onError(
 
 const client = new ApolloClient({
   link: ApolloLink.from([errorLink, httpLink]),
-  cache: new InMemoryCache(),
+  connectToDevTools: true,
+  cache: new InMemoryCache({
+    typePolicies: {
+      UnconventionalRootQuery: {
+        queryType: true,
+        mutationType: true,
+      },
+    },
+  }),
 });
 
 export default client;
