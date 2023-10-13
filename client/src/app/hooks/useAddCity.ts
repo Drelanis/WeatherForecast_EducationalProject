@@ -1,11 +1,9 @@
 import { useMutation } from '@apollo/client';
 import { ADD_CITY } from '@apolloGraphQL/mutation/addCity';
 import { ICity } from '@lib/intarfaces';
-import { SetCities } from '@lib/types';
 import { toast } from 'react-toastify';
 
 const useAddCity = (
-  setCities: SetCities,
   cityValue: ICity | null,
   handleClose: () => void,
   setCityValue: React.Dispatch<React.SetStateAction<ICity | null>>
@@ -31,7 +29,6 @@ const useAddCity = (
           error: 'Error adding city',
         }
       );
-      setCities([...data.addCity.cities]);
     }
     handleClose();
     setCityValue(null);

@@ -1,24 +1,23 @@
 'use client';
-import { ICity } from '@lib/intarfaces';
 import React, { useState } from 'react';
-import AddCityCard from 'src/app/weather/components/CityModal';
-import CityCard from './components/CityCard';
-import WeatherLoader from './common/WeatherLoader';
+import CityCards from './components/CityCard';
 import useFindUsersCities from '@hooks/useFindUsersWeather';
+import ModalWindow from './common/ModalWindow';
 
-const Weathers = () => {
-  const [cities, setCities] = useState<ICity[]>([]);
-  const { loading } = useFindUsersCities(setCities);
+const Weather = () => {
+  const { cities, loading } = useFindUsersCities();
+  const [isOpenModal, setOpenModal] = useState(false);
 
   return (
     <div className="weather-container">
-      <AddCityCard setCities={setCities} />
-      <WeatherLoader loading={loading} />
-      {cities.map((city: ICity) => (
-        <CityCard key={city.id} info={city} setCities={setCities} />
-      ))}
+      <CityCards
+        cities={cities}
+        loading={loading}
+        setOpenModal={setOpenModal}
+      />
+      <ModalWindow isOpenModal={isOpenModal} setOpenModal={setOpenModal} />
     </div>
   );
 };
 
-export default Weathers;
+export default Weather;
