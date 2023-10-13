@@ -1,41 +1,12 @@
 import { gql } from '@apollo/client';
+import { MAIN_FORECAST_WEATHER_FRAGMENT } from '@apolloGraphQL/fragments/main-forecast-weather.fragment';
 
 export const GET_FORECAST_WEATHER = gql`
+  ${MAIN_FORECAST_WEATHER_FRAGMENT}
   query GetForecastWeather($cityId: Float!) {
     getForecastWeather(cityId: $cityId) {
       forecastWeather {
-        city {
-          sunset
-          country
-          sunrise
-          timezone
-          population
-        }
-        list {
-          main {
-            temp
-            humidity
-            pressure
-            temp_max
-            temp_min
-            sea_level
-            feels_like
-            grnd_level
-          }
-          wind {
-            deg
-            gust
-            speed
-          }
-          weather {
-            id
-            icon
-            main
-            description
-          }
-          dt_txt
-          visibility
-        }
+        ...ForecastWeatherInfo
       }
     }
   }

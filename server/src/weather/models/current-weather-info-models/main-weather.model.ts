@@ -12,10 +12,10 @@ export class MainWeather {
   temp_max: number;
   @Field()
   temp_min: number;
-  @Field()
+  @Field({ nullable: true })
   sea_level: number;
   @Field()
   feels_like: number;
-  @Field()
+  @Field({ nullable: true })
   grnd_level: number;
 }

@@ -2,10 +2,10 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class WindInfo {
-  @Field()
+  @Field({ nullable: true })
   deg: number;
-  @Field()
+  @Field({ nullable: true })
   gust: number;
-  @Field()
+  @Field({ nullable: true })
   speed: number;
 }

@@ -1,15 +1,16 @@
 import { gql } from '@apollo/client';
 import { MAIN_CURRENT_WEATHER_FRAGMENT } from '@apolloGraphQL/fragments/main-current-weather.fragment';
 
-export const DELETE_CITY = gql`
+export const FIND_USERS_CITIES = gql`
   ${MAIN_CURRENT_WEATHER_FRAGMENT}
-  mutation DeleteCity($userId: String!, $cityId: Float!) {
-    deleteCity(dto: { userId: $userId, cityId: $cityId }) {
+  query FindUsersCities($identifier: String!) {
+    findUsersCities(identifier: $identifier) {
       cities {
         id
         name
         country
         weather {
+          id
           currentWeather {
             currentWeather {
               ...CurrentWeatherInfo

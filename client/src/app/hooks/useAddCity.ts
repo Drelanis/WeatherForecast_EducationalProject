@@ -31,7 +31,6 @@ const useAddCity = (
           error: 'Error adding city',
         }
       );
-      console.log(data);
       setCities([...data.addCity.cities]);
     }
     handleClose();

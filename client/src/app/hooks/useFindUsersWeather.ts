@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { FIND_USERS_CITIES } from '@apolloGraphQL/query/findUsersWeather';
+import { FIND_USERS_CITIES } from '@apolloGraphQL/query/findUsersCtites';
 import getUserId from '@lib/helpers/getUserId';
 import { SetCities } from '@lib/types';
 import { useEffect } from 'react';

@@ -47,7 +47,6 @@ export class UsersService {
         updatedCities,
       );
       return updatedUser;
-      return;
     } catch (error) {
       throw new InternalServerErrorException('Error deleting a city');
     }
