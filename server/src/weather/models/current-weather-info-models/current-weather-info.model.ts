@@ -15,8 +15,8 @@ export class CurrentWeatherInfo {
   @Field()
   wind: WindInfo;
 
-  @Field()
-  weather: WeatherDescription;
+  @Field(() => [WeatherDescription])
+  weather: [WeatherDescription];
 
   @Field()
   timezone: number;

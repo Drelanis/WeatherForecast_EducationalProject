@@ -11,7 +11,7 @@ const useFindUsersCities = (): { cities: ICity[]; loading: boolean } => {
   const { data: updatedCities } = useSubscription(CITIES_UPDATED, {
     variables: { identifier: getUserId() },
   });
-
+  console.log(data);
   return {
     loading,
     cities:
