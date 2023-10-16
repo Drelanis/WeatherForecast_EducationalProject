@@ -34,8 +34,16 @@ export interface ICity {
     id: number;
     currentWeather: {
       currentWeather: {
+        timezone: number;
         main: IMainWeather;
       };
     };
+  };
+}
+
+export interface IUserProfile {
+  getUser: {
+    email: string;
+    fullName: string;
   };
 }

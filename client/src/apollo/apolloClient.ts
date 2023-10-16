@@ -5,14 +5,24 @@ import {
   FetchResult,
   InMemoryCache,
   Observable,
+  split,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { REFRESH } from './mutation/refreshTokens';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:7000/graphql',
   credentials: 'include',
 });
+
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: 'ws://localhost:7000/subscriptions',
+  })
+);
 
 const errorLink = onError(
   ({ graphQLErrors, networkError, operation, forward }) => {
@@ -48,8 +58,20 @@ const errorLink = onError(
   }
 );
 
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink
+);
+
 const client = new ApolloClient({
-  link: ApolloLink.from([errorLink, httpLink]),
+  link: ApolloLink.from([errorLink, splitLink]),
   connectToDevTools: true,
   cache: new InMemoryCache({
     typePolicies: {

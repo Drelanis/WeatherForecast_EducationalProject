@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Request } from 'express';
+import {
+  Injectable,
+  NestMiddleware,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { PassportStrategy } from '@nestjs/passport';
+import { Request, Response, NextFunction } from 'express';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
-export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class AuthMiddleware
+  extends PassportStrategy(Strategy, 'jwt')
+  implements NestMiddleware
+{
   constructor(protected configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
@@ -26,5 +33,16 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   validate(req: Request, payload: any) {
     const { accessToken } = req.cookies;
     return { ...payload, accessToken };
+  }
+
+  use(req: Request, res: Response, next: NextFunction) {
+    if (req.body.query.includes('login' || 'registration' || 'refreshTokens')) {
+      return next();
+    }
+    const accessToken = req?.cookies['accessToken'];
+    if (!accessToken) {
+      throw new UnauthorizedException();
+    }
+    next();
   }
 }

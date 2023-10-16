@@ -9,27 +9,26 @@ const useAddCity = (
   setCityValue: React.Dispatch<React.SetStateAction<ICity | null>>
 ) => {
   const [addCity] = useMutation(ADD_CITY);
+
   const addNewCity = async () => {
     if (!cityValue) {
       toast.info('Select a city from the drop-down list');
       return;
     }
-    if (cityValue) {
-      const userId = localStorage.getItem('userID');
-      const { data } = await toast.promise(
-        addCity({
-          variables: {
-            userId,
-            cityId: Number(cityValue.id),
-          },
-        }),
-        {
-          pending: 'Add a city ...',
-          success: 'The city is added',
-          error: 'Error adding city',
-        }
-      );
-    }
+    const userId = localStorage.getItem('userID');
+    await toast.promise(
+      addCity({
+        variables: {
+          userId,
+          cityId: Number(cityValue.id),
+        },
+      }),
+      {
+        pending: 'Add a city ...',
+        success: 'The city is added',
+        error: 'Error adding city',
+      }
+    );
     handleClose();
     setCityValue(null);
   };

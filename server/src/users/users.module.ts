@@ -7,10 +7,15 @@ import { UsersResolver } from './users.resolver';
 import { WeatherApiService } from '@weather/weather-api.service';
 import { CurrentWeatherService } from '@weather/current-weather.service';
 import { ForecastWeatherService } from '@weather/forecast-weather.service';
+import { PubSub } from 'graphql-subscriptions';
 
 @Module({
   imports: [HttpModule],
   providers: [
+    {
+      provide: 'PUB_SUB',
+      useValue: new PubSub(),
+    },
     UsersService,
     UsersResolver,
     CityService,

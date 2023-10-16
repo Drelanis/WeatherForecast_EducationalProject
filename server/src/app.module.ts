@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -9,6 +9,8 @@ import { WeatherModule } from './weather/weather.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AccessTokenGuard } from '@common/guards/access-token.guard';
+import { PubSub } from 'graphql-subscriptions';
+import { AuthMiddleware } from '@common/middlewares/auth.middleware';
 
 @Module({
   controllers: [],
@@ -17,14 +19,23 @@ import { AccessTokenGuard } from '@common/guards/access-token.guard';
       provide: APP_GUARD,
       useClass: AccessTokenGuard,
     },
+    {
+      provide: 'PUB_SUB',
+      useValue: new PubSub(),
+    },
   ],
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRoot({
       driver: ApolloDriver,
+      subscriptions: {
+        'graphql-ws': {
+          path: '/subscriptions',
+        },
+      },
       autoSchemaFile: true,
       playground: {
         settings: {
@@ -40,4 +51,10 @@ import { AccessTokenGuard } from '@common/guards/access-token.guard';
     WeatherModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthMiddleware)
+  //     .forRoutes({ path: '*', method: RequestMethod.ALL });
+  // }
+}

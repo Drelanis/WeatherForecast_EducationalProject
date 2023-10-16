@@ -21,12 +21,9 @@ const ModalWindow: FC<IModalWindowProps> = ({ isOpenModal, setOpenModal }) => {
   const handleCloseModal = () => setOpenModal(false);
   const [cityValue, setCityValue] = useState<ICity | null>(null);
   const [cityName, setCityName] = useState<string>('');
-  const { data, loading, error } = useQuery(FIND_CITIES, {
+  const { data, loading } = useQuery(FIND_CITIES, {
     variables: { name: cityName },
   });
-  if (error) {
-    toast.error(error.message);
-  }
   const { addNewCity } = useAddCity(cityValue, handleCloseModal, setCityValue);
   return (
     <Modal
