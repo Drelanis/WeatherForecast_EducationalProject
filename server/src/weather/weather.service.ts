@@ -29,7 +29,7 @@ export class WeatherService {
     return weather.forecastWeather;
   }
 
-  async getDashboardWeather(cityIds: number[]): Promise<Weather[]> {
+  async updateDashboardWeather(cityIds: number[]): Promise<Weather[]> {
     const weatherOfEachCity = await this.prisma.weather.findMany({
       where: {
         cityId: {
@@ -39,7 +39,7 @@ export class WeatherService {
       include: { currentWeather: true },
     });
     const updatedWeatherOfEachCity =
-      await this.updateDashboardWeather(weatherOfEachCity);
+      await this.updateDashboardWeatherOfEachCity(weatherOfEachCity);
     return updatedWeatherOfEachCity;
   }
 
@@ -79,7 +79,7 @@ export class WeatherService {
     }
   }
 
-  private async updateDashboardWeather(weatherOfEachCity: Weather[]) {
+  private async updateDashboardWeatherOfEachCity(weatherOfEachCity: Weather[]) {
     const updatedWeatherOfEachCity = await Promise.all(
       weatherOfEachCity.map(async (weather) => {
         if (this.shouldUpdate(weather)) {

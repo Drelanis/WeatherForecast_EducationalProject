@@ -83,7 +83,7 @@ export class UsersService {
     try {
       const user = await this.findOne(identifier);
       const userCitiesIds = user.cities.map((city) => city.id);
-      await this.weatherService.getDashboardWeather(userCitiesIds);
+      await this.weatherService.updateDashboardWeather(userCitiesIds);
       const updatedUser = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
