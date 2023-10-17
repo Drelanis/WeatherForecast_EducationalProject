@@ -6,8 +6,6 @@ import { WeatherResolver } from './weather.resolver';
 import { WeatherApiService } from '@weather/weather-api.service';
 import { ForecastWeatherService } from './forecast-weather.service';
 import { CurrentWeatherService } from './current-weather.service';
-import { UsersService } from '@users/users.service';
-import { UsersModule } from '@users/users.module';
 
 @Module({
   imports: [HttpModule],

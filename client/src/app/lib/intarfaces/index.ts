@@ -40,6 +40,7 @@ export interface ICity {
   weather: {
     id: number;
     currentWeather: {
+      id: number;
       currentWeather: {
         timezone: number;
         wind: {

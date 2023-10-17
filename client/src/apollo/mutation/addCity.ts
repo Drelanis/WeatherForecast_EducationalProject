@@ -11,6 +11,8 @@ export const ADD_CITY = gql`
         country
         weather {
           currentWeather {
+            id
+            updatedAt
             currentWeather {
               ...CurrentWeatherInfo
             }

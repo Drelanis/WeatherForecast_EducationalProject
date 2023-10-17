@@ -4,8 +4,9 @@ import { WeatherApiService } from '@weather/weather-api.service';
 import { PrismaService } from '@prisma/prisma.service';
 import { CurrentWeather } from './models/current-weather.model';
 import { Weather } from './models/weather.model';
-import { differenceInHours } from 'date-fns';
+import { differenceInSeconds } from 'date-fns';
 import { ConfigService } from '@nestjs/config';
+import pubSub from '@common/helpers/pub-sub.helper';
 
 @Injectable()
 export class CurrentWeatherService {
@@ -21,10 +22,14 @@ export class CurrentWeatherService {
       city.longitude,
       city.latitude,
     );
-    return await this.prisma.current_weather.update({
+    const updatedCurrentWeather = await this.prisma.current_weather.update({
       where: { id: weather.currentWeather.id },
       data: { currentWeather, updatedAt: currentDate },
     });
+    pubSub.publish(`currentWeatherUpdated_${weather.currentWeather.id}`, {
+      currentWeatherUpdated: updatedCurrentWeather,
+    });
+    return updatedCurrentWeather;
   }
 
   async create(weatherId: number, city: City): Promise<CurrentWeather> {
@@ -49,7 +54,7 @@ export class CurrentWeatherService {
     const currentDate = new Date();
     const updatedCurrentWeatherDate = currentWeather.updatedAt;
     if (
-      differenceInHours(currentDate, updatedCurrentWeatherDate) <=
+      differenceInSeconds(currentDate, updatedCurrentWeatherDate) <=
       Number(this.configService.get('OPEN_WEATHER_UPDATED_TIME'))
     ) {
       return false;

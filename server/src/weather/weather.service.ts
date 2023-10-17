@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { CityService } from '@city/city.service';
 import { Weather } from './models/weather.model';
@@ -6,7 +10,7 @@ import { ForecastWeather } from './models/forecast-weather.model';
 import { City } from '@city/models/city.model';
 import { CurrentWeatherService } from './current-weather.service';
 import { ForecastWeatherService } from './forecast-weather.service';
-import { UsersService } from '@users/users.service';
+import { CurrentWeather } from './models/current-weather.model';
 
 @Injectable()
 export class WeatherService {
@@ -16,6 +20,19 @@ export class WeatherService {
     private readonly currentWeatherService: CurrentWeatherService,
     private readonly forecastWeatherService: ForecastWeatherService,
   ) {}
+
+  async getCurrentWeather(cityId: number): Promise<CurrentWeather> {
+    const weather = await this.getWeather(cityId);
+    const city = await this.cityService.findOne(cityId);
+    if (this.currentWeatherService.shouldUpdate(weather.currentWeather)) {
+      const updatedCurrentWeather = await this.currentWeatherService.update(
+        city,
+        weather,
+      );
+      return updatedCurrentWeather;
+    }
+    return weather.currentWeather;
+  }
 
   async getForecastWeather(cityId: number): Promise<ForecastWeather> {
     const weather = await this.getWeather(cityId);

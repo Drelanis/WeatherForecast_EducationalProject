@@ -12,6 +12,7 @@ export const FIND_USERS_CITIES = gql`
         weather {
           id
           currentWeather {
+            id
             currentWeather {
               ...CurrentWeatherInfo
             }

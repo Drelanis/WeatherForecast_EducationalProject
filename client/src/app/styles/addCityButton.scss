@@ -1,7 +1,7 @@
 .add-citty-button {
   display: flex;
   width: 225px;
-  height: 300px;
+  height: 320px;
   background-color: rgb(0, 255, 255, 0.3);
   border: 5px solid rgb(0, 255, 255, 0.4);
   border-radius: 20px;
@@ -18,4 +18,10 @@
 .add-citty-button:active {
   background-color: rgb(0, 255, 255, 0.1);
   border-color: rgb(0, 255, 255, 0.1);
+}
+
+.add-citty-button:hover {
+  -webkit-box-shadow: 0px 0px 40px -3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 40px -3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 40px -3px rgba(0, 0, 0, 0.75);
 }
