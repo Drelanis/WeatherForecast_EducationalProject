@@ -4,6 +4,7 @@
 @import './styles/weather.scss';
 @import './styles/addCityModal.scss';
 @import './styles/userProfile.scss';
+@import './styles/header.scss';
 
 * {
   box-sizing: border-box;
@@ -14,5 +15,8 @@
 body {
   min-width: 100vw;
   min-height: 100vh;
-  background: antiquewhite;
+  background-image: url('../../public/main-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
