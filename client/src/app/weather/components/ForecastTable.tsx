@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { IForecastResponse } from '@lib/intarfaces';
 import WeatherLoader from '../common/WeatherLoader';
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -57,7 +58,9 @@ const ForecastTable: FC<IForecastTableProps> = ({
           </TableBody>
         </Table>
       </TableContainer>
-      <WeatherLoader loading={loading} />
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <WeatherLoader loading={loading} />
+      </Box>
     </>
   );
 };

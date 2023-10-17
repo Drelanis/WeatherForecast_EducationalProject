@@ -1,9 +1,5 @@
 'use client';
-import { useQuery } from '@apollo/client';
-import { GET_FORECAST_WEATHER } from '@apolloGraphQL/query/getForecastWeather';
-import { FC, useEffect, useState } from 'react';
-import { IForecastResponse } from '@lib/intarfaces';
-import { toast } from 'react-toastify';
+import { FC } from 'react';
 import ForecastTable from '../components/ForecastTable';
 import useGetForecastWeather from '@hooks/useGetForecastWeather';
 
