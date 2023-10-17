@@ -60,11 +60,13 @@ export interface ICity {
   };
 }
 
+export interface IUserInformation {
+  email: string;
+  fullName: string;
+}
+
 export interface IUserProfile {
-  getUser: {
-    email: string;
-    fullName: string;
-  };
+  getUser: IUserInformation;
 }
 
 export interface IRegistrationValues {
