@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useState, useEffect, FC } from 'react';
 
 interface ILiveTimeClockProps {
@@ -31,9 +31,9 @@ const LiveTimeClock: FC<ILiveTimeClockProps> = ({ offsetInSeconds }) => {
   const formattedMinutes = minutes.toString().padStart(2, '0');
 
   return (
-    <Typography
+    <Box
       sx={{ margin: 'auto', fontSize: '30px' }}
-    >{`${formattedHoures}:${formattedMinutes}:${formattedSeconds}`}</Typography>
+    >{`${formattedHoures}:${formattedMinutes}:${formattedSeconds}`}</Box>
   );
 };
 

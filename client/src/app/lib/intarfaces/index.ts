@@ -33,25 +33,30 @@ export interface IWeatehrDescription {
   main: string;
 }
 
+export interface ICurrentWeatherInfo {
+  timezone: number;
+  wind: {
+    deg: number;
+    gust: number;
+    speed: number;
+  };
+  weather: IWeatehrDescription[];
+  main: IMainWeather;
+}
+
+export interface ICurrentWeather {
+  id: number;
+  updatedAt: string;
+  currentWeather: ICurrentWeatherInfo;
+}
+
 export interface ICity {
   id: number;
   name: string;
   country: string;
   weather: {
     id: number;
-    currentWeather: {
-      id: number;
-      currentWeather: {
-        timezone: number;
-        wind: {
-          deg: number;
-          gust: number;
-          speed: number;
-        };
-        weather: IWeatehrDescription[];
-        main: IMainWeather;
-      };
-    };
+    currentWeather: ICurrentWeather;
   };
 }
 

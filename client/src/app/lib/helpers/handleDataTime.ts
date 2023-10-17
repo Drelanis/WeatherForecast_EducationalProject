@@ -8,7 +8,14 @@ const handleDataTime = (dateTimeString: string) => {
   const minutes = timestamp.getMinutes();
   const seconds = timestamp.getSeconds();
 
-  return `${year}.${month}.${day} at ${hours}:${minutes}:${seconds}`;
+  const formattedYears = year.toString().padStart(2, '0');
+  const formattedMonths = month.toString().padStart(2, '0');
+  const formattedDays = day.toString().padStart(2, '0');
+  const formattedHoures = hours.toString().padStart(2, '0');
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = seconds.toString().padStart(2, '0');
+
+  return `${formattedDays}.${formattedMonths}.${formattedYears} at ${formattedHoures}:${formattedMinutes}:${formattedSeconds}`;
 };
 
 export default handleDataTime;
