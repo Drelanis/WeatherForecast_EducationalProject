@@ -1,7 +1,7 @@
 import { ICity } from '@lib/intarfaces';
 import React, { FC } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import Card from './Card';
+import Card from './components/Card';
 
 interface IUserCitiesProps {
   cities: ICity[] | undefined;

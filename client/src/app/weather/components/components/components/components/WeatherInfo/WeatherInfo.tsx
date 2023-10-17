@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import useDeleteCity from '@hooks/useDeleteCity';
 import { ICity, ICurrentWeather } from '@lib/intarfaces';
 import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
-import LiveTimeClock from '../../common/LiveTimeClock';
 import WeatherIcon from './components/WeatherIcon';
 import CityName from './components/CityName';
 import WeatherDescription from './components/WeatherDescription';
@@ -11,6 +10,7 @@ import Humidity from './components/Humidity';
 import Wind from './components/Wind';
 import UpdatedAt from './components/UpdatedAt';
 import ControllButtons from './components/ControllButtons';
+import LiveTimeClock from 'src/app/weather/common/LiveTimeClock';
 
 interface IWeatherInfoProps {
   info: ICity;

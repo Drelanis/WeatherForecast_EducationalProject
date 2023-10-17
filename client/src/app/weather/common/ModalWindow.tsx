@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import AddCityButton from 'src/app/weather/components/AddCityButton';
+import AddCityButton from 'src/app/weather/components/components/components/AddCityButton';
 import { Box, CircularProgress } from '@mui/material';
 import Search from '@common/Search/Search';
 import { modalBoxStyle } from '../styles';

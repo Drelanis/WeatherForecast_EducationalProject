@@ -2,7 +2,7 @@ import { ICity } from '@lib/intarfaces';
 import { Box, CircularProgress } from '@mui/material';
 import React, { FC } from 'react';
 import useCurrentWeather from '@hooks/useCurrentWeather';
-import WeatherInfo from './WeatherInfo/WeatherInfo';
+import WeatherInfo from './components/WeatherInfo/WeatherInfo';
 
 interface ICardProps {
   info: ICity;

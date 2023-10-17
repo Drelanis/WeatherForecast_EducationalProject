@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import { IForecastResponse } from '@lib/intarfaces';
-import WeatherLoader from '../common/WeatherLoader';
+import WeatherLoader from '../../../common/WeatherLoader';
 import {
   Box,
   Paper,

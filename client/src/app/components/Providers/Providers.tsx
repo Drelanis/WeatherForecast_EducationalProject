@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import client from '@apolloGraphQL/apolloClient';
 import { AuthContext } from '@context';

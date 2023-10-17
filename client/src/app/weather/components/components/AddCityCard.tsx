@@ -1,6 +1,6 @@
 'use client';
 import React, { FC, useState } from 'react';
-import AddCityButton from 'src/app/weather/components/AddCityButton';
+import AddCityButton from 'src/app/weather/components/components/components/AddCityButton';
 
 interface IAddCityModalProps {
   handleOpenModal: () => void;

@@ -1,6 +1,6 @@
 'use client';
 import { FC } from 'react';
-import ForecastTable from '../components/ForecastTable';
+import ForecastTable from '../components/components/components/ForecastTable';
 import useGetForecastWeather from '@hooks/useGetForecastWeather';
 
 interface IWeatherForecastProps {

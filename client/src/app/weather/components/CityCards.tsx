@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import WeatherLoader from '../common/WeatherLoader';
 import { TransitionGroup } from 'react-transition-group';
-import AddCityCard from './AddCityCard';
+import AddCityCard from './components/AddCityCard';
 import useFindUsersCities from '@hooks/useFindUsersWeather';
-import UserCities from './UserCities';
+import UserCities from './components/UserCities';
 
 interface ICityCardsProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
