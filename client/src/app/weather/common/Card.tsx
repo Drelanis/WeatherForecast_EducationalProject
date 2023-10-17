@@ -2,22 +2,21 @@ import useDeleteCity from '@hooks/useDeleteCity';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ICity } from '@lib/intarfaces';
 import { Avatar, Box, Button, IconButton, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
 import React, { FC } from 'react';
 import LiveTimeClock from './LiveTimeClock';
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import AirIcon from '@mui/icons-material/Air';
+import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
 
 interface ICardProps {
   info: ICity;
 }
 
 const Card: FC<ICardProps> = ({ info }) => {
-  const router = useRouter();
+  const { handlePageRedirect } = useHandlePageRedirect();
   const currentWeather = info.weather.currentWeather.currentWeather;
   const { handleDeleteCity } = useDeleteCity();
-  console.log(info);
   return (
     <div className="city-card">
       <Avatar
@@ -47,7 +46,7 @@ const Card: FC<ICardProps> = ({ info }) => {
       <LiveTimeClock offsetInSeconds={currentWeather.timezone} />
       <Box className="city-card__control-buttons">
         <Button
-          onClick={() => router.push(`/weather/${info.id}`)}
+          onClick={() => handlePageRedirect(`/weather/${info.id}`)}
           className="city-card__control-buttons_forecast-button"
           variant="contained"
         >

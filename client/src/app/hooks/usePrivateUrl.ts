@@ -1,13 +1,13 @@
-import { useRouter } from 'next/navigation';
+import useHandlePageRedirect from './useHandlePageRedirect';
 
 const usePrivateUrl = () => {
-  const router = useRouter();
+  const { handlePageRedirect } = useHandlePageRedirect();
 
   const handleRedirect = (url: string) => {
     if (!localStorage.getItem('userID')) {
-      return router.push('/login');
+      return handlePageRedirect('/login');
     }
-    router.push(url);
+    handlePageRedirect(url);
   };
 
   return [handleRedirect];

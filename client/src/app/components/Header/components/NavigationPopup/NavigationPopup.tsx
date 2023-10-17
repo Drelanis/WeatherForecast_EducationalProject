@@ -1,10 +1,4 @@
-import React, {
-  MouseEvent,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { MouseEvent, useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import { useRouter } from 'next/navigation';
@@ -12,20 +6,17 @@ import AuthPopup from './common/AuthPopup';
 import NotAuthPopup from './common/NotAuthPopup';
 import { MenuItem } from '@mui/material';
 import { AuthContext } from '@context';
+import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
 
 const NavigationPopup = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { isAuth } = useContext(AuthContext);
-  const router = useRouter();
+  const { handlePageRedirect } = useHandlePageRedirect();
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleTransition = (event?: MouseEvent) => {
-    if (event) {
-      const button = event.target as HTMLButtonElement;
-      router.push(button.getAttribute('href')!);
-    }
+  const handleTransition = () => {
     setAnchorEl(null);
   };
 
@@ -54,7 +45,7 @@ const NavigationPopup = () => {
         {isAuth ? <AuthPopup /> : <NotAuthPopup />}
         <MenuItem
           href="/registration"
-          onClick={(event) => handleTransition(event)}
+          onClick={() => handlePageRedirect('/registration')}
         >
           Registration
         </MenuItem>
@@ -64,3 +55,6 @@ const NavigationPopup = () => {
 };
 
 export default NavigationPopup;
+function handlePageRedirect() {
+  throw new Error('Function not implemented.');
+}

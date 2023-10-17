@@ -1,23 +1,19 @@
 import React, { useState, MouseEvent } from 'react';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useRouter } from 'next/navigation';
+import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
 
 const NotAuthPopup = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const router = useRouter();
+  const { handlePageRedirect } = useHandlePageRedirect();
   const open = Boolean(anchorEl);
 
-  const handleTransition = (event?: MouseEvent) => {
-    if (event) {
-      const button = event.target as HTMLButtonElement;
-      router.push(button.getAttribute('href')!);
-    }
+  const handleTransition = (path: string) => {
+    handlePageRedirect(path);
     setAnchorEl(null);
   };
 
   return (
-    <MenuItem href="/login" onClick={(event) => handleTransition(event)}>
+    <MenuItem href="/login" onClick={() => handleTransition('/login')}>
       Login
     </MenuItem>
   );
