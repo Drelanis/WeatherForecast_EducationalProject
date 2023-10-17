@@ -1,7 +1,4 @@
-import {
-  IRegistrationErrors,
-  IRegistrationValues,
-} from '@models/interfaces/viewInterfaces';
+import { IRegistrationValues, IRegistrationErrors } from '@lib/intarfaces';
 
 export const registrationValidate = (values: IRegistrationValues) => {
   const errors: Partial<IRegistrationErrors> = {};
