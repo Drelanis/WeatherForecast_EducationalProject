@@ -27,7 +27,6 @@ export class UsersService {
         updatedCities,
       );
       return updatedUser;
-      return;
     } catch (error) {
       throw new InternalServerErrorException(
         'Error adding a city',
@@ -82,7 +81,10 @@ export class UsersService {
 
   async findUsersCities(identifier: string): Promise<UserCities> {
     try {
-      const user = await this.prisma.user.findFirst({
+      const user = await this.findOne(identifier);
+      const userCitiesIds = user.cities.map((city) => city.id);
+      await this.weatherService.getDashboardWeather(userCitiesIds);
+      const updatedUser = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
           token: true,
@@ -91,9 +93,9 @@ export class UsersService {
           },
         },
       });
-      return user;
+      return updatedUser;
     } catch (error) {
-      throw new InternalServerErrorException('Error finding user');
+      throw new InternalServerErrorException('Error get cities');
     }
   }
 

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { useState, useEffect, FC } from 'react';
 
 interface ILiveTimeClockProps {
@@ -25,10 +26,15 @@ const LiveTimeClock: FC<ILiveTimeClockProps> = ({ offsetInSeconds }) => {
   const minutes = adjustedDate.getMinutes();
   const seconds = adjustedDate.getSeconds();
 
+  const formattedHoures = hours.toString().padStart(2, '0');
   const formattedSeconds = seconds.toString().padStart(2, '0');
   const formattedMinutes = minutes.toString().padStart(2, '0');
 
-  return <span>{`${hours}:${formattedMinutes}:${formattedSeconds}`}</span>;
+  return (
+    <Typography
+      sx={{ margin: 'auto', fontSize: '30px' }}
+    >{`${formattedHoures}:${formattedMinutes}:${formattedSeconds}`}</Typography>
+  );
 };
 
 export default LiveTimeClock;

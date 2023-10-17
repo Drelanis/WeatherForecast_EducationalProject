@@ -13,6 +13,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-left: 25px;
+    justify-content: center;
+    align-items: center;
   }
   &__country {
     text-overflow: ellipsis;

@@ -26,6 +26,13 @@ export interface IForecastResponse {
   list: IForecastWeather[];
 }
 
+export interface IWeatehrDescription {
+  description: string;
+  icon: string;
+  id: number;
+  main: string;
+}
+
 export interface ICity {
   id: number;
   name: string;
@@ -35,6 +42,12 @@ export interface ICity {
     currentWeather: {
       currentWeather: {
         timezone: number;
+        wind: {
+          deg: number;
+          gust: number;
+          speed: number;
+        };
+        weather: IWeatehrDescription[];
         main: IMainWeather;
       };
     };

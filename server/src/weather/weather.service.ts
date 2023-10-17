@@ -6,6 +6,7 @@ import { ForecastWeather } from './models/forecast-weather.model';
 import { City } from '@city/models/city.model';
 import { CurrentWeatherService } from './current-weather.service';
 import { ForecastWeatherService } from './forecast-weather.service';
+import { UsersService } from '@users/users.service';
 
 @Injectable()
 export class WeatherService {
