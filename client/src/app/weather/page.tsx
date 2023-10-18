@@ -1,16 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import CityCards from './components/CityCards';
-import ModalWindow from './common/ModalWindow';
 import { Box } from '@mui/material';
+import CitiesSearch from './components/CitiesSearch';
 
 const Weather = () => {
-  const [isOpenModal, setOpenModal] = useState(false);
-
   return (
     <Box className="weather-container">
-      <CityCards setOpenModal={setOpenModal} />
-      <ModalWindow isOpenModal={isOpenModal} setOpenModal={setOpenModal} />
+      <CitiesSearch />
+      <CityCards />
     </Box>
   );
 };

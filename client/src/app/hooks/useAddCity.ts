@@ -5,8 +5,7 @@ import { toast } from 'react-toastify';
 
 const useAddCity = (
   cityValue: ICity | null,
-  handleClose: () => void,
-  setCityValue: React.Dispatch<React.SetStateAction<ICity | null>>
+  setCityData: React.Dispatch<React.SetStateAction<ICity | null>>
 ) => {
   const [addCity] = useMutation(ADD_CITY);
 
@@ -34,8 +33,7 @@ const useAddCity = (
         pending: 'Add a city ...',
       }
     );
-    handleClose();
-    setCityValue(null);
+    setCityData(null);
   };
 
   return { addNewCity };

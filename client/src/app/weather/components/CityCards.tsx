@@ -1,21 +1,16 @@
 import React, { FC } from 'react';
 import WeatherLoader from '../common/WeatherLoader';
 import { TransitionGroup } from 'react-transition-group';
-import AddCityCard from './components/AddCityCard';
-import useFindUsersCities from '@hooks/useFindUsersWeather';
+import useFindUsersCities from '@hooks/useFindUsersCities';
 import UserCities from './components/UserCities';
 
-interface ICityCardsProps {
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+interface ICityCardsProps {}
 
-const CityCards: FC<ICityCardsProps> = ({ setOpenModal }) => {
+const CityCards: FC<ICityCardsProps> = () => {
   const { cities, loading } = useFindUsersCities();
-  const handleOpenModal = () => setOpenModal(true);
 
   return (
     <TransitionGroup className="city-card-container">
-      <AddCityCard handleOpenModal={handleOpenModal} />
       <UserCities cities={cities} />
       <WeatherLoader loading={loading} />
     </TransitionGroup>

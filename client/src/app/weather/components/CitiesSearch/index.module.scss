@@ -1,0 +1,19 @@
+.search {
+  position: relative;
+  display: flex;
+  margin: 80px auto 40px;
+  .loader {
+    position: absolute;
+    left: 320px;
+    top: 8px;
+    width: 30px;
+    height: 30px;
+  }
+  .add {
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+    width: 100px;
+    height: 56px;
+  }
+}
