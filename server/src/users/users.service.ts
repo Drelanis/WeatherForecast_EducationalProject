@@ -11,7 +11,7 @@ import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 import { User } from './models/user.model';
 import { City } from '@city/models/city.model';
 import { UserCities } from './models/user-cities.model';
-import { GraphQLError } from 'graphql';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
@@ -19,6 +19,7 @@ export class UsersService {
     private readonly prisma: PrismaService,
     private readonly cityService: CityService,
     private readonly weatherService: WeatherService,
+    private readonly configService: ConfigService,
   ) {}
 
   async addCity(dto: UsersCityInput): Promise<User> {
@@ -26,14 +27,19 @@ export class UsersService {
       const city = await this.cityService.findOne(dto.cityId);
       await this.weatherService.createWeather(city);
       const user = await this.findOne(dto.userId);
+      if (this.checkTheSameCity(user.cities, city.id)) {
+        throw new BadRequestException(`The city is already in the user's list`);
+      }
+      if (this.checkCitiesLimit(user.cities.length)) {
+        throw new BadRequestException(
+          `It is not possible to add more than six cities`,
+        );
+      }
       const updatedCities = [city, ...user.cities];
       const updatedUser: User = await this.updateUserCities(
         dto.userId,
         updatedCities,
       );
-      if (updatedUser.cities.length !== updatedCities.length) {
-        throw new BadRequestException(`The city is already in the user's list`);
-      }
       return updatedUser;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
@@ -86,9 +92,6 @@ export class UsersService {
 
   async findUsersCities(identifier: string): Promise<UserCities> {
     try {
-      // const user = await this.findOne(identifier);
-      // const userCitiesIds = user.cities.map((city) => city.id);
-      // await this.weatherService.updateDashboardWeather(userCitiesIds);
       const updatedUser = await this.prisma.user.findFirst({
         where: { OR: [{ id: identifier }, { email: identifier }] },
         include: {
@@ -115,5 +118,13 @@ export class UsersService {
       },
     });
     return updatedUser;
+  }
+
+  private checkTheSameCity(cities: City[], cityId: number) {
+    return cities.some((city) => city.id === cityId);
+  }
+
+  private checkCitiesLimit(number: number) {
+    return number >= Number(this.configService.get('THE_MAX_NUMBER_OF_CITIES'));
   }
 }
