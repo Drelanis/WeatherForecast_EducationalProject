@@ -23,10 +23,6 @@ export class AccessTokenGuard extends AuthGuard('jwt') implements CanActivate {
 
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
-    // const { req, connection } = ctx.getContext();
     return ctx.getContext().req;
-    // return connection && connection.context && connection.context.headers
-    //   ? connection.context
-    //   : req;
   }
 }

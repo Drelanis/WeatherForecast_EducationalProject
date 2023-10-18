@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
-import { AuthMiddleware } from '@common/middlewares/auth.middleware';
 
 const start = async () => {
   const PORT = process.env.PORT || 7000;

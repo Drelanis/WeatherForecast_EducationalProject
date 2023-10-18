@@ -125,7 +125,7 @@ export class AuthService {
       {
         httpOnly: true,
         sameSite: 'lax',
-        expires: add(new Date(), { minutes: 5 }),
+        expires: add(new Date(), { minutes: 20 }),
         secure:
           this.configService.get('NODE_ENV', 'development') === 'production',
         path: '/',

@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -7,10 +7,9 @@ import { APP_GUARD } from '@nestjs/core';
 import { CityModule } from './city/city.module';
 import { WeatherModule } from './weather/weather.module';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriver } from '@nestjs/apollo';
 import { AccessTokenGuard } from '@common/guards/access-token.guard';
 import { PubSub } from 'graphql-subscriptions';
-import { AuthMiddleware } from '@common/middlewares/auth.middleware';
 
 @Module({
   controllers: [],
@@ -51,10 +50,4 @@ import { AuthMiddleware } from '@common/middlewares/auth.middleware';
     WeatherModule,
   ],
 })
-export class AppModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer
-  //     .apply(AuthMiddleware)
-  //     .forRoutes({ path: '*', method: RequestMethod.ALL });
-  // }
-}
+export class AppModule {}
