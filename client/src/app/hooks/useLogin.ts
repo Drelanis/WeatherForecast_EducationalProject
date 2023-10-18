@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { useFormik } from 'formik';
 import { loginValidate as validate } from '@lib/helpers/loginValidate';
-import { ILoginValues } from '@models/interfaces/viewInterfaces';
 import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '@apolloGraphQL/mutation/login';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '@context';
+import { ILoginValues } from '@lib/intarfaces';
 
 const useLogin = () => {
   const router = useRouter();

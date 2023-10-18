@@ -30,7 +30,7 @@ export class AuthService {
       this.setTokensToCookies(tokens, response);
       return { userId: user.id, ...tokens };
     } catch (error) {
-      throw new UnauthorizedException(error.message, 'Authorization error');
+      throw new BadRequestException(error.message, 'Authorization error');
     }
   }
 
