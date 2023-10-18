@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { UsersCityInput } from './dto/users-city.input';
 import { CityService } from '@city/city.service';
@@ -7,6 +11,7 @@ import { UserResgistrationInput } from '@auth/dto/user-registration.input';
 import { User } from './models/user.model';
 import { City } from '@city/models/city.model';
 import { UserCities } from './models/user-cities.model';
+import { GraphQLError } from 'graphql';
 
 @Injectable()
 export class UsersService {
@@ -26,12 +31,12 @@ export class UsersService {
         dto.userId,
         updatedCities,
       );
+      if (updatedUser.cities.length !== updatedCities.length) {
+        throw new BadRequestException(`The city is already in the user's list`);
+      }
       return updatedUser;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'Error adding a city',
-        error.message,
-      );
+      throw new InternalServerErrorException(error.message);
     }
   }
 

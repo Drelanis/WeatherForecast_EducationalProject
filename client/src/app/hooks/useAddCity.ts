@@ -17,16 +17,21 @@ const useAddCity = (
     }
     const userId = localStorage.getItem('userID');
     await toast.promise(
-      addCity({
-        variables: {
-          userId,
-          cityId: Number(cityValue.id),
-        },
-      }),
+      async () => {
+        try {
+          await addCity({
+            variables: {
+              userId,
+              cityId: Number(cityValue.id),
+            },
+          });
+          toast.success('The city is added');
+        } catch (error: any) {
+          toast.info(error.message);
+        }
+      },
       {
         pending: 'Add a city ...',
-        success: 'The city is added',
-        error: 'Error adding city',
       }
     );
     handleClose();
