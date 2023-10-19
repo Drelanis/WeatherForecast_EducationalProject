@@ -2,11 +2,17 @@
 import EmailInput from '@common/Inputes/EmailInput/EmailInput';
 import PasswordInput from '@common/Inputes/PasswordInput/PasswordInput';
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useLogin from '@hooks/useLogin';
+import { useLoader } from '@hooks/useLoader';
 
 const Login = () => {
   const { formik } = useLogin();
+  const { hideLoader } = useLoader();
+
+  useEffect(() => {
+    hideLoader();
+  }, []);
 
   return (
     <>

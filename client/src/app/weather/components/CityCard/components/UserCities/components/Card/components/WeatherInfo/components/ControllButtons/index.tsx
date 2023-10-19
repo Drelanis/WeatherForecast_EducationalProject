@@ -2,6 +2,7 @@ import { Box, Button, IconButton } from '@mui/material';
 import React, { FC } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ICity } from '@lib/intarfaces';
+import styles from './index.module.scss';
 
 interface IControllButtonsProps {
   info: ICity;
@@ -17,10 +18,10 @@ const ControllButtons: FC<IControllButtonsProps> = ({
   handleDeleteCity,
 }) => {
   return (
-    <Box className="city-card__control-buttons">
+    <Box className={styles.container}>
       <Button
         onClick={() => handlePageRedirect(`/weather/${info.id}`)}
-        className="city-card__control-buttons_forecast-button"
+        className={styles.forecast}
         variant="contained"
       >
         FORECAST

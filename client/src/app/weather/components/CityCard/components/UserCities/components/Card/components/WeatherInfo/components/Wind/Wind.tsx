@@ -1,4 +1,3 @@
-import { ICurrentWeatherInfo } from '@lib/intarfaces';
 import { Box } from '@mui/material';
 import React, { FC } from 'react';
 import AirIcon from '@mui/icons-material/Air';

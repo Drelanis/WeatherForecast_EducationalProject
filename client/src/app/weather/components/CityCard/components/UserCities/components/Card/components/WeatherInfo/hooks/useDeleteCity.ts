@@ -7,6 +7,7 @@ const useDeleteCity = () => {
   const handleDeleteCity = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    event.stopPropagation();
     const buttonElement = event.currentTarget as HTMLButtonElement;
     const userId = localStorage.getItem('userID');
     const cityId = Number(buttonElement.getAttribute('data-city-id'));

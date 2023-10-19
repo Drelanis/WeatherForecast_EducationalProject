@@ -1,8 +1,15 @@
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useLoader } from './useLoader';
 
 const useHandlePageRedirect = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const { showLoader } = useLoader();
   const handlePageRedirect = (path: string) => {
+    if (pathname === path) {
+      return;
+    }
+    showLoader();
     router.push(path);
   };
 

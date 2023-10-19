@@ -1,6 +1,4 @@
 @import './styles/form.scss';
-@import './styles/cityCard.scss';
-@import './styles/weather.scss';
 @import './styles/userProfile.scss';
 @import './styles/header.scss';
 
@@ -17,4 +15,19 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.card-enter {
+  opacity: 0;
+}
+.card-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.card-exit {
+  opacity: 1;
+}
+.card-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
 }

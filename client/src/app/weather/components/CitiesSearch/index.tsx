@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { FIND_CITIES } from '@apolloGraphQL/query/findCities';
 import Search from '@common/Search/Search';
-import useAddCity from '@hooks/useAddCity';
+import useAddCity from './hooks/useAddCity';
 import { ICity } from '@lib/intarfaces';
 import { Box, Button, CircularProgress } from '@mui/material';
 import React, { useState } from 'react';
@@ -13,7 +13,7 @@ const CitiesSearch = () => {
   const { data, loading } = useQuery(FIND_CITIES, {
     variables: { name: cityName },
   });
-  const { addNewCity } = useAddCity(cityData, setCityData);
+  const { addNewCity } = useAddCity(cityData, setCityData, setCityName);
 
   return (
     <Box className={styles.search}>
@@ -21,6 +21,7 @@ const CitiesSearch = () => {
         data={data?.findCities || []}
         onChangeInput={setCityName}
         onChangeValue={setCityData}
+        cityName={cityName}
       />
       {loading && cityName && <CircularProgress className={styles.loader} />}
       <Button

@@ -4,13 +4,14 @@ import { ICity } from '@lib/intarfaces';
 import { toast } from 'react-toastify';
 
 const useAddCity = (
-  cityValue: ICity | null,
-  setCityData: React.Dispatch<React.SetStateAction<ICity | null>>
+  cityData: ICity | null,
+  setCityData: React.Dispatch<React.SetStateAction<ICity | null>>,
+  setCityName: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const [addCity] = useMutation(ADD_CITY);
 
   const addNewCity = async () => {
-    if (!cityValue) {
+    if (!cityData) {
       toast.info('Select a city from the drop-down list');
       return;
     }
@@ -21,9 +22,10 @@ const useAddCity = (
           await addCity({
             variables: {
               userId,
-              cityId: Number(cityValue.id),
+              cityId: Number(cityData.id),
             },
           });
+
           toast.success('The city is added');
         } catch (error: any) {
           toast.info(error.message);
@@ -33,6 +35,7 @@ const useAddCity = (
         pending: 'Add a city ...',
       }
     );
+    setCityName('');
     setCityData(null);
   };
 

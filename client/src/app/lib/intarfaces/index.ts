@@ -1,11 +1,8 @@
-// export interface IMainForecastWeather {
-//   temp: number;
-//   feels_like: number;
-//   visibility: number;
-//   wind: {
-//     speed: number;
-//   };
-// }
+export interface ILoaderContext {
+  showLoader: () => void;
+  hideLoader: () => void;
+}
+
 export interface IMainWeather {
   temp: number;
   feels_like: number;

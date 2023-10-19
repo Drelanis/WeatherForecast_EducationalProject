@@ -7,12 +7,10 @@ interface ILiveTimeClockProps {
 
 const LiveTimeClock: FC<ILiveTimeClockProps> = ({ offsetInSeconds }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [renderColon, setRenderColor] = useState(true);
 
   useEffect(() => {
     const timerID = setInterval(() => {
       setCurrentTime(new Date());
-      setRenderColor((renderColon) => !renderColon);
     }, 1000);
 
     return () => {
@@ -31,9 +29,9 @@ const LiveTimeClock: FC<ILiveTimeClockProps> = ({ offsetInSeconds }) => {
   const formattedMinutes = minutes.toString().padStart(2, '0');
 
   return (
-    <Box sx={{ margin: 'auto', fontSize: '30px' }}>{`${formattedHoures}${
-      renderColon ? ':' : ' '
-    }${formattedMinutes}`}</Box>
+    <Box
+      sx={{ margin: 'auto', fontSize: '30px' }}
+    >{`${formattedHoures}:${formattedMinutes}`}</Box>
   );
 };
 

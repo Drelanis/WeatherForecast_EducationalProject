@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -8,9 +8,22 @@ interface ISearchProps {
   data: ICity[];
   onChangeInput: React.Dispatch<React.SetStateAction<string>>;
   onChangeValue: React.Dispatch<React.SetStateAction<ICity | null>>;
+  cityName: string;
 }
 
-const Search: FC<ISearchProps> = ({ data, onChangeInput, onChangeValue }) => {
+const Search: FC<ISearchProps> = ({
+  data,
+  onChangeInput,
+  onChangeValue,
+  cityName,
+}) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <Autocomplete
       disablePortal
@@ -25,13 +38,19 @@ const Search: FC<ISearchProps> = ({ data, onChangeInput, onChangeValue }) => {
           {`${option.name}, ${option.country}`}
         </Box>
       )}
-      renderInput={(params) => (
-        <TextField
-          onChange={(event) => onChangeInput(event.target.value)}
-          {...params}
-          label="Search city"
-        />
-      )}
+      renderInput={(params) => {
+        return (
+          <TextField
+            value={cityName}
+            inputRef={inputRef}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              onChangeInput(event.target.value)
+            }
+            {...params}
+            label="Search city"
+          />
+        );
+      }}
     />
   );
 };

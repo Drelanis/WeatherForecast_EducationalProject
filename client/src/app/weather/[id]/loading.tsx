@@ -1,8 +1,15 @@
 'use client';
 import PageLoader from '@common/PageLoader';
-import React from 'react';
+import { useLoader } from '@hooks/useLoader';
+import React, { useEffect } from 'react';
 
 const Loading = () => {
+  const { hideLoader } = useLoader();
+
+  useEffect(() => {
+    hideLoader();
+  }, []);
+
   return <PageLoader />;
 };
 
