@@ -7,7 +7,11 @@ export interface IMainWeather {
 
 export interface IForecastWeather {
   dt_txt: string;
+  dt: number;
+  visibility: number;
   main: IMainWeather;
+  wind: IWindDescription;
+  weather: IWeatehrDescription;
 }
 
 export interface IForecastResponse {
@@ -25,13 +29,15 @@ export interface IWeatehrDescription {
   main: string;
 }
 
+export interface IWindDescription {
+  deg: number;
+  gust: number;
+  speed: number;
+}
+
 export interface ICurrentWeatherInfo {
   timezone: number;
-  wind: {
-    deg: number;
-    gust: number;
-    speed: number;
-  };
+  wind: IWindDescription;
   weather: IWeatehrDescription[];
   main: IMainWeather;
 }
@@ -81,4 +87,8 @@ export interface IInputProps {
   value: string;
   handleChange: (e: React.ChangeEvent<any>) => void;
   error: string | undefined;
+}
+
+export interface IDaysOfForecastWeather {
+  [key: string]: IForecastWeather[];
 }
