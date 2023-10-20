@@ -3,10 +3,14 @@ import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { LOGOUT } from '@apolloGraphQL/mutation/logout';
 import { AuthContext } from '@context';
+import { useRouter } from 'next/navigation';
+import useHandlePageRedirect from './useHandlePageRedirect';
 
 const useLogout = () => {
   const [logout] = useMutation(LOGOUT);
   const { setAuth } = useContext(AuthContext);
+  const { handlePageRedirect } = useHandlePageRedirect();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -17,6 +21,8 @@ const useLogout = () => {
         },
         { pending: 'Logout ...' }
       );
+      handlePageRedirect('/login');
+      router.refresh();
       setAuth(false);
       toast.success('User is logged out');
     } catch (error: any) {
