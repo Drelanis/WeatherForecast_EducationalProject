@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { ICity } from '@lib/intarfaces';
-import WeatherIcon from './components/WeatherIcon/WeatherIcon';
+import WeatherIcon from '../../../../../../../../common/WeatherIcon/WeatherIcon';
 import CityName from './components/CityName';
-import WeatherDescription from './components/WeatherDescription';
-import Temperature from './components/Temperature';
-import Humidity from './components/Humidity';
-import Wind from './components/Wind/Wind';
+import WeatherDescription from '../../../../../../../../common/WeatherDescription';
+import Temperature from '../../../../../../../../common/Temperature';
+import Humidity from '../../../../../../../../common/Humidity';
+import Wind from '../../../../../../../../common/Wind/Wind';
 import UpdatedAt from './components/UpdatedAt';
 import LiveTimeClock from 'src/app/weather/common/LiveTimeClock';
 import useCurrentWeather from 'src/app/weather/components/CityCard/components/UserCities/components/Card/components/WeatherInfo/hooks/useCurrentWeather';
