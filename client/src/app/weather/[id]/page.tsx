@@ -2,6 +2,7 @@
 import { FC, useContext, useEffect } from 'react';
 import useGetForecastWeather from '@hooks/useGetForecastWeather';
 import { PageLoadingContext } from '@context';
+import { Box } from '@mui/material';
 
 interface IWeatherForecastProps {
   params: {
@@ -16,12 +17,8 @@ const WeatherForecast: FC<IWeatherForecastProps> = ({ params }) => {
   useEffect(() => {
     hideLoader();
   }, []);
-  console.log(forecastWeather);
-  return (
-    <>
-      <span>{forecastWeather && forecastWeather.city.name}</span>
-    </>
-  );
+
+  return <Box></Box>;
 };
 
 export default WeatherForecast;
