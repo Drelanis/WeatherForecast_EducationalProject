@@ -8,7 +8,7 @@ interface IWeatherDescriptionProps {
 
 const Humidity: FC<IWeatherDescriptionProps> = ({ humidity }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', marginRight: 'auto' }}>
       <WaterDropIcon />
       <Box>{humidity} %</Box>
     </Box>

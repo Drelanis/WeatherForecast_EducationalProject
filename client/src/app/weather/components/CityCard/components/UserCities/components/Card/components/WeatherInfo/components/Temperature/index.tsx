@@ -9,7 +9,7 @@ interface ITemperatureProps {
 
 const Temperature: FC<ITemperatureProps> = ({ temp, feelsLike }) => {
   return (
-    <Box sx={{ display: 'flex', marginTop: '10px' }}>
+    <Box sx={{ display: 'flex', marginTop: '10px', marginRight: 'auto' }}>
       <DeviceThermostatIcon />
       <Box>
         {temp}℃ {`(${feelsLike}℃)`}

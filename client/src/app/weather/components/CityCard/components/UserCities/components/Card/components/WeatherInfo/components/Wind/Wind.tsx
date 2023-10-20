@@ -8,7 +8,7 @@ interface IWindProps {
 
 const Wind: FC<IWindProps> = ({ speed }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', marginRight: 'auto' }}>
       <AirIcon />
       <Box>{speed} m/s</Box>
     </Box>

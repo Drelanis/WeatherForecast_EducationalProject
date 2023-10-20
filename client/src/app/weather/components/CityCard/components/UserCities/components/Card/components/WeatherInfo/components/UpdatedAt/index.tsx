@@ -9,7 +9,7 @@ interface IUpdatedAtProps {
 
 const UpdatedAt: FC<IUpdatedAtProps> = ({ updatedAt }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', marginRight: 'auto' }}>
       <UpdateIcon />
       <Box>{handleDataTime(updatedAt)}</Box>
     </Box>
