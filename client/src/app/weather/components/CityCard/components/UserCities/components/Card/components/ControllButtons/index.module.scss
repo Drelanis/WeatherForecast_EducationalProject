@@ -1,0 +1,19 @@
+.button {
+  display: flex;
+  margin: auto;
+  width: 200px;
+  background-color: rgb(246, 74, 74, 0.9);
+  color: rgb(255, 255, 255, 0.9);
+  border-color: rgb(255, 255, 255, 0.9);
+  .icon {
+  }
+}
+
+.button:hover {
+  color: rgb(0, 0, 0, 0.9);
+  border-color: rgb(0, 0, 0, 0.9);
+}
+
+.button:disabled {
+  background-color: rgb(166, 166, 166);
+}

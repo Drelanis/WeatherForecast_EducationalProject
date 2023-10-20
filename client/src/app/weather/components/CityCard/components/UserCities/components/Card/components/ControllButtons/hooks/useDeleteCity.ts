@@ -4,11 +4,13 @@ import { toast } from 'react-toastify';
 
 const useDeleteCity = () => {
   const [deleteCity] = useMutation(DELETE_CITY);
+
   const handleDeleteCity = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.stopPropagation();
     const buttonElement = event.currentTarget as HTMLButtonElement;
+    buttonElement.setAttribute('disabled', 'true');
     const userId = localStorage.getItem('userID');
     const cityId = Number(buttonElement.getAttribute('data-city-id'));
     await toast.promise(
@@ -24,6 +26,7 @@ const useDeleteCity = () => {
         error: 'Error deleting city',
       }
     );
+    buttonElement.removeAttribute('disabled');
   };
 
   return { handleDeleteCity };
