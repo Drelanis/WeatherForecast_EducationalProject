@@ -25,6 +25,7 @@ const CitiesSearch = () => {
       />
       {loading && cityName && <CircularProgress className={styles.loader} />}
       <Button
+        disabled={cityData === null}
         onClick={() => addNewCity()}
         className={styles.add}
         variant="contained"
