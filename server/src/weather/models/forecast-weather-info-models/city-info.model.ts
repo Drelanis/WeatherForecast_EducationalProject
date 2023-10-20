@@ -5,6 +5,8 @@ export class CityInfo {
   @Field()
   sunset: number;
   @Field()
+  name: string;
+  @Field()
   country: string;
   @Field()
   sunrise: number;

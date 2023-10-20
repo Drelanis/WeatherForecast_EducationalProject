@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const MAIN_FORECAST_WEATHER_FRAGMENT = gql`
   fragment ForecastWeatherInfo on ForecastWeatherInfo {
     city {
+      name
       sunset
       country
       sunrise
@@ -10,6 +11,7 @@ export const MAIN_FORECAST_WEATHER_FRAGMENT = gql`
       population
     }
     list {
+      dt
       main {
         temp
         humidity

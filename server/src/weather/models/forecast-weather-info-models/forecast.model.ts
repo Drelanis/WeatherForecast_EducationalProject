@@ -11,12 +11,15 @@ export class ForecastModel {
   @Field()
   wind: WindInfo;
 
-  @Field()
-  weather: WeatherDescription;
+  @Field(() => [WeatherDescription])
+  weather: [WeatherDescription];
 
   @Field()
   visibility: number;
 
-  @Field({ nullable: true })
+  @Field()
+  dt: number;
+
+  @Field()
   dt_txt: string;
 }
