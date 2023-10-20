@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button } from '@mui/material';
 import EmailInput from '@common/Inputes/EmailInput/EmailInput';
 import FirstNameInput from '@common/Inputes/FirstNameInput/FirstNameInput';
@@ -7,11 +7,11 @@ import LastNameInput from '@common/Inputes/LastNameInput/LastNameInput';
 import PasswordInput from '@common/Inputes/PasswordInput/PasswordInput';
 import RepeatPasswordInput from '@common/Inputes/RepeatPasswordInput/RepeatPasswordInput';
 import useRegistration from '@hooks/useRegistration';
-import { useLoader } from '@hooks/useLoader';
+import { PageLoadingContext } from '@context';
 
 const Registration = () => {
   const { formik } = useRegistration();
-  const { hideLoader } = useLoader();
+  const { hideLoader } = useContext(PageLoadingContext);
 
   useEffect(() => {
     hideLoader();

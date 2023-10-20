@@ -1,9 +1,9 @@
 'use client';
-import { useLoader } from '@hooks/useLoader';
-import { useEffect } from 'react';
+import { PageLoadingContext } from '@context';
+import { useContext, useEffect } from 'react';
 
 export default function Home() {
-  const { hideLoader } = useLoader();
+  const { hideLoader } = useContext(PageLoadingContext);
 
   useEffect(() => {
     hideLoader();

@@ -1,16 +1,23 @@
-import { Box, CircularProgress } from '@mui/material';
-import React from 'react';
+import { PageLoadingContext } from '@context';
+import { Backdrop, CircularProgress } from '@mui/material';
+import React, { useContext } from 'react';
 
 const PageLoader = () => {
+  const { isLoading } = useContext(PageLoadingContext);
+  if (!isLoading) {
+    return null;
+  }
   return (
-    <Box
+    <Backdrop
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
+        position: 'absolute',
+        color: '#fff',
+        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
+      open={isLoading}
     >
-      <CircularProgress style={{ height: '200px', width: '200px' }} />
-    </Box>
+      <CircularProgress color="inherit" />
+    </Backdrop>
   );
 };
 

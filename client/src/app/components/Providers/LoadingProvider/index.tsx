@@ -1,29 +1,24 @@
-import { LoaderContext } from '@context';
+import { PageLoadingContext } from '@context';
 import { FC, useState } from 'react';
-import { Id, toast } from 'react-toastify';
 
 interface ILoaderProvider {
   children: React.ReactNode;
 }
 
 export const LoaderProvider: FC<ILoaderProvider> = ({ children }) => {
-  const [loadingId, setLoadingId] = useState<Id | null>(null);
+  const [isLoading, setLoading] = useState(false);
 
   const showLoader = () => {
-    const id = toast.loading('Loading page ...');
-    setLoadingId(id);
+    setLoading(true);
   };
 
   const hideLoader = () => {
-    if (loadingId !== null) {
-      toast.dismiss(loadingId);
-      setLoadingId(null);
-    }
+    setLoading(false);
   };
 
   return (
-    <LoaderContext.Provider value={{ showLoader, hideLoader }}>
+    <PageLoadingContext.Provider value={{ showLoader, hideLoader, isLoading }}>
       {children}
-    </LoaderContext.Provider>
+    </PageLoadingContext.Provider>
   );
 };

@@ -2,13 +2,13 @@
 import EmailInput from '@common/Inputes/EmailInput/EmailInput';
 import PasswordInput from '@common/Inputes/PasswordInput/PasswordInput';
 import { Button } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useLogin from '@hooks/useLogin';
-import { useLoader } from '@hooks/useLoader';
+import { PageLoadingContext } from '@context';
 
 const Login = () => {
   const { formik } = useLogin();
-  const { hideLoader } = useLoader();
+  const { hideLoader } = useContext(PageLoadingContext);
 
   useEffect(() => {
     hideLoader();

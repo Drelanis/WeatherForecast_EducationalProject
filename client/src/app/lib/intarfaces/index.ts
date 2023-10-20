@@ -1,8 +1,3 @@
-export interface ILoaderContext {
-  showLoader: () => void;
-  hideLoader: () => void;
-}
-
 export interface IMainWeather {
   temp: number;
   feels_like: number;

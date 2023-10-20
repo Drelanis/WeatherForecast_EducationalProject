@@ -4,10 +4,10 @@ import { useLoader } from '@hooks/useLoader';
 import React, { useEffect } from 'react';
 
 const Loading = () => {
-  const { hideLoader } = useLoader();
+  // const { hideLoader } = useLoader();
 
   useEffect(() => {
-    hideLoader();
+    // hideLoader();
   }, []);
 
   return <PageLoader />;

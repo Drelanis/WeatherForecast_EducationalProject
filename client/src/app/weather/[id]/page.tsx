@@ -1,8 +1,8 @@
 'use client';
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import ForecastTable from './components/ForecastTable';
 import useGetForecastWeather from '@hooks/useGetForecastWeather';
-import { useLoader } from '@hooks/useLoader';
+import { PageLoadingContext } from '@context';
 
 interface IWeatherForecastProps {
   params: {
@@ -12,7 +12,7 @@ interface IWeatherForecastProps {
 
 const WeatherForecast: FC<IWeatherForecastProps> = ({ params }) => {
   const { loading, forecastWeather } = useGetForecastWeather(params);
-  const { hideLoader } = useLoader();
+  const { hideLoader } = useContext(PageLoadingContext);
 
   useEffect(() => {
     hideLoader();

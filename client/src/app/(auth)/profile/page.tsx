@@ -1,15 +1,16 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useProfile from '@hooks/useProfile';
 import { Box } from '@mui/material';
 import ProfileSkeleton from './common/ProfileSkeleton';
 import UserProfile from './components/UserProfile';
 import UserDetails from './components/UserDetails';
-import { useLoader } from '@hooks/useLoader';
+import { PageLoadingContext } from '@context';
 
 const Profile = () => {
   const { data, loading } = useProfile();
-  const { hideLoader } = useLoader();
+  const { hideLoader } = useContext(PageLoadingContext);
+
   useEffect(() => {
     hideLoader();
   }, []);

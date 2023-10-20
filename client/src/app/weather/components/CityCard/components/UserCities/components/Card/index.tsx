@@ -1,5 +1,5 @@
 import { ICity } from '@lib/intarfaces';
-import { Button } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { FC } from 'react';
 import WeatherInfo from './components/WeatherInfo';
 import styles from './index.module.scss';
@@ -14,14 +14,13 @@ const Card: FC<ICardProps> = ({ data }) => {
   const { handlePageRedirect } = useHandlePageRedirect();
 
   return (
-    <Button
-      disabled={false}
+    <Box
       onClick={() => handlePageRedirect(`/weather/${data.id}`)}
       className={styles.card}
     >
       <WeatherInfo data={data} />
       <ControllButtons info={data} />
-    </Button>
+    </Box>
   );
 };
 

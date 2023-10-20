@@ -1,10 +1,11 @@
+import { PageLoadingContext } from '@context';
 import { usePathname, useRouter } from 'next/navigation';
-import { useLoader } from './useLoader';
+import { useContext } from 'react';
 
 const useHandlePageRedirect = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { showLoader } = useLoader();
+  const { showLoader } = useContext(PageLoadingContext);
   const handlePageRedirect = (path: string) => {
     if (pathname === path) {
       return;
