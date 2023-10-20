@@ -3,26 +3,32 @@ import React from 'react';
 
 const ProfileSkeleton = () => {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <>
       <Skeleton
         sx={{
+          position: 'absolute',
+          top: '-80px',
+          left: '264px',
           width: '300px',
-          height: '350px',
-          borderRadius: '40px',
+          height: '580px',
+          borderRadius: '50px',
           marginRight: '40px',
           backgroundColor: 'rgb(121, 165, 255, 0.7)',
         }}
       />
       <Skeleton
         sx={{
+          position: 'absolute',
+          top: '-80px',
+          left: '604px',
           width: '450px',
-          height: '350px',
-          borderRadius: '40px',
+          height: '580px',
+          borderRadius: '50px',
           marginRight: '40px',
           backgroundColor: 'rgb(121, 165, 255, 0.7)',
         }}
       />
-    </Box>
+    </>
   );
 };
 
