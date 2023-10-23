@@ -18,6 +18,10 @@ const WeatherForecast: FC<IWeatherForecastProps> = ({ params }) => {
     hideLoader();
   }, []);
 
+  if (!forecastWeather) {
+    return null;
+  }
+
   return <WeatherForecastAccordion data={forecastWeather} />;
 };
 

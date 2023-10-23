@@ -1,9 +1,9 @@
-import { Accordion, AccordionSummary, Typography } from '@mui/material';
+import { Accordion } from '@mui/material';
 import React, { FC } from 'react';
 import { IForecastResponse } from '@lib/intarfaces';
-import DailyAccordion from './components/DailyAccordion';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import getDays from '@lib/helpers/getDays';
+import AccordionForecastSummary from './components/AccordionForecastSummary';
+import AccrodionForecastDetails from './components/AccrodionForecastDetails';
 
 interface IWeatherForecastAccordionProps {
   data: IForecastResponse | null;
@@ -14,19 +14,12 @@ const WeatherForecastAccordion: FC<IWeatherForecastAccordionProps> = ({
 }) => {
   return (
     <>
-      {Object.entries(getDays(data?.list)).map((daysForecast, index) => {
-        return (
-          <Accordion key={index}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>{daysForecast[0]}</Typography>
-            </AccordionSummary>
-          </Accordion>
-        );
-      })}
+      {Object.entries(getDays(data?.list)).map((dayForecast, index) => (
+        <Accordion key={index}>
+          <AccordionForecastSummary weather={dayForecast} />
+          <AccrodionForecastDetails data={dayForecast[1]} />
+        </Accordion>
+      ))}
     </>
   );
 };

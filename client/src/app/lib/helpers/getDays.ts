@@ -15,7 +15,16 @@ const getDays = (forecastList: IForecastWeather[] = []) => {
     prevDay = nameOfTheDay;
     daysOfForecastWeather[nameOfTheDay] = [];
   });
-  return daysOfForecastWeather;
+  const firstDayOfWeek = Object.keys(daysOfForecastWeather)[0];
+  const renamedDaysOfForecast: {
+    [key: string]: IForecastWeather[];
+  } = {
+    Today: daysOfForecastWeather[firstDayOfWeek],
+    ...daysOfForecastWeather,
+  };
+  const { [firstDayOfWeek]: deletedDay, ...resultObject } =
+    renamedDaysOfForecast;
+  return resultObject || [];
 };
 
 export default getDays;

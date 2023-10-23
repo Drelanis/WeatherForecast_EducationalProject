@@ -25,7 +25,7 @@ const WeatherInfo: FC<IWeatherInfoProps> = ({ data }) => {
 
   return (
     <>
-      <WeatherIcon weatherInfo={weatherInfo} />
+      <WeatherIcon weatherInfo={weatherInfo.weather} />
       <CityName info={data} />
       <WeatherDescription
         mainDescription={weatherInfo.weather[0].main}

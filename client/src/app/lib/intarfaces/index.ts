@@ -11,7 +11,7 @@ export interface IForecastWeather {
   visibility: number;
   main: IMainWeather;
   wind: IWindDescription;
-  weather: IWeatehrDescription;
+  weather: IWeatehrDescription[];
 }
 
 export interface IForecastResponse {
