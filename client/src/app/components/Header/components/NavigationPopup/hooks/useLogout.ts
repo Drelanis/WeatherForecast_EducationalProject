@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { LOGOUT } from '@apolloGraphQL/mutation/logout';
 import { AuthContext } from '@context';
 import { useRouter } from 'next/navigation';
-import useHandlePageRedirect from './useHandlePageRedirect';
+import useHandlePageRedirect from '../../../../../hooks/useHandlePageRedirect';
 
 const useLogout = () => {
   const [logout] = useMutation(LOGOUT);

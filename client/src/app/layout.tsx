@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { MONTSERRAT_400 } from 'src/app/styles/fonts';
 import './global.scss';
 import { Providers } from '@components/Providers';
-import App from '@components/App/App';
+import App from '@components/App';
 
 export const metadata: Metadata = {
   title: 'Weather Forecast',

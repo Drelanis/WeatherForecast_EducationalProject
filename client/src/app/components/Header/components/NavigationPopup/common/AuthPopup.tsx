@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import useLogout from '@hooks/useLogout';
+import useLogout from '@components/Header/components/NavigationPopup/hooks/useLogout';
 import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
 
 const AuthPopup = () => {
