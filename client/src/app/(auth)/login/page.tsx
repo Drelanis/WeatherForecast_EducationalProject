@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import useLogin from 'src/app/(auth)/login/hooks/useLogin';
 import { PageLoadingContext } from '@context';
+import styles from './index.module.scss';
 
 const Login = () => {
   const { formik } = useLogin();
@@ -16,7 +17,7 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit} className="form">
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
         LOGIN
         <EmailInput
           value={formik.values.email}

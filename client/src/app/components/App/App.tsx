@@ -1,7 +1,6 @@
 'use client';
-import Footer from '@components/Footer/Footer';
-import { Header } from '@components/Header/Header';
-import Main from '@components/Main/Main';
+import { Header } from '@components/Header';
+import Main from '@components/Main';
 import { AuthContext } from '@context';
 import useRefresh from '@hooks/useRefresh';
 import React, { useContext, useEffect } from 'react';
@@ -20,7 +19,6 @@ const App = ({ children }: { children: React.ReactNode }) => {
     <>
       <Header />
       <Main>{children}</Main>
-      <Footer />
     </>
   );
 };
