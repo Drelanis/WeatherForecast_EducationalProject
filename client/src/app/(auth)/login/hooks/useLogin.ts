@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '@apolloGraphQL/mutation/login';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from '@context';
+import { AuthContext } from 'src/app/context';
 import { ILoginValues } from '@lib/intarfaces';
 
 const useLogin = () => {
@@ -38,7 +38,7 @@ const useLogin = () => {
             });
             localStorage.setItem('userID', data.login.userId);
             setAuth(true);
-            router.push('/profile');
+            router.push('/weather');
           },
           { pending: 'Login ...' }
         );

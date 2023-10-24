@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
-import { AuthContext } from '@context';
+import { AuthContext } from 'src/app/context';
 import { REFRESH } from '@apolloGraphQL/mutation/refreshTokens';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';

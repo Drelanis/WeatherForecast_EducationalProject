@@ -1,13 +1,12 @@
 'use client';
 import React, { useContext, useEffect } from 'react';
-import useProfile from 'src/app/(auth)/profile/hooks/useProfile';
 import { Box } from '@mui/material';
-import ProfileSkeleton from './common/ProfileSkeleton';
 import UserProfile from './components/UserProfile';
 import UserDetails from './components/UserDetails';
-import { PageLoadingContext } from '@context';
+import { PageLoadingContext } from 'src/app/context';
 import styles from './index.module.scss';
 import Loader from '@common/Loader';
+import useProfile from '@hooks/useProfile';
 
 const Profile = () => {
   const { data, loading } = useProfile();

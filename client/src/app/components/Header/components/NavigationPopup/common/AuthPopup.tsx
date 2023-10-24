@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import useLogout from '@components/Header/components/NavigationPopup/hooks/useLogout';
 import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
+import { ListItemIcon, ListItemText } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const AuthPopup = () => {
   const { handlePageRedirect } = useHandlePageRedirect();
@@ -17,9 +20,17 @@ const AuthPopup = () => {
   return (
     <>
       <MenuItem href="/profile" onClick={() => handleTransition('/profile')}>
-        Profile
+        <ListItemIcon>
+          <AccountCircleIcon fontSize="medium" />
+        </ListItemIcon>
+        <ListItemText>Profile</ListItemText>
       </MenuItem>
-      <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+      <MenuItem onClick={() => handleLogout()}>
+        <ListItemIcon>
+          <LogoutIcon fontSize="medium" />
+        </ListItemIcon>
+        <ListItemText>Logout</ListItemText>
+      </MenuItem>
     </>
   );
 };

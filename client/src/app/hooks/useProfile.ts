@@ -7,7 +7,7 @@ const useProfile = () => {
   const { data, loading, error } = useQuery<IUserProfile | undefined>(
     GET_USER_PROFILE,
     {
-      variables: { identifier: getUserId() },
+      variables: { identifier: getUserId() || '' },
     }
   );
 

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { LOGOUT } from '@apolloGraphQL/mutation/logout';
-import { AuthContext } from '@context';
+import { AuthContext } from 'src/app/context';
 import { useRouter } from 'next/navigation';
 import useHandlePageRedirect from '../../../../../hooks/useHandlePageRedirect';
 

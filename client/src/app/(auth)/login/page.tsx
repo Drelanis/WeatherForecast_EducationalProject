@@ -4,7 +4,7 @@ import PasswordInput from '@common/Inputes/PasswordInput';
 import { Button } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import useLogin from 'src/app/(auth)/login/hooks/useLogin';
-import { PageLoadingContext } from '@context';
+import { PageLoadingContext } from 'src/app/context';
 import styles from './index.module.scss';
 
 const Login = () => {

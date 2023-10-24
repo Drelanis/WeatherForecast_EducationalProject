@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import NavigationMenu from './components/NavigationMenu/NavigationMenu';
-import styles from './index.module.scss';
+import NavigationMenu from './components/NavigationMenu';
 
 export const Header = () => {
-  return <NavigationMenu className={styles.header} />;
+  return <NavigationMenu />;
 };

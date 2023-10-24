@@ -12,8 +12,14 @@ const WeatherDescription: FC<IWeatherDescriptionProps> = ({
 }) => {
   return (
     <Box
-      sx={{ margin: '0 auto' }}
-    >{`${mainDescription} (${extraDescription})`}</Box>
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Box sx={{ margin: 'auto' }}>{`${mainDescription}`}</Box>
+      <Box sx={{ margin: 'auto' }}>{`(${extraDescription})`}</Box>
+    </Box>
   );
 };
 

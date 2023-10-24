@@ -2,7 +2,7 @@
 import React, { FC, useState } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import client from '@apolloGraphQL/apolloClient';
-import { AuthContext } from '@context';
+import { AuthContext } from 'src/app/context';
 import { LoaderProvider } from './LoadingProvider';
 
 interface IProvidersProps {
