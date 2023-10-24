@@ -12,6 +12,10 @@ interface IWeatherForecastAccordionProps {
 const WeatherForecastAccordion: FC<IWeatherForecastAccordionProps> = ({
   data,
 }) => {
+  if (!data) {
+    return null;
+  }
+
   return (
     <>
       {Object.entries(getDays(data?.list)).map((dayForecast, index) => (

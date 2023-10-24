@@ -14,7 +14,6 @@ interface IForecastWeatherCardProps {
 }
 
 const ForecastWeatherCard: FC<IForecastWeatherCardProps> = ({ data }) => {
-  console.log(data);
   return (
     <Box className={styles.card}>
       <WeatherIcon weatherInfo={data.weather} />

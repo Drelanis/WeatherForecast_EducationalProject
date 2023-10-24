@@ -1,8 +1,10 @@
 'use client';
 import { FC, useContext, useEffect } from 'react';
-import useGetForecastWeather from '@hooks/useGetForecastWeather';
+import useGetForecastWeather from 'src/app/weather/[id]/hooks/useGetForecastWeather';
 import { PageLoadingContext } from '@context';
 import WeatherForecastAccordion from './components/Weather Forecast';
+import { Box, CircularProgress } from '@mui/material';
+import Loader from '@common/Loader';
 
 interface IWeatherForecastProps {
   params: {
@@ -18,8 +20,8 @@ const WeatherForecast: FC<IWeatherForecastProps> = ({ params }) => {
     hideLoader();
   }, []);
 
-  if (!forecastWeather) {
-    return null;
+  if (loading) {
+    return <Loader />;
   }
 
   return <WeatherForecastAccordion data={forecastWeather} />;
