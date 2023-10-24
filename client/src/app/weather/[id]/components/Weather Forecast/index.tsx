@@ -18,12 +18,17 @@ const WeatherForecastAccordion: FC<IWeatherForecastAccordionProps> = ({
 
   return (
     <>
-      {Object.entries(getDays(data?.list)).map((dayForecast, index) => (
-        <Accordion key={index}>
-          <AccordionForecastSummary weather={dayForecast} />
-          <AccrodionForecastDetails data={dayForecast[1]} />
-        </Accordion>
-      ))}
+      {Object.entries(getDays(data?.list)).map((dayForecast, index) => {
+        if (dayForecast[1].length === 0) {
+          return null;
+        }
+        return (
+          <Accordion key={index}>
+            <AccordionForecastSummary weather={dayForecast} />
+            <AccrodionForecastDetails data={dayForecast[1]} />
+          </Accordion>
+        );
+      })}
     </>
   );
 };

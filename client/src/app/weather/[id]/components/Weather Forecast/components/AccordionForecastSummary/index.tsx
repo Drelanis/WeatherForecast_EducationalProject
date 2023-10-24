@@ -17,7 +17,7 @@ const AccordionForecastSummary: FC<IAccordionForecastSummaryProps> = ({
       id="panel1a-header"
     >
       <Typography>{`${weather[0]}, ${
-        weather[1][0]?.dt_txt?.split(' ')[0] || ''
+        weather[1][0]?.dt_txt?.split(' ')[0]
       }`}</Typography>
     </AccordionSummary>
   );
