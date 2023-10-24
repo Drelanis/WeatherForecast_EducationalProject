@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
 import React, { FC, InputHTMLAttributes } from 'react';
+import styles from './index.module.scss';
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -17,7 +18,7 @@ const Input: FC<IInputProps> = ({
 }: any) => {
   return (
     <TextField
-      className="form__item_input"
+      className={styles.input}
       required
       id={id}
       label="Required"

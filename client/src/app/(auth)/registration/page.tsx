@@ -1,13 +1,14 @@
 'use client';
 import React, { useContext, useEffect } from 'react';
 import { Button } from '@mui/material';
-import EmailInput from '@common/Inputes/EmailInput/EmailInput';
-import FirstNameInput from '@common/Inputes/FirstNameInput/FirstNameInput';
-import LastNameInput from '@common/Inputes/LastNameInput/LastNameInput';
-import PasswordInput from '@common/Inputes/PasswordInput/PasswordInput';
-import RepeatPasswordInput from '@common/Inputes/RepeatPasswordInput/RepeatPasswordInput';
-import useRegistration from '@hooks/useRegistration';
+import EmailInput from '@common/Inputes/EmailInput';
+import FirstNameInput from '@common/Inputes/FirstNameInput';
+import LastNameInput from '@common/Inputes/LastNameInput';
+import PasswordInput from '@common/Inputes/PasswordInput';
+import RepeatPasswordInput from '@common/Inputes/RepeatPasswordInput';
+import useRegistration from 'src/app/(auth)/registration/hooks/useRegistration';
 import { PageLoadingContext } from '@context';
+import styles from './index.module.scss';
 
 const Registration = () => {
   const { formik } = useRegistration();
@@ -19,7 +20,7 @@ const Registration = () => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit} className="form">
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
         REGISTRATION
         <FirstNameInput
           value={formik.values.firstName}

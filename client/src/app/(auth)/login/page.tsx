@@ -1,9 +1,9 @@
 'use client';
-import EmailInput from '@common/Inputes/EmailInput/EmailInput';
-import PasswordInput from '@common/Inputes/PasswordInput/PasswordInput';
+import EmailInput from '@common/Inputes/EmailInput';
+import PasswordInput from '@common/Inputes/PasswordInput';
 import { Button } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
-import useLogin from '@hooks/useLogin';
+import useLogin from 'src/app/(auth)/login/hooks/useLogin';
 import { PageLoadingContext } from '@context';
 
 const Login = () => {
