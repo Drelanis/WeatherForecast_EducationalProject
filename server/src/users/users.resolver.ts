@@ -19,16 +19,6 @@ import pubSub from '@common/helpers/pub-sub.helper';
 export class UsersResolver {
   constructor(private readonly userService: UsersService) {}
 
-  @Public()
-  @Subscription(() => UserCities, {
-    filter: (payload, variables) => {
-      return payload.citiesUpdated.id === variables.identifier;
-    },
-  })
-  citiesUpdated(@Args('identifier') identifier: string) {
-    return pubSub.asyncIterator(`citiesUpdated_${identifier}`);
-  }
-
   @Query(() => UserProfile)
   async getUser(@Args('identifier') identifier: string) {
     const user = await this.userService.findOne(identifier);
@@ -53,6 +43,16 @@ export class UsersResolver {
     const user = await this.userService.deleteCity(dto);
     pubSub.publish(`citiesUpdated_${user.id}`, { citiesUpdated: user });
     return user;
+  }
+
+  @Public()
+  @Subscription(() => UserCities, {
+    filter: (payload, variables) => {
+      return payload.citiesUpdated.id === variables.identifier;
+    },
+  })
+  citiesUpdated(@Args('identifier') identifier: string) {
+    return pubSub.asyncIterator(`citiesUpdated_${identifier}`);
   }
 
   @ResolveField()
