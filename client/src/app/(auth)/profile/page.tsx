@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Box } from '@mui/material';
 import UserProfile from './components/UserProfile';
 import UserDetails from './components/UserDetails';
-import { PageLoadingContext } from 'src/app/context';
+import { PageLoadingContext } from '@context';
 import styles from './index.module.scss';
 import Loader from '@common/Loader';
 import useProfile from '@hooks/useProfile';

@@ -1,7 +1,7 @@
 'use client';
 import { Header } from '@components/Header';
 import Main from '@components/Main';
-import { AuthContext } from 'src/app/context';
+import { AuthContext } from '@context';
 import useRefresh from '@hooks/useRefresh';
 import React, { useContext, useEffect } from 'react';
 

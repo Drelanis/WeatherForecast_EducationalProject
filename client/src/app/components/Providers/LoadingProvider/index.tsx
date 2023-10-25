@@ -1,4 +1,4 @@
-import { PageLoadingContext } from 'src/app/context';
+import { PageLoadingContext } from '@context';
 import { FC, useState } from 'react';
 
 interface ILoaderProvider {

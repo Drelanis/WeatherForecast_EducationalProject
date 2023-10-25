@@ -1,4 +1,4 @@
-import { PageLoadingContext } from 'src/app/context';
+import { PageLoadingContext } from '@context';
 import { usePathname, useRouter } from 'next/navigation';
 import { useContext } from 'react';
 

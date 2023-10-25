@@ -17,3 +17,8 @@ export const PageLoadingContext = createContext<{
   hideLoader: () => {},
   isLoading: false,
 });
+
+export const UserIdContext = createContext<{
+  userId: string;
+  setUserId: Dispatch<SetStateAction<string>>;
+}>({ userId: '', setUserId: () => {} });

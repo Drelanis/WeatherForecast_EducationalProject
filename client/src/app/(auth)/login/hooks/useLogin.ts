@@ -5,13 +5,14 @@ import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '@apolloGraphQL/mutation/login';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from 'src/app/context';
+import { AuthContext, UserIdContext } from '@context';
 import { ILoginValues } from '@lib/intarfaces';
 
 const useLogin = () => {
   const router = useRouter();
   const [login] = useMutation(LOGIN);
   const { setAuth } = useContext(AuthContext);
+  const { setUserId } = useContext(UserIdContext);
 
   const formik = useFormik<ILoginValues>({
     initialValues: {
@@ -36,7 +37,7 @@ const useLogin = () => {
                 password,
               },
             });
-            localStorage.setItem('userID', data.login.userId);
+            setUserId(data.login.userId);
             setAuth(true);
             router.push('/weather');
           },

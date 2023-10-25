@@ -73,13 +73,19 @@ export class TokenService {
     });
   }
 
-  async refreshTokens(refreshToken: string, agent: string): Promise<ITokens> {
+  async refreshTokens(
+    refreshToken: string,
+    agent: string,
+  ): Promise<{
+    userId: string;
+    tokens: ITokens;
+  }> {
     const token = await this.deleteRefreshToken(refreshToken);
     if (!token || new Date(token.exp) < new Date()) {
       throw new UnauthorizedException();
     }
     const user = await this.userService.findOne(token.userId);
     const tokens = await this.generateTokens(user, agent);
-    return tokens;
+    return { userId: token.userId, tokens };
   }
 }

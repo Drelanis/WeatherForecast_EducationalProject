@@ -1,13 +1,15 @@
 import { GET_USER_PROFILE } from '@apolloGraphQL/query/getUserProfile';
 import { useQuery } from '@apollo/client';
-import getUserId from '@lib/helpers/getUserId';
 import { IUserProfile } from '@lib/intarfaces';
+import { useContext } from 'react';
+import { UserIdContext } from '@context';
 
 const useProfile = () => {
+  const { userId } = useContext(UserIdContext);
   const { data, loading, error } = useQuery<IUserProfile | undefined>(
     GET_USER_PROFILE,
     {
-      variables: { identifier: getUserId() || '' },
+      variables: { identifier: userId },
     }
   );
 

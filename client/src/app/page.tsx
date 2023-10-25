@@ -1,5 +1,5 @@
 'use client';
-import { PageLoadingContext } from 'src/app/context';
+import { PageLoadingContext } from '@context';
 import usePrivateUrl from '@hooks/usePrivateUrl';
 import { useContext, useEffect } from 'react';
 
