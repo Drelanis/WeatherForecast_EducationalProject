@@ -23,6 +23,9 @@
     "graphql-request": "^6.1.0",
     "graphql-ws": "^5.14.1",
     "json-graphql-server": "^2.3.2",
+    "luxon": "^3.4.3",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.4",
+    "@types/luxon": "^3.3.3",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

@@ -6,32 +6,24 @@ interface ILiveTimeClockProps {
 }
 
 const LiveTimeClock: FC<ILiveTimeClockProps> = ({ offsetInSeconds }) => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [utcTime, setUtcTime] = useState(new Date().toUTCString());
 
   useEffect(() => {
-    const timerID = setInterval(() => {
-      setCurrentTime(new Date());
+    const intervalId = setInterval(() => {
+      setUtcTime(new Date().toUTCString());
     }, 1000);
 
     return () => {
-      clearInterval(timerID);
+      clearInterval(intervalId);
     };
   }, []);
 
-  const offsetInMillis = (offsetInSeconds - 10800) * 1000;
-  const adjustedTimeInMillis = currentTime.getTime() + offsetInMillis;
-  const adjustedDate = new Date(adjustedTimeInMillis);
-
-  const hours = adjustedDate.getHours();
-  const minutes = adjustedDate.getMinutes();
-
-  const formattedHoures = hours.toString().padStart(2, '0');
-  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const time = utcTime.split(' ')[4].split(':');
+  const hour = Number(time[0]) + offsetInSeconds / 3600;
+  const minute = time[1];
 
   return (
-    <Box
-      sx={{ margin: 'auto', fontSize: '30px' }}
-    >{`${formattedHoures}:${formattedMinutes}`}</Box>
+    <Box sx={{ margin: 'auto', fontSize: '30px' }}>{`${hour}:${minute}`}</Box>
   );
 };
 
