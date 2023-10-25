@@ -7,7 +7,7 @@ import LastNameInput from '@common/Inputes/LastNameInput';
 import PasswordInput from '@common/Inputes/PasswordInput';
 import RepeatPasswordInput from '@common/Inputes/RepeatPasswordInput';
 import useRegistration from 'src/app/(auth)/registration/hooks/useRegistration';
-import { PageLoadingContext } from 'src/app/context';
+import { PageLoadingContext } from '@context';
 import styles from './index.module.scss';
 
 const Registration = () => {

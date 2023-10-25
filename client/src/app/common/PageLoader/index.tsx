@@ -1,4 +1,4 @@
-import { PageLoadingContext } from 'src/app/context';
+import { PageLoadingContext } from '@context';
 import { Backdrop, CircularProgress } from '@mui/material';
 import React, { useContext } from 'react';
 

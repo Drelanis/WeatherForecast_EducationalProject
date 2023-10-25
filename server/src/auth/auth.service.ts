@@ -39,7 +39,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     const tokens = await this.tokenService.refreshTokens(refreshToken, agent);
-    this.setTokensToCookies(tokens, response);
+    this.setTokensToCookies(tokens.tokens, response);
     return tokens;
   }
 

@@ -2,8 +2,9 @@
 import React, { FC, useState } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import client from '@apolloGraphQL/apolloClient';
-import { AuthContext } from 'src/app/context';
+import { AuthContext } from '@context';
 import { LoaderProvider } from './LoadingProvider';
+import UserIdProvider from './UserIdProvider';
 
 interface IProvidersProps {
   children: React.ReactNode;
@@ -15,7 +16,9 @@ export const Providers: FC<IProvidersProps> = ({ children }) => {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={{ isAuth, setAuth }}>
-        <LoaderProvider>{children}</LoaderProvider>
+        <UserIdProvider>
+          <LoaderProvider>{children}</LoaderProvider>
+        </UserIdProvider>
       </AuthContext.Provider>
     </ApolloProvider>
   );

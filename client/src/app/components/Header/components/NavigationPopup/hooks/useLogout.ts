@@ -2,21 +2,22 @@ import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { LOGOUT } from '@apolloGraphQL/mutation/logout';
-import { AuthContext } from 'src/app/context';
+import { AuthContext, UserIdContext } from '@context';
 import { useRouter } from 'next/navigation';
-import useHandlePageRedirect from '../../../../../hooks/useHandlePageRedirect';
+import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
 
 const useLogout = () => {
   const [logout] = useMutation(LOGOUT);
   const { setAuth } = useContext(AuthContext);
   const { handlePageRedirect } = useHandlePageRedirect();
+  const { setUserId } = useContext(UserIdContext);
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await toast.promise(
         async () => {
-          localStorage.removeItem('userID');
+          setUserId('');
           await logout();
         },
         { pending: 'Logout ...' }

@@ -1,6 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { ADD_CITY } from '@apolloGraphQL/mutation/addCity';
+import { UserIdContext } from '@context';
 import { ICity } from '@lib/intarfaces';
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 const useAddCity = (
@@ -9,13 +11,13 @@ const useAddCity = (
   setCityName: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const [addCity] = useMutation(ADD_CITY);
+  const { userId } = useContext(UserIdContext);
 
   const addNewCity = async () => {
     if (!cityData) {
       toast.info('Select a city from the drop-down list');
       return;
     }
-    const userId = localStorage.getItem('userID');
     await toast.promise(
       async () => {
         try {

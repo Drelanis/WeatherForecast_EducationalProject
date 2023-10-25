@@ -1,15 +1,17 @@
 import { useQuery, useSubscription } from '@apollo/client';
 import { FIND_USERS_CITIES } from '@apolloGraphQL/query/findUsersCtites';
 import { CITIES_UPDATED } from '@apolloGraphQL/subscriptions/add-city.subscription';
-import getUserId from '@lib/helpers/getUserId';
+import { UserIdContext } from '@context';
 import { ICity } from '@lib/intarfaces';
+import { useContext } from 'react';
 
 const useFindUsersCities = (): { cities: ICity[]; loading: boolean } => {
+  const { userId } = useContext(UserIdContext);
   const { data, loading } = useQuery(FIND_USERS_CITIES, {
-    variables: { identifier: getUserId() },
+    variables: { identifier: userId },
   });
   const { data: updatedCities } = useSubscription(CITIES_UPDATED, {
-    variables: { identifier: getUserId() },
+    variables: { identifier: userId },
   });
   return {
     loading,

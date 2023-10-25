@@ -2,7 +2,7 @@ import React, { MouseEvent, useContext, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import AuthPopup from './common/AuthPopup';
 import NotAuthPopup from './common/NotAuthPopup';
-import { AuthContext } from 'src/app/context';
+import { AuthContext } from '@context';
 import { Box, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import styles from './index.module.scss';

@@ -53,10 +53,14 @@ export class AuthResolver {
   }
 
   @UseGuards(RefreshTokenGuard)
-  @Mutation(() => Boolean)
+  @Mutation(() => LoginResponse)
   async refreshTokens(@Context() context: { req: Request; res: Response }) {
     const { refreshToken, userAgent } = context.req.user as IRefreshPayLoad;
-    await this.authService.refreshTokens(refreshToken, userAgent, context.res);
-    return true;
+    const { userId } = await this.authService.refreshTokens(
+      refreshToken,
+      userAgent,
+      context.res,
+    );
+    return { userId };
   }
 }
