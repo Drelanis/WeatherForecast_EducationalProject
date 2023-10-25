@@ -5,7 +5,6 @@ import { WeatherApiService } from '@weather/weather-api.service';
 import { PrismaService } from '@prisma/prisma.service';
 import { Weather } from './models/weather.model';
 import { CityService } from '@city/city.service';
-import { differenceInHours, differenceInSeconds } from 'date-fns';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -46,17 +45,5 @@ export class ForecastWeatherService {
     } catch (error) {
       throw new InternalServerErrorException('Error creating forecast weather');
     }
-  }
-
-  shouldUpdate(forecastWeather: ForecastWeather) {
-    const currentDate = new Date();
-    const updatedForecastWeatherDate = forecastWeather.updatedAt;
-    if (
-      differenceInHours(currentDate, updatedForecastWeatherDate) <=
-      Number(this.configService.get('OPEN_WEATHER_UPDATED_TIME'))
-    ) {
-      return false;
-    }
-    return true;
   }
 }

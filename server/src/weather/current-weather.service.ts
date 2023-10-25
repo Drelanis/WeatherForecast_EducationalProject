@@ -4,7 +4,6 @@ import { WeatherApiService } from '@weather/weather-api.service';
 import { PrismaService } from '@prisma/prisma.service';
 import { CurrentWeather } from './models/current-weather.model';
 import { Weather } from './models/weather.model';
-import { differenceInHours, differenceInSeconds } from 'date-fns';
 import { ConfigService } from '@nestjs/config';
 import pubSub from '@common/helpers/pub-sub.helper';
 
@@ -48,17 +47,5 @@ export class CurrentWeatherService {
     } catch (error) {
       throw new InternalServerErrorException('Error creating current weather');
     }
-  }
-
-  shouldUpdate(currentWeather: CurrentWeather) {
-    const currentDate = new Date();
-    const updatedCurrentWeatherDate = currentWeather.updatedAt;
-    if (
-      differenceInHours(currentDate, updatedCurrentWeatherDate) <=
-      Number(this.configService.get('OPEN_WEATHER_UPDATED_TIME'))
-    ) {
-      return false;
-    }
-    return true;
   }
 }

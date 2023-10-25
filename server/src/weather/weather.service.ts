@@ -1,8 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
 import { CityService } from '@city/city.service';
 import { Weather } from './models/weather.model';
@@ -11,6 +7,7 @@ import { City } from '@city/models/city.model';
 import { CurrentWeatherService } from './current-weather.service';
 import { ForecastWeatherService } from './forecast-weather.service';
 import { CurrentWeather } from './models/current-weather.model';
+import shouldWeatherUpdate from '@common/helpers/should-weather-update.helper';
 
 @Injectable()
 export class WeatherService {
@@ -24,7 +21,7 @@ export class WeatherService {
   async getCurrentWeather(cityId: number): Promise<CurrentWeather> {
     const weather = await this.getWeather(cityId);
     const city = await this.cityService.findOne(cityId);
-    if (this.currentWeatherService.shouldUpdate(weather.currentWeather)) {
+    if (shouldWeatherUpdate(weather.currentWeather.updatedAt)) {
       const updatedCurrentWeather = await this.currentWeatherService.update(
         city,
         weather,
@@ -36,7 +33,7 @@ export class WeatherService {
 
   async getForecastWeather(cityId: number): Promise<ForecastWeather> {
     const weather = await this.getWeather(cityId);
-    if (this.forecastWeatherService.shouldUpdate(weather.forecastWeather)) {
+    if (shouldWeatherUpdate(weather.forecastWeather.updatedAt)) {
       const updatedForecastWeather = await this.forecastWeatherService.update(
         cityId,
         weather,
@@ -74,7 +71,7 @@ export class WeatherService {
         await this.forecastWeatherService.create(newWeather.id, city);
         return newWeather;
       }
-      if (this.shouldUpdate(weather)) {
+      if (shouldWeatherUpdate(weather.currentWeather.updatedAt)) {
         const updatedWeather = await this.updateWeather(weather);
         return updatedWeather;
       }
@@ -99,7 +96,7 @@ export class WeatherService {
   private async updateDashboardWeatherOfEachCity(weatherOfEachCity: Weather[]) {
     const updatedWeatherOfEachCity = await Promise.all(
       weatherOfEachCity.map(async (weather) => {
-        if (this.shouldUpdate(weather)) {
+        if (shouldWeatherUpdate(weather.currentWeather.updatedAt)) {
           const updatedWeather = await this.updateWeather(weather);
           return updatedWeather;
         }
@@ -117,12 +114,5 @@ export class WeatherService {
       include: { currentWeather: true },
     });
     return updatedWeather;
-  }
-
-  private shouldUpdate(weather: Weather) {
-    if (this.currentWeatherService.shouldUpdate(weather.currentWeather)) {
-      return true;
-    }
-    return false;
   }
 }
