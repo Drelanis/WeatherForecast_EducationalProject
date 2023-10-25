@@ -19,7 +19,7 @@ export class WeatherService {
   ) {}
 
   async getCurrentWeather(cityId: number): Promise<CurrentWeather> {
-    const weather = await this.getWeather(cityId);
+    const weather = await this.get(cityId);
     const city = await this.cityService.findOne(cityId);
     if (shouldWeatherUpdate(weather.currentWeather.updatedAt)) {
       const updatedCurrentWeather = await this.currentWeatherService.update(
@@ -32,7 +32,7 @@ export class WeatherService {
   }
 
   async getForecastWeather(cityId: number): Promise<ForecastWeather> {
-    const weather = await this.getWeather(cityId);
+    const weather = await this.get(cityId);
     if (shouldWeatherUpdate(weather.forecastWeather.updatedAt)) {
       const updatedForecastWeather = await this.forecastWeatherService.update(
         cityId,
@@ -43,37 +43,16 @@ export class WeatherService {
     return weather.forecastWeather;
   }
 
-  async updateDashboardWeather(cityIds: number[]): Promise<Weather[]> {
-    const weatherOfEachCity = await this.prisma.weather.findMany({
-      where: {
-        cityId: {
-          in: cityIds,
-        },
-      },
-      include: { currentWeather: true },
-    });
-    const updatedWeatherOfEachCity =
-      await this.updateDashboardWeatherOfEachCity(weatherOfEachCity);
-    return updatedWeatherOfEachCity;
-  }
-
-  async createWeather(city: City): Promise<Weather> {
+  async upsert(city: City): Promise<Weather> {
     try {
-      const weather = await this.getWeather(city.id);
+      let weather = await this.get(city.id);
       if (!weather) {
-        const newWeather = await this.prisma.weather.create({
-          data: {
-            cityId: city.id,
-          },
-          include: { currentWeather: true, forecastWeather: true },
-        });
-        await this.currentWeatherService.create(newWeather.id, city);
-        await this.forecastWeatherService.create(newWeather.id, city);
-        return newWeather;
+        weather = await this.create(city);
+        return weather;
       }
       if (shouldWeatherUpdate(weather.currentWeather.updatedAt)) {
-        const updatedWeather = await this.updateWeather(weather);
-        return updatedWeather;
+        weather = await this.update(weather);
+        return weather;
       }
       return weather;
     } catch (error) {
@@ -81,7 +60,19 @@ export class WeatherService {
     }
   }
 
-  private async getWeather(cityId: number): Promise<Weather> {
+  async create(city: City) {
+    const weather = await this.prisma.weather.create({
+      data: {
+        cityId: city.id,
+      },
+      include: { currentWeather: true, forecastWeather: true },
+    });
+    await this.currentWeatherService.create(weather.id, city);
+    await this.forecastWeatherService.create(weather.id, city);
+    return weather;
+  }
+
+  private async get(cityId: number): Promise<Weather> {
     try {
       const weather = await this.prisma.weather.findFirst({
         where: { cityId },
@@ -93,20 +84,7 @@ export class WeatherService {
     }
   }
 
-  private async updateDashboardWeatherOfEachCity(weatherOfEachCity: Weather[]) {
-    const updatedWeatherOfEachCity = await Promise.all(
-      weatherOfEachCity.map(async (weather) => {
-        if (shouldWeatherUpdate(weather.currentWeather.updatedAt)) {
-          const updatedWeather = await this.updateWeather(weather);
-          return updatedWeather;
-        }
-        return weather;
-      }),
-    );
-    return updatedWeatherOfEachCity;
-  }
-
-  private async updateWeather(weather: Weather): Promise<Weather> {
+  private async update(weather: Weather): Promise<Weather> {
     const city = await this.cityService.findOne(weather.cityId);
     await this.currentWeatherService.update(city, weather);
     const updatedWeather = await this.prisma.weather.findFirst({

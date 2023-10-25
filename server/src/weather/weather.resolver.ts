@@ -9,16 +9,6 @@ import pubSub from '@common/helpers/pub-sub.helper';
 export class WeatherResolver {
   constructor(private readonly weatherService: WeatherService) {}
 
-  @Public()
-  @Subscription(() => CurrentWeather, {
-    filter: (payload, variables) => {
-      return payload.currentWeatherUpdated.id === variables.id;
-    },
-  })
-  currentWeatherUpdated(@Args('id') id: number) {
-    return pubSub.asyncIterator(`currentWeatherUpdated_${id}`);
-  }
-
   @Query(() => CurrentWeather)
   async getCurrentWeather(@Args('cityId') cityId: number) {
     const currentWeather = await this.weatherService.getCurrentWeather(cityId);
@@ -30,5 +20,15 @@ export class WeatherResolver {
     const forecastWeather =
       await this.weatherService.getForecastWeather(cityId);
     return forecastWeather;
+  }
+
+  @Public()
+  @Subscription(() => CurrentWeather, {
+    filter: (payload, variables) => {
+      return payload.currentWeatherUpdated.id === variables.id;
+    },
+  })
+  currentWeatherUpdated(@Args('id') id: number) {
+    return pubSub.asyncIterator(`currentWeatherUpdated_${id}`);
   }
 }

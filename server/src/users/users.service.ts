@@ -25,7 +25,7 @@ export class UsersService {
   async addCity(dto: UsersCityInput): Promise<User> {
     try {
       const city = await this.cityService.findOne(dto.cityId);
-      await this.weatherService.createWeather(city);
+      await this.weatherService.upsert(city);
       const user = await this.findOne(dto.userId);
       if (this.checkTheSameCity(user.cities, city.id)) {
         throw new BadRequestException(`The city is already in the user's list`);
