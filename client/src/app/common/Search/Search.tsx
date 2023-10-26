@@ -6,7 +6,7 @@ import { ICity } from '@lib/intarfaces';
 
 interface ISearchProps {
   data: ICity[];
-  onChangeInput: React.Dispatch<React.SetStateAction<string>>;
+  onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeValue: React.Dispatch<React.SetStateAction<ICity | null>>;
   cityName: string;
 }
@@ -44,7 +44,7 @@ const Search: FC<ISearchProps> = ({
             value={cityName}
             inputRef={inputRef}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              onChangeInput(event.target.value)
+              onChangeInput(event)
             }
             {...params}
             label="Search city"
