@@ -1,16 +1,15 @@
 'use client';
-import { PageLoadingContext } from '@context';
-import usePrivateUrl from '@hooks/usePrivateUrl';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  const { hideLoader } = useContext(PageLoadingContext);
-  const [handleRedirect] = usePrivateUrl();
+const Home = () => {
+  const router = useRouter();
 
   useEffect(() => {
-    hideLoader();
-    handleRedirect('/weather');
-  }, []);
+    router.push('/weather');
+  });
 
   return <></>;
-}
+};
+
+export default Home;

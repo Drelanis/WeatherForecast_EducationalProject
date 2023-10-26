@@ -1,15 +1,13 @@
-import { toast } from 'react-toastify';
 import useHandlePageRedirect from './useHandlePageRedirect';
 import { useContext } from 'react';
-import { UserIdContext } from '@context';
+import { AuthContext } from '@context';
 
 const usePrivateUrl = () => {
   const { handlePageRedirect } = useHandlePageRedirect();
-  const { userId } = useContext(UserIdContext);
+  const { isAuth } = useContext(AuthContext);
 
-  const handleRedirect = (url: string) => {
-    if (!userId) {
-      toast.info('Not authorized');
+  const handleRedirect = async (url: string) => {
+    if (!isAuth) {
       return handlePageRedirect('/login');
     }
     handlePageRedirect(url);

@@ -17,8 +17,8 @@ const useRefresh = () => {
         async () => {
           const { data } = await refresh();
           if (data.refreshTokens) {
-            setUserId(data.refreshTokens.userId);
             setAuth(true);
+            setUserId(data.refreshTokens.userId);
           }
         },
         { pending: 'Authorization check ...' }
