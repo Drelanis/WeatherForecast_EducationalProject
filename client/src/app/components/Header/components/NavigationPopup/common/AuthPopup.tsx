@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import useLogout from '@components/Header/components/NavigationPopup/hooks/useLogout';
 import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
-import { ListItemIcon, ListItemText } from '@mui/material';
+import { Divider, ListItemIcon, ListItemText } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const AuthPopup = () => {
+interface IAuthPopupProps {
+  handleClose: () => void;
+}
+
+const AuthPopup: FC<IAuthPopupProps> = ({ handleClose }) => {
   const { handlePageRedirect } = useHandlePageRedirect();
   const { handleLogout } = useLogout();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
   const handleTransition = (path: string) => {
+    handleClose();
     handlePageRedirect(path);
-    setAnchorEl(null);
+  };
+
+  const logout = () => {
+    handleClose();
+    handleLogout();
   };
 
   return (
@@ -25,7 +32,8 @@ const AuthPopup = () => {
         </ListItemIcon>
         <ListItemText>Profile</ListItemText>
       </MenuItem>
-      <MenuItem onClick={() => handleLogout()}>
+      <Divider />
+      <MenuItem onClick={() => logout()}>
         <ListItemIcon>
           <LogoutIcon fontSize="medium" />
         </ListItemIcon>

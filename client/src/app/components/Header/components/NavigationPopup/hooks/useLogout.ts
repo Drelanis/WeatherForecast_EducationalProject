@@ -22,9 +22,9 @@ const useLogout = () => {
         },
         { pending: 'Logout ...' }
       );
+      setAuth(false);
       handlePageRedirect('/login');
       router.refresh();
-      setAuth(false);
       toast.success('User is logged out');
     } catch (error: any) {
       toast.error(error.message);

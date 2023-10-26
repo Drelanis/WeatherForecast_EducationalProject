@@ -17,7 +17,7 @@ const NavigationMenu: FC = () => {
         id="weather-button"
         onClick={() => redirect('/weather')}
       >
-        <Image src={icon} alt="main-icon" width={70} height={70} />
+        <Image src={icon} alt="main-icon" width={70} height={70} priority />
         <Box>REAL TIME WEATHER</Box>
       </IconButton>
       <NavigationPopup />

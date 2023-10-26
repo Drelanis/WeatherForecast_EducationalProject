@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext, useState } from 'react';
+import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import AuthPopup from './common/AuthPopup';
 import NotAuthPopup from './common/NotAuthPopup';
@@ -12,12 +12,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 const NavigationPopup = () => {
   const { data, loading } = useProfile();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { isAuth } = useContext(AuthContext);
   const open = Boolean(anchorEl);
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
+  const { isAuth } = useContext(AuthContext);
+
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleTransition = () => {
+
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
@@ -40,30 +42,24 @@ const NavigationPopup = () => {
         onClick={handleClick}
       >
         <AccountCircleIcon className={styles.icon} />
-        {
-          <Box sx={{ width: '800px' }}>
-            {data?.getUser.fullName || 'Profile'}
-          </Box>
-        }
+        <Box sx={{ width: '800px' }}>{data?.getUser.fullName || 'Profile'}</Box>
       </IconButton>
       <Menu
         id="profile-menu"
         aria-labelledby="profile-button"
         anchorEl={anchorEl}
         open={open}
-        onClose={() => handleTransition()}
+        onClose={() => handleClose()}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
       >
-        {isAuth ? <AuthPopup /> : <NotAuthPopup />}
+        {!isAuth && <NotAuthPopup handleClose={handleClose} />}
+        {isAuth && <AuthPopup handleClose={handleClose} />}
       </Menu>
     </>
   );
 };
 
 export default NavigationPopup;
-function handlePageRedirect() {
-  throw new Error('Function not implemented.');
-}

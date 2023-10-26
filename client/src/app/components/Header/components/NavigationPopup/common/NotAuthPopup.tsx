@@ -1,18 +1,20 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { FC, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import useHandlePageRedirect from '@hooks/useHandlePageRedirect';
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded';
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
 import { ListItemIcon, ListItemText } from '@mui/material';
 
-const NotAuthPopup = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+interface INotAuthPopupProps {
+  handleClose: () => void;
+}
+
+const NotAuthPopup: FC<INotAuthPopupProps> = ({ handleClose }) => {
   const { handlePageRedirect } = useHandlePageRedirect();
-  const open = Boolean(anchorEl);
 
   const handleTransition = (path: string) => {
+    handleClose();
     handlePageRedirect(path);
-    setAnchorEl(null);
   };
 
   return (
