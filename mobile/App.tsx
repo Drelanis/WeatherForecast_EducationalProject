@@ -1,17 +1,17 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { ApolloProvider } from '@apollo/client';
 import { AppRegistry } from 'react-native';
-import client from 'apollo/client';
-import SignupForm from 'screens/Login';
-import { PaperProvider } from 'react-native-paper';
+import Navigation from 'components/Navigation';
+import AppProviders from 'components/Providers';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
-      <PaperProvider>
-        <SignupForm />
-      </PaperProvider>
-    </ApolloProvider>
+    <AppProviders>
+      {/* <GestureHandlerRootView style={{ flex: 1 }}> */}
+      <Navigation />
+      {/* </GestureHandlerRootView> */}
+    </AppProviders>
   );
 };
 

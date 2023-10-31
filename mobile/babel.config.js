@@ -3,11 +3,14 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      '@babel/plugin-proposal-export-namespace-from',
+      'react-native-reanimated/plugin',
       [
         'module-resolver',
         {
           alias: {
             common: './src/common',
+            context: './src/context',
             components: './src/components',
             hooks: './src/hooks',
             screens: './src/screens',

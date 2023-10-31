@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { Button } from 'react-native-paper';
 import { Form } from 'common/Auth/Form';
@@ -7,10 +7,12 @@ import loginValidate from 'lib/helpers/loginValidate';
 import { ILoginErrors, ILoginValues } from 'lib/interfaces';
 import { InputError } from 'common/Auth/InputError';
 import useLogin from './hooks/useLogin';
+import { AuthContext } from 'context/index';
 
-const SignupForm = () => {
+const LoginForm = ({ navigation }: any) => {
   const [errors, setError] = useState<ILoginErrors | null>(null);
   const { handleLogin } = useLogin();
+  const { auth } = useContext(AuthContext);
 
   const handleSubmit = async (values: ILoginValues) => {
     const errors = loginValidate(values);
@@ -20,6 +22,13 @@ const SignupForm = () => {
     }
     await handleLogin(values);
   };
+
+  useEffect(() => {
+    if (auth?.isAuth) {
+      navigation.navigate('Home');
+      return;
+    }
+  }, [auth]);
 
   return (
     <Formik
@@ -56,4 +65,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default LoginForm;
