@@ -7,7 +7,11 @@ const start = async () => {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser(process.env.SECRET_KEY));
   app.enableCors({
-    origin: process.env.CLIENT_URL,
+    origin: [
+      process.env.WEB_CLIENT_URL,
+      process.env.MOBILE_CLIENT_URL,
+      'http://127.0.0.1:5500/',
+    ],
     credentials: true,
   });
   await app.listen(PORT, async () => {

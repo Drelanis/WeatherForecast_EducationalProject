@@ -1,0 +1,18 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "jsx": "react",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "common/*": ["src/common/*"],
+      "apollo/*": ["apollo/*"],
+      "assets/*": ["assets/*"],
+      "components/*": ["src/components/*"],
+      "hooks/*": ["src/hooks/*"],
+      "screens/*": ["src/screens/*"],
+      "lib/*": ["src/lib/*"]
+    },
+    "types": ["@types/styled-components-react-native"]
+  }
+}
