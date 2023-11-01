@@ -4,8 +4,6 @@ import { AuthContext, LoadingContext } from 'context/index';
 import AuthBottomNavigation from './components/AuthBottomNavigation';
 import NotAuthBottomNavigation from './components/NotAuthBottomNavigation';
 import ScreenLoader from 'common/ScreenLoader';
-import Toast from 'react-native-toast-message';
-import { View } from 'react-native';
 
 const Navigation = () => {
   const { handleRefresh } = useRefresh();

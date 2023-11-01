@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { MAIN_FORECAST_WEATHER_FRAGMENT } from '@apolloGraphQL/fragments/main-forecast-weather.fragment';
+import { MAIN_FORECAST_WEATHER_FRAGMENT } from 'apollo/fragments/main-forecast-weather.fragment';
 
 export const GET_FORECAST_WEATHER = gql`
   ${MAIN_FORECAST_WEATHER_FRAGMENT}

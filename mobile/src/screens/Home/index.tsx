@@ -1,7 +1,8 @@
 import { ScreenContainer } from 'common/ScreenContainer';
 import { AuthContext } from 'context/index';
 import React, { FC, useContext, useEffect } from 'react';
-import { Text } from 'react-native';
+
+import SearchBar from './components/SearchBar';
 
 interface IHomeProps {
   navigation: any;
@@ -18,7 +19,7 @@ const Home: FC<IHomeProps> = ({ navigation }) => {
 
   return (
     <ScreenContainer>
-      <Text>Home</Text>
+      <SearchBar />
     </ScreenContainer>
   );
 };
