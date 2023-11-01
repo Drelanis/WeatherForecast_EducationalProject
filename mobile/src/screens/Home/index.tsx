@@ -1,3 +1,4 @@
+import { ScreenContainer } from 'common/ScreenContainer';
 import { AuthContext } from 'context/index';
 import React, { FC, useContext, useEffect } from 'react';
 import { Text } from 'react-native';
@@ -15,7 +16,11 @@ const Home: FC<IHomeProps> = ({ navigation }) => {
     }
   }, [auth]);
 
-  return <Text>Home</Text>;
+  return (
+    <ScreenContainer>
+      <Text>Home</Text>
+    </ScreenContainer>
+  );
 };
 
 export default Home;

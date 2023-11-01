@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { REFRESH } from 'apollo/mutation/refreshTokens';
 import { AuthContext, LoadingContext } from 'context/index';
@@ -19,8 +19,8 @@ const useRefresh = () => {
     } catch (error: any) {
       setAuth({ isAuth: false, userId: '' });
       Toast.show({
-        type: 'error',
-        text1: 'Error =(',
+        type: 'info',
+        text1: 'Information',
         text2: error.message,
       });
     } finally {

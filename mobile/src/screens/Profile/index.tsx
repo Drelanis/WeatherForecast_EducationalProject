@@ -1,3 +1,4 @@
+import { ScreenContainer } from 'common/ScreenContainer';
 import { AuthContext } from 'context/index';
 import React, { FC, useContext, useEffect } from 'react';
 import { Text } from 'react-native';
@@ -15,7 +16,11 @@ const Profile: FC<IProfileProps> = ({ navigation }) => {
     }
   }, [auth]);
 
-  return <Text>Profile</Text>;
+  return (
+    <ScreenContainer>
+      <Text>Profile</Text>
+    </ScreenContainer>
+  );
 };
 
 export default Profile;

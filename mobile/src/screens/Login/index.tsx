@@ -8,6 +8,7 @@ import { ILoginErrors, ILoginValues } from 'lib/interfaces';
 import { InputError } from 'common/Auth/InputError';
 import useLogin from './hooks/useLogin';
 import { AuthContext } from 'context/index';
+import { ScreenContainer } from 'common/ScreenContainer';
 
 const LoginForm = ({ navigation }: any) => {
   const [errors, setError] = useState<ILoginErrors | null>(null);
@@ -31,37 +32,44 @@ const LoginForm = ({ navigation }: any) => {
   }, [auth]);
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      onSubmit={(values) => handleSubmit(values)}
-    >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
-        <Form>
-          <InputContainer>
-            <Input
-              placeholder="Enter email"
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              value={values.email}
-            />
-            {errors?.email && <InputError>{errors.email}</InputError>}
-          </InputContainer>
-          <InputContainer>
-            <Input
-              placeholder="Enter password"
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              value={values.password}
-              secureTextEntry={true}
-            />
-            {errors?.password && <InputError>{errors.password}</InputError>}
-          </InputContainer>
-          <Button icon="login" mode="contained" onPress={() => handleSubmit()}>
-            LOGIN
-          </Button>
-        </Form>
-      )}
-    </Formik>
+    <ScreenContainer>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values) => handleSubmit(values)}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
+          <Form>
+            <InputContainer>
+              <Input
+                placeholder="Enter email"
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+              />
+              {errors?.email && <InputError>{errors.email}</InputError>}
+            </InputContainer>
+            <InputContainer>
+              <Input
+                placeholder="Enter password"
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
+                secureTextEntry={true}
+              />
+              {errors?.password && <InputError>{errors.password}</InputError>}
+            </InputContainer>
+            <Button
+              buttonColor="rgb(255 255 255)"
+              icon="login"
+              mode="contained"
+              onPress={() => handleSubmit()}
+            >
+              LOGIN
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </ScreenContainer>
   );
 };
 
