@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_CITY } from 'apollo/mutation/addCity';
 import { AuthContext, LoadingContext } from 'context/index';
@@ -10,7 +10,7 @@ const useAddCity = (
 ) => {
   const [addCity] = useMutation(ADD_CITY);
   const { auth } = useContext(AuthContext);
-  const { setLoading } = useContext(LoadingContext);
+  const [isLoading, setLoading] = useState(false);
 
   const addNewCity = async (cityId: number | null) => {
     try {
@@ -25,19 +25,19 @@ const useAddCity = (
         type: 'success',
         text1: 'City added',
       });
-      setSearchQuery('');
-      setCityId(null);
     } catch (error: any) {
       Toast.show({
         type: 'error',
-        text1: `City didn't add`,
+        text1: error.message,
       });
     } finally {
       setLoading(false);
+      setSearchQuery('');
+      setCityId(null);
     }
   };
 
-  return { addNewCity };
+  return { addNewCity, isLoading };
 };
 
 export default useAddCity;

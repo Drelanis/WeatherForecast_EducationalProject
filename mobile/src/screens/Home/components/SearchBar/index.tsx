@@ -11,8 +11,8 @@ import CityList from './components/CityListContainer';
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [cityId, setCityId] = useState<number | null>(null);
-  const { isLoading } = useContext(LoadingContext);
-  const { addNewCity } = useAddCity(setSearchQuery, setCityId);
+  const { addNewCity, isLoading } = useAddCity(setSearchQuery, setCityId);
+
   const { data, loading } = useQuery(FIND_CITIES, {
     variables: { name: searchQuery },
   });

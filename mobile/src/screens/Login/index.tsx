@@ -32,7 +32,7 @@ const LoginForm = ({ navigation }: any) => {
   }, [auth]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer style={{ flex: 1 }}>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={(values) => handleSubmit(values)}

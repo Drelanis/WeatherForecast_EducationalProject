@@ -3,6 +3,7 @@ import { AuthContext } from 'context/index';
 import React, { FC, useContext, useEffect } from 'react';
 
 import SearchBar from './components/SearchBar';
+import UserCities from './components/UserCities';
 
 interface IHomeProps {
   navigation: any;
@@ -18,8 +19,9 @@ const Home: FC<IHomeProps> = ({ navigation }) => {
   }, [auth]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer style={{ height: 'auto' }}>
       <SearchBar />
+      <UserCities />
     </ScreenContainer>
   );
 };

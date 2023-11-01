@@ -17,7 +17,7 @@ const Profile: FC<IProfileProps> = ({ navigation }) => {
   }, [auth]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer style={{ flex: 1 }}>
       <Text>Profile</Text>
     </ScreenContainer>
   );
