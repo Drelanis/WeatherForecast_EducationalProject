@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { LOGOUT } from 'apollo/mutation/logout';
 import { AuthContext, LoadingContext } from 'context/index';
 import { useContext } from 'react';
+import Toast from 'react-native-toast-message';
 
 const useLogout = () => {
   const [logout] = useMutation(LOGOUT);
@@ -16,7 +17,11 @@ const useLogout = () => {
         setAuth({ isAuth: false, userId: '' });
       }
     } catch (error: any) {
-      console.log(error.message);
+      Toast.show({
+        type: 'error',
+        text1: 'Error =(',
+        text2: error.message,
+      });
     } finally {
       setLoading(false);
     }

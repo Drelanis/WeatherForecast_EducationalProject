@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from 'apollo/mutation/login';
 import { AuthContext, LoadingContext } from 'context/index';
 import { ILoginValues } from 'lib/interfaces';
+import Toast from 'react-native-toast-message';
 
 const useLogin = () => {
   const [login] = useMutation(LOGIN);
@@ -20,7 +21,11 @@ const useLogin = () => {
       });
       setAuth({ isAuth: true, userId: data?.login.userId });
     } catch (error: any) {
-      console.log(error.message);
+      Toast.show({
+        type: 'error',
+        text1: 'Error =(',
+        text2: error.message,
+      });
     } finally {
       setLoading(false);
     }
