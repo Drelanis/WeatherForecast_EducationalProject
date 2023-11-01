@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { REFRESH } from 'apollo/mutation/refreshTokens';
-import { AuthContext } from 'context/index';
+import { AuthContext, LoadingContext } from 'context/index';
 
 const useRefresh = () => {
   const { setAuth } = useContext(AuthContext);
   const [refresh] = useMutation(REFRESH);
-  const [isLoading, setLoading] = useState(false);
+  const { setLoading } = useContext(LoadingContext);
 
   const handleRefresh = async () => {
     setLoading(true);
@@ -22,7 +22,7 @@ const useRefresh = () => {
     }
   };
 
-  return { handleRefresh, isLoading };
+  return { handleRefresh };
 };
 
 export default useRefresh;

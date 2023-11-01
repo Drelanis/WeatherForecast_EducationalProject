@@ -19,3 +19,8 @@ export interface IAuthContext {
   auth: IAuth | null;
   setAuth: Dispatch<SetStateAction<IAuth | null>>;
 }
+
+export interface ILoadingContext {
+  isLoading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}

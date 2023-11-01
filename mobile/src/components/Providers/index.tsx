@@ -3,7 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 import client from 'apollo/client';
 import { PaperProvider } from 'react-native-paper';
 import { IAuthContext, IAuth } from 'lib/interfaces';
-import { AuthContext } from 'context/index';
+import { AuthContext, LoadingContext } from 'context/index';
 
 interface IAppProvidersProps {
   children: React.ReactNode;
@@ -11,11 +11,14 @@ interface IAppProvidersProps {
 
 const AppProviders: FC<IAppProvidersProps> = ({ children }) => {
   const [auth, setAuth] = useState<IAuth | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(false);
   return (
     <ApolloProvider client={client}>
-      <AuthContext.Provider value={{ auth, setAuth }}>
-        <PaperProvider>{children}</PaperProvider>
-      </AuthContext.Provider>
+      <LoadingContext.Provider value={{ isLoading, setLoading }}>
+        <AuthContext.Provider value={{ auth, setAuth }}>
+          <PaperProvider>{children}</PaperProvider>
+        </AuthContext.Provider>
+      </LoadingContext.Provider>
     </ApolloProvider>
   );
 };
