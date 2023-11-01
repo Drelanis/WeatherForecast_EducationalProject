@@ -1,26 +1,32 @@
 import { ICity } from 'lib/interfaces';
 import React, { FC } from 'react';
-import { View, FlatList } from 'react-native';
+import {
+  View,
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import CityCard from './components/CityCard';
 
 interface ICitiesContainerProps {
   cities: ICity[];
+  isLoading: boolean;
 }
 
-const CitiesContainer: FC<ICitiesContainerProps> = ({ cities }) => {
+const CitiesContainer: FC<ICitiesContainerProps> = ({ cities, isLoading }) => {
   return (
-    <View>
-      <FlatList
-        data={cities}
-        renderItem={({ item }) => (
-          <CityCard
-            key={item.id}
-            weather={item.weather.currentWeather.currentWeather}
-            cityId={item.id}
-          />
-        )}
-      />
-    </View>
+    <FlatList
+      data={cities}
+      renderItem={({ item }) => (
+        <CityCard
+          key={item.id}
+          cityId={item.id}
+          cityName={`${item.name}, ${item.country}`}
+          city={item}
+        />
+      )}
+    />
   );
 };
 

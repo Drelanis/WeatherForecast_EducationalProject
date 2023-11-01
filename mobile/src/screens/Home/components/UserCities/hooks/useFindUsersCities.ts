@@ -5,7 +5,7 @@ import { AuthContext } from 'context/index';
 import { ICity } from 'lib/interfaces';
 import { useContext } from 'react';
 
-const useFindUsersCities = (): { cities: ICity[]; loading: boolean } => {
+const useFindUsersCities = (): { cities: ICity[]; isLoading: boolean } => {
   const { auth } = useContext(AuthContext);
   const { data, loading } = useQuery(FIND_USERS_CITIES, {
     variables: { identifier: auth?.userId },
@@ -13,8 +13,9 @@ const useFindUsersCities = (): { cities: ICity[]; loading: boolean } => {
   const { data: updatedCities } = useSubscription(CITIES_UPDATED, {
     variables: { identifier: auth?.userId },
   });
+
   return {
-    loading,
+    isLoading: loading,
     cities:
       updatedCities?.citiesUpdated?.cities || data?.findUsersCities?.cities,
   };

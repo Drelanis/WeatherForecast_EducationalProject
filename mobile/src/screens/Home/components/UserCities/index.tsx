@@ -4,11 +4,12 @@ import ScreenLoader from 'common/ScreenLoader';
 import CitiesContainer from './components/CitiesContainer';
 
 const UserCities = () => {
-  const { cities, loading } = useFindUsersCities();
-  if (loading) {
+  const { cities, isLoading } = useFindUsersCities();
+
+  if (isLoading) {
     return <ScreenLoader />;
   }
-  return <CitiesContainer cities={[...cities]} />;
+  return <CitiesContainer cities={[...cities]} isLoading={isLoading} />;
 };
 
 export default UserCities;

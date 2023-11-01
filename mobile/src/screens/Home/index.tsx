@@ -1,7 +1,6 @@
 import { ScreenContainer } from 'common/ScreenContainer';
 import { AuthContext } from 'context/index';
 import React, { FC, useContext, useEffect } from 'react';
-
 import SearchBar from './components/SearchBar';
 import UserCities from './components/UserCities';
 
@@ -19,7 +18,7 @@ const Home: FC<IHomeProps> = ({ navigation }) => {
   }, [auth]);
 
   return (
-    <ScreenContainer style={{ height: 'auto' }}>
+    <ScreenContainer style={{ flex: 1 }}>
       <SearchBar />
       <UserCities />
     </ScreenContainer>
