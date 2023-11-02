@@ -13,26 +13,6 @@ export const CardHeader = styled.View`
   flex-direction: row;
 `;
 
-export const WeatherIcon = styled.Image`
-  height: 75px;
-  width: 75px;
-`;
-
-export const WeatherSubHeader = styled.View`
-  margin: auto;
-`;
-
-export const CityName = styled.Text`
-  margin: auto;
-  font-weight: 700;
-  font-size: large;
-`;
-
-export const WeatherName = styled.Text`
-  margin: auto;
-  font-size: medium;
-`;
-
 export const WeatherDescription = styled.View`
   flex-direction: row;
 `;
@@ -48,4 +28,8 @@ export const WeatherDescriptionItem = styled.View`
 
 export const WeatherText = styled.Text`
   line-height: 30px;
+`;
+
+export const BottomWeatherElements = styled.View`
+  flex-direction: row;
 `;

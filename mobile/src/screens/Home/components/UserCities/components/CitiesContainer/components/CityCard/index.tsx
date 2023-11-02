@@ -1,22 +1,23 @@
-import { ICity } from 'lib/interfaces';
+import { ICity, ICurrentWeatherInfo } from 'lib/interfaces';
 import React, { FC } from 'react';
 import {
+  BottomWeatherElements,
   CardBox,
   CardHeader,
-  CityName,
   WeatherDescription,
   WeatherDescriptionColumn,
-  WeatherDescriptionItem,
-  WeatherIcon,
-  WeatherName,
-  WeatherSubHeader,
-  WeatherText,
 } from './styled';
 import { Divider } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import handleDataTime from 'lib/helpers/handleDataTime';
-import useCurrentWeather from '../../hooks/useCurrentWeather';
+import useCurrentWeather from './hooks/useCurrentWeather';
 import ScreenLoader from 'common/ScreenLoader';
+import LiveTimeClock from './components/LiveTimeClock';
+import CardIcon from './components/Icon';
+import SubHeader from './components/SubHeader';
+import Temperature from './components/Temperature';
+import Humidity from './components/Humidity';
+import Wind from './components/Wind';
+import UpdatedAt from './components/UpdatedAt';
+import DeleteButton from './components/DeleteButton';
 
 interface ICityCardProps {
   cityId: number;
@@ -26,7 +27,7 @@ interface ICityCardProps {
 
 const CityCard: FC<ICityCardProps> = ({ city }) => {
   const { currentWeather, loading } = useCurrentWeather(city);
-  const weather = currentWeather?.currentWeather;
+  const weather: ICurrentWeatherInfo = currentWeather?.currentWeather;
 
   if (loading) {
     return (
@@ -39,41 +40,34 @@ const CityCard: FC<ICityCardProps> = ({ city }) => {
   return (
     <CardBox>
       <CardHeader>
-        <WeatherIcon
-          source={{
-            uri: `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`,
-          }}
+        <CardIcon icon={weather.weather[0].icon} />
+        <SubHeader
+          cityName={city.name}
+          weatherDescription={weather.weather[0].description}
         />
-        <WeatherSubHeader>
-          <CityName>{city.name}</CityName>
-          <WeatherName>{weather.weather[0].description}</WeatherName>
-        </WeatherSubHeader>
       </CardHeader>
       <Divider />
       <WeatherDescription>
         <WeatherDescriptionColumn>
-          <WeatherDescriptionItem>
-            <Icon name="temperature-celsius" size={30} />
-            <WeatherText>{`${weather.main.temp}°C (${weather.main.feels_like}°C)`}</WeatherText>
-          </WeatherDescriptionItem>
-          <WeatherDescriptionItem>
-            <Icon name="water" size={30} />
-            <WeatherText>{`${weather.main.humidity}%`}</WeatherText>
-          </WeatherDescriptionItem>
+          <Temperature
+            temp={weather.main.temp}
+            feelsLike={weather.main.feels_like}
+          />
+          <Humidity humidity={weather.main.humidity} />
         </WeatherDescriptionColumn>
         <WeatherDescriptionColumn>
-          <WeatherDescriptionItem>
-            <Icon name="wind-turbine" size={30} />
-            <WeatherText>{`${weather.wind.speed} m/s`}</WeatherText>
-          </WeatherDescriptionItem>
-          <WeatherDescriptionItem>
-            <Icon name="clock" size={30} />
-            <WeatherText>{`${handleDataTime(
-              currentWeather.updatedAt
-            )}`}</WeatherText>
-          </WeatherDescriptionItem>
+          <Wind speed={weather.wind.speed} />
+          <UpdatedAt updatedAt={currentWeather.updatedAt} />
         </WeatherDescriptionColumn>
       </WeatherDescription>
+      <BottomWeatherElements>
+        <WeatherDescriptionColumn>
+          <LiveTimeClock offsetInSeconds={weather.timezone} />
+        </WeatherDescriptionColumn>
+        <WeatherDescriptionColumn>
+          <DeleteButton cityId={city.id} />
+        </WeatherDescriptionColumn>
+      </BottomWeatherElements>
     </CardBox>
   );
 };

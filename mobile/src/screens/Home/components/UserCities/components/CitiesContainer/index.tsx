@@ -1,12 +1,6 @@
 import { ICity } from 'lib/interfaces';
 import React, { FC } from 'react';
-import {
-  View,
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import { FlatList } from 'react-native';
 import CityCard from './components/CityCard';
 
 interface ICitiesContainerProps {
