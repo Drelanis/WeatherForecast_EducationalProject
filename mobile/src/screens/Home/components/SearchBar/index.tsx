@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Searchbar } from 'react-native-paper';
 import { SearchAction, SearchContainer } from './styled';
 import { Text } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { FIND_CITIES } from 'apollo/query/findCities';
-import { LoadingContext } from 'context/index';
 import useAddCity from './hooks/useAddCity';
 import CityList from './components/CityListContainer';
 
