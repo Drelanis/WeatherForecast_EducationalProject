@@ -46,7 +46,7 @@ const SearchBar = () => {
         </Button>
       </SearchAction>
       <CityList
-        data={data?.findCities || []}
+        data={data?.findCities.slice(0, 10) || []}
         setCityId={setCityId}
         setSearchQuery={setSearchQuery}
       />
