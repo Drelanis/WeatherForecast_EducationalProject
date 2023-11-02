@@ -9,7 +9,7 @@ const UserCities = () => {
   if (isLoading) {
     return <ScreenLoader />;
   }
-  return <CitiesContainer cities={[...cities]} isLoading={isLoading} />;
+  return <CitiesContainer cities={[...cities]} />;
 };
 
 export default UserCities;

@@ -5,10 +5,9 @@ import CityCard from './components/CityCard';
 
 interface ICitiesContainerProps {
   cities: ICity[];
-  isLoading: boolean;
 }
 
-const CitiesContainer: FC<ICitiesContainerProps> = ({ cities, isLoading }) => {
+const CitiesContainer: FC<ICitiesContainerProps> = ({ cities }) => {
   return (
     <FlatList
       data={cities}
