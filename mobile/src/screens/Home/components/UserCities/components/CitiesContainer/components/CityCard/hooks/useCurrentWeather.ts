@@ -1,7 +1,7 @@
 import { useQuery, useSubscription } from '@apollo/client';
 import { GET_CURRENT_WEATHER } from 'apollo/query/getCurrentWeather';
 import { UPDATED_CURRENT_WEATHER } from 'apollo/subscriptions/updated-current-weather.subscription';
-import { ICity, ICurrentWeatherInfo } from 'lib/interfaces';
+import { ICity, ICurrentWeather, ICurrentWeatherInfo } from 'lib/interfaces';
 import Toast from 'react-native-toast-message';
 
 const useCurrentWeather = (info: ICity) => {
@@ -14,7 +14,7 @@ const useCurrentWeather = (info: ICity) => {
     { variables: { id: Number(info.weather.currentWeather.id) } }
   );
 
-  const currentWeather: ICurrentWeatherInfo =
+  const currentWeather: ICurrentWeather =
     currentWeatherUpdated?.currentWeatherUpdated || data?.getCurrentWeather;
 
   if (error) {

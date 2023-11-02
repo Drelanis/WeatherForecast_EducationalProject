@@ -16,5 +16,5 @@ export const FullName = styled.Text`
 
 export const Email = styled.Text`
   margin-top: 5px;
-  font-size: 24px;
+  font-size: 16px;
 `;

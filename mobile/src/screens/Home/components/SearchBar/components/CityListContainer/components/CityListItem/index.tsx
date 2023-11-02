@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
+import { Divider } from 'react-native-paper';
+import { ItemText, ListItem } from './styled';
 import { TouchableOpacity } from 'react-native';
-import { Divider, List } from 'react-native-paper';
 
 interface ICityListItemProps {
   id: number;
@@ -30,16 +31,15 @@ const CityListItem: FC<ICityListItemProps> = ({
   const itemStyle = isPressed && { opacity: 0.3 };
 
   return (
-    <TouchableOpacity>
-      <List.Item
-        style={itemStyle}
-        key={id}
-        title={name}
-        description={country}
-        onPress={() => handleSelectedCity(id, name)}
-      />
-      {!isLastElement && <Divider />}
-    </TouchableOpacity>
+    <ListItem>
+      <TouchableOpacity>
+        <ItemText
+          style={itemStyle}
+          onPress={() => handleSelectedCity(id, name)}
+        >{`${name}, ${country}`}</ItemText>
+      </TouchableOpacity>
+      {!isLastElement && <Divider bold={true} />}
+    </ListItem>
   );
 };
 

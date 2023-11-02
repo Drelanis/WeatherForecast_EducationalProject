@@ -12,7 +12,7 @@ const ScrollUpButton: FC<IScrollUpButtonProps> = ({ scrollToTop }) => {
       onPress={scrollToTop}
       style={{
         position: 'absolute',
-        top: 800,
+        top: '95%',
         right: 20,
         backgroundColor: 'black',
         width: 100,

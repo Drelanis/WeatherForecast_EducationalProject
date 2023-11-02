@@ -7,14 +7,10 @@ const start = async () => {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser(process.env.SECRET_KEY));
   app.enableCors({
-    origin: [
-      process.env.WEB_CLIENT_URL,
-      process.env.MOBILE_CLIENT_URL,
-      'http://127.0.0.1:5500/',
-    ],
+    origin: [process.env.WEB_CLIENT_URL, process.env.MOBILE_CLIENT_URL],
     credentials: true,
   });
-  await app.listen(PORT, async () => {
+  await app.listen(PORT, '192.168.0.141', async () => {
     console.log(`Application is running on: ${await app.getUrl()}`);
     console.log(`GraphQL Playground: ${await app.getUrl()}/graphql`);
   });

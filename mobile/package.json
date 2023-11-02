@@ -35,7 +35,7 @@
     "react-native-toast-message": "^2.1.7",
     "react-native-vector-icons": "^10.0.1",
     "react-native-web": "^0.19.9",
-    "react-native-webview": "^13.6.2",
+    "react-native-webview": "13.2.2",
     "styled-components": "^5.3.11",
     "toastify-react-native": "^3.1.0"
   },

@@ -59,6 +59,7 @@ const LoginForm = ({ navigation }: any) => {
               {errors?.password && <InputError>{errors.password}</InputError>}
             </InputContainer>
             <Button
+              textColor="black"
               buttonColor="rgb(255 255 255)"
               icon="login"
               mode="contained"

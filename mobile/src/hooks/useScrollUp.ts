@@ -16,7 +16,9 @@ const useScrollUp = (
   };
 
   const scrollToTop = () => {
-    scrollViewRef?.current?.scrollTo({ x: 0, y: 0, animated: true });
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    }
   };
 
   return { handleScroll, scrollToTop, isScrolled };

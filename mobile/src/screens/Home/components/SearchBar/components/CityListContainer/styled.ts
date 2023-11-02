@@ -1,8 +1,9 @@
 import styled from 'styled-components/native';
 
 export const CityListContainer = styled.View`
-  color: black;
+  color: white;
   width: 100%;
   border-radius: 10px;
-  background-color: rgb(3, 31, 156);
+  background-color: 'rgb(46, 91, 252)';
+  text-decoration-color: white;
 `;

@@ -80,6 +80,9 @@ export class AuthService {
 
   private async validateUser(data: LoginUserInput) {
     const user = await this.userService.findOne(data.email);
+    if (!user) {
+      throw new BadRequestException('Uncorrect email or password');
+    }
     const passwordCompare = await bcrypt.compare(data.password, user.password);
     if (!passwordCompare) {
       throw new BadRequestException('Uncorrect email or password');

@@ -7,5 +7,5 @@ export const SearchAction = styled.View`
 `;
 
 export const SearchContainer = styled.View`
-  color: black;
+  color: white;
 `;

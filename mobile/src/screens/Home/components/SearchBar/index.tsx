@@ -36,7 +36,7 @@ const SearchBar = () => {
           loading={isLoading}
           contentStyle={{ height: 56 }}
           style={{
-            backgroundColor: 'rgb(49, 94, 255)',
+            backgroundColor: 'rgb(46, 91, 252)',
             opacity: cityId ? 1 : 0.5,
           }}
           labelStyle={{ color: 'white' }}

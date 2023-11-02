@@ -13,7 +13,7 @@ const useLogin = () => {
   const handleLogin = async ({ email, password }: ILoginValues) => {
     try {
       setLoading(true);
-      const { data } = await login({
+      const { data, errors } = await login({
         variables: {
           email,
           password,

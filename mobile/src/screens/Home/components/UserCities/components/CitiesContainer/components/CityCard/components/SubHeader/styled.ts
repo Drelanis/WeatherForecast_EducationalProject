@@ -12,5 +12,5 @@ export const CityName = styled.Text`
 
 export const WeatherName = styled.Text`
   margin: auto;
-  font-size: medium;
+  font-size: 15px;
 `;
