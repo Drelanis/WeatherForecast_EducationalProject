@@ -10,13 +10,10 @@ interface IDeleteButtonProps {
 const DeleteButton: FC<IDeleteButtonProps> = ({ cityId }) => {
   const { handleDeleteCity, loading } = useDeleteCity();
 
-  if (loading) {
-    return <ScreenLoader />;
-  }
-
   return (
     <Button
       style={{ backgroundColor: 'rgb(249 136 136)', marginRight: 'auto' }}
+      loading={loading}
       icon="delete"
       mode="contained"
       onPress={() => handleDeleteCity(cityId)}

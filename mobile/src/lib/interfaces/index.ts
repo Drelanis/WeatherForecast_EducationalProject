@@ -67,3 +67,12 @@ export interface ICity {
     currentWeather: ICurrentWeather;
   };
 }
+
+export interface IUserInformation {
+  email: string;
+  fullName: string;
+}
+
+export interface IUserProfile {
+  getUser: IUserInformation;
+}

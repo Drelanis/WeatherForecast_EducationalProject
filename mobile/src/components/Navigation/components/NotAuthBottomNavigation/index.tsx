@@ -5,14 +5,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
 
-const NotAuthBottomNavigation: FC = () => {
+const NotAuthDrawerNavigation: FC = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Login">
-        <Drawer.Screen name="Login" component={LoginForm} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator initialRouteName="Login">
+      <Drawer.Screen name="Login" component={LoginForm} />
+    </Drawer.Navigator>
   );
 };
 
-export default NotAuthBottomNavigation;
+export default NotAuthDrawerNavigation;

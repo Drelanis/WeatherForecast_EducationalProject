@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import useRefresh from 'hooks/useRefresh';
 import { AuthContext, LoadingContext } from 'context/index';
-import AuthBottomNavigation from './components/AuthBottomNavigation';
-import NotAuthBottomNavigation from './components/NotAuthBottomNavigation';
+import AuthDrawerNavigation from './components/AuthBottomNavigation';
+import NotAuthDrawerNavigation from './components/NotAuthBottomNavigation';
 import ScreenLoader from 'common/ScreenLoader';
+import { NavigationContainer } from '@react-navigation/native';
 
 const Navigation = () => {
   const { handleRefresh } = useRefresh();
@@ -19,10 +20,10 @@ const Navigation = () => {
   }
 
   return (
-    <>
-      {auth?.isAuth && <AuthBottomNavigation />}
-      {!auth?.isAuth && <NotAuthBottomNavigation />}
-    </>
+    <NavigationContainer>
+      {auth?.isAuth && <AuthDrawerNavigation />}
+      {!auth?.isAuth && <NotAuthDrawerNavigation />}
+    </NavigationContainer>
   );
 };
 
