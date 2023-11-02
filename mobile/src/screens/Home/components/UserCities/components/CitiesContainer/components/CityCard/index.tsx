@@ -46,7 +46,7 @@ const CityCard: FC<ICityCardProps> = ({ city }) => {
           weatherDescription={weather.weather[0].description}
         />
       </CardHeader>
-      <Divider />
+      <Divider bold={true} />
       <WeatherDescription>
         <WeatherDescriptionColumn>
           <Temperature

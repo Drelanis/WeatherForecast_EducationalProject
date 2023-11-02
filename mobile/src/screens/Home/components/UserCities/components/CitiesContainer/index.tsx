@@ -10,16 +10,16 @@ interface ICitiesContainerProps {
 }
 
 const CitiesContainer: FC<ICitiesContainerProps> = ({ cities }) => {
-  const scrollViewRef = useRef<any | null>(null);
-  const { handleScroll, scrollToTop, isScrolled } = useScrollUp(scrollViewRef);
+  const flatListRef = useRef<any | null>(null);
+  const { handleScroll, scrollToTop, isScrolled } = useScrollUp(flatListRef);
 
   return (
     <>
       <FlatList
         data={cities}
-        ref={scrollViewRef}
-        onScroll={(event) => handleScroll(event)}
+        ref={flatListRef}
         scrollEventThrottle={16}
+        onScroll={(event) => handleScroll(event)}
         renderItem={({ item }) => (
           <CityCard
             key={item.id}
@@ -29,7 +29,7 @@ const CitiesContainer: FC<ICitiesContainerProps> = ({ cities }) => {
           />
         )}
       />
-      {/* {isScrolled && <ScrollUpButton scrollToTop={scrollToTop} />} */}
+      {isScrolled && <ScrollUpButton scrollToTop={scrollToTop} />}
     </>
   );
 };
