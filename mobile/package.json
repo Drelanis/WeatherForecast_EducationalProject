@@ -21,6 +21,7 @@
     "expo-status-bar": "~1.6.0",
     "formik": "^2.4.5",
     "graphql": "^15.8.0",
+    "graphql-ws": "^5.14.2",
     "react": "18.2.0",
     "react-art": "^18.2.0",
     "react-dom": "^18.2.0",
