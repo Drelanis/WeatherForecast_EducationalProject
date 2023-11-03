@@ -1,7 +1,13 @@
 import { useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+} from 'react-native';
 
-const useScrollUp = (flatListRef: React.MutableRefObject<any>) => {
+const useScrollUp = (
+  flatListRef: React.MutableRefObject<ScrollView | null>
+) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -10,7 +16,7 @@ const useScrollUp = (flatListRef: React.MutableRefObject<any>) => {
   };
 
   const scrollToTop = () => {
-    flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+    flatListRef?.current?.scrollTo({ y: 0, animated: true });
   };
 
   return { handleScroll, scrollToTop, isScrolled };

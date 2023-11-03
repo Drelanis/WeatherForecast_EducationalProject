@@ -18,10 +18,12 @@ const Home: FC<IHomeProps> = ({ navigation }) => {
   }, [auth]);
 
   return (
-    <ScreenContainer style={{ flex: 1 }}>
-      <SearchBar />
-      <UserCities />
-    </ScreenContainer>
+    <>
+      <ScreenContainer style={{ flex: 1 }}>
+        <SearchBar />
+        <UserCities />
+      </ScreenContainer>
+    </>
   );
 };
 
