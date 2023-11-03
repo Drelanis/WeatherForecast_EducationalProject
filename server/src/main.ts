@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
+// GG WP
 // Home - 192.168.31.112
 // Office - 192.168.0.141
 const start = async () => {
