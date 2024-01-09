@@ -13,9 +13,6 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
-// Home - 192.168.31.112
-// Office - 192.168.0.141
-
 const httpLink = createHttpLink({
   uri: 'http://192.168.0.141:8080/graphql',
   credentials: 'include',
